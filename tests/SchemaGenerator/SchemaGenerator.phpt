@@ -1,0 +1,47 @@
+<?php
+
+use CzProject\SqlSchema;
+use Inlm\SchemaGenerator\Configuration;
+use Inlm\SchemaGenerator\Dumpers;
+use Inlm\SchemaGenerator\Loggers\MemoryLogger;
+use Inlm\SchemaGenerator\SchemaGenerator;
+use Tester\Assert;
+
+require __DIR__ . '/../bootstrap.php';
+
+
+test(function () {
+	$oldSchema = Test\Diff::createOldSchema();
+	$newSchema = Test\Diff::createNewSchema();
+
+	$oldSchema->addTable('roles');
+	$newSchema->addTable('photos');
+
+	$logger = new MemoryLogger;
+	$adapter = new Test\DummyAdapter(new Configuration($oldSchema));
+	$extractor = new Test\DummyExtractor($newSchema);
+	$dumper = new Dumpers\NullDumper;
+
+	$schemaGenerator = new SchemaGenerator($extractor, $adapter, $dumper, $logger);
+	$schemaGenerator->generate();
+
+	Assert::same(implode("\n", array(
+		'Generating schema',
+		'Generating diff',
+		'Generating migrations',
+		' - created table photos',
+		' - created column author.website',
+		' - created index author.website',
+		' - created foreign key author.fk_section',
+		' - updated column author.name',
+		' - updated index author.name',
+		' - updated foreign key author.fk_updated',
+		' - REMOVED foreign key author.fk_tag',
+		' - REMOVED index author.tag_id',
+		' - REMOVED column author.tag_id',
+		' - REMOVED table roles',
+		'Saving schema',
+		'Done.',
+		'',
+	)), $logger->getLog());
+});
