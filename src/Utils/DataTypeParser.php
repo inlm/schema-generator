@@ -91,13 +91,17 @@
 
 					$inParameters = TRUE;
 					$value = trim($token[1]);
-					$intValue = (int) $value;
+					$resValue = (int) $value;
 
-					if ($value !== (string) $intValue) {
-						throw new InvalidArgumentException("Value must be integer, '$value' given.");
+					if ($value !== (string) $resValue) {
+						$resValue = $value; // fallback for non-int values
 					}
 
-					$parameters[] = $intValue;
+					if (self::isQuoted($resValue)) {
+						$resValue = substr($resValue, 1, -1);
+					}
+
+					$parameters[] = $resValue;
 
 				} else {
 					if ($inParameters) {
@@ -162,5 +166,23 @@
 			}
 
 			return $result;
+		}
+
+
+		/**
+		 * @param  string
+		 * @return bool
+		 */
+		private static function isQuoted($s)
+		{
+			if ($s === '') {
+				return FALSE;
+			}
+
+			if ($s[0] !== '\'' && $s[0] !== '"') {
+				return FALSE;
+			}
+
+			return $s[0] === substr($s, -1);
 		}
 	}

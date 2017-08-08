@@ -139,7 +139,28 @@ test(function () {
 
 
 test(function () {
-	Assert::exception(function () {
-		DataTypeParser::parse('((20,2) UNSIGNED');
-	}, 'Inlm\SchemaGenerator\InvalidArgumentException', "Value must be integer, '(20' given.");
+	Assert::same(array(
+		'type' => NULL,
+		'parameters' => array('(20', 2),
+		'options' => array(
+			'UNSIGNED' => NULL,
+		),
+	), typeToArray(DataTypeParser::parse('((20,2) UNSIGNED')));
+});
+
+
+test(function () {
+	Assert::same(array(
+		'type' => 'ENUM',
+		'parameters' => array('ms', 'zs', 'ss'),
+		'options' => array(),
+	), typeToArray(DataTypeParser::parse("enum(ms,\"zs\",'ss')")));
+
+
+	// alternative
+	Assert::same(array(
+		'type' => 'ENUM',
+		'parameters' => array('ms', 'zs', 'ss'),
+		'options' => array(),
+	), typeToArray(DataTypeParser::parse("enum:ms,\"zs\",'ss'", DataTypeParser::SYNTAX_ALTERNATIVE)));
 });
