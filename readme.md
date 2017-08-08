@@ -20,7 +20,7 @@ $adapter = new Inlm\SchemaGenerator\Adapters\NeonAdapter(__DIR__ . '/.schema.neo
 $dumper = new Inlm\SchemaGenerator\Dumpers\SqlDumper(__DIR__ . '/migrations/structures/');
 $logger = new Inlm\SchemaGenerator\Loggers\MemoryLogger;
 
-$generator = new SchemaGenerator($extractor, $adapter, $dumper, $logger);
+$generator = new Inlm\SchemaGenerator\SchemaGenerator($extractor, $adapter, $dumper, $logger);
 // $generator->setTestMode();
 $generator->generate();
 ```
@@ -154,7 +154,8 @@ It generates schema from existing MySQL database.
 ## SqlDumper
 
 ``` php
-$dumper = new Inlm\SchemaGenerator\Dumpers\SqlDumper(__DIR__ . '/migrations/structures/');
+$driver = new CzProject\SqlGenerator\Drivers\MysqlDriver;
+$dumper = new Inlm\SchemaGenerator\Dumpers\SqlDumper(__DIR__ . '/migrations/structures/', $driver);
 ```
 
 `SqlDumper` generates SQL queries (`CREATE TABLE`, `ALTER TABLE`,...) and saves it into file in given directory. File name has format `YYYY-MM-DD-HHMMSS.sql`. It's compatible with [Nextras\Migrations](https://github.com/nextras/migrations). You can enable deep structure and save files to subdirectories `YYYY/MM/YYYY-MM-DD-HHMMSS.sql`.
