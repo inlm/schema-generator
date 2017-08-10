@@ -10,14 +10,18 @@
 
 	class SqlDumper extends AbstractSqlDumper
 	{
+		const FLAT = 0;
+		const YEAR = 1;
+		const YEAR_MONTH = 2;
+
 		/** @var string */
 		private $directory;
 
 		/** @var SqlGenerator\IDriver */
 		private $driver;
 
-		/** @var bool */
-		private $deepStructure = FALSE;
+		/** @var int */
+		private $outputStructure = self::FLAT;
 
 
 		/**
@@ -31,11 +35,23 @@
 
 
 		/**
+		 * @param  int
 		 * @return self
+		 */
+		public function setOutputStructure($outputStructure)
+		{
+			$this->outputStructure = $outputStructure;
+			return $this;
+		}
+
+
+		/**
+		 * @return self
+		 * @deprecated
 		 */
 		public function setDeepStructure()
 		{
-			$this->deepStructure = TRUE;
+			$this->outputStructure = self::YEAR_MONTH;
 			return $this;
 		}
 
@@ -48,8 +64,14 @@
 			if (!$this->sqlDocument->isEmpty()) {
 				$directory = $this->directory;
 
-				if ($this->deepStructure) {
+				if ($this->outputStructure === self::YEAR_MONTH) {
 					$directory .= '/' . date('Y/m');
+
+				} elseif ($this->outputStructure === self::YEAR) {
+					$directory .= '/' . date('Y');
+
+				} elseif ($this->outputStructure !== self::FLAT) {
+					throw new \Inlm\SchemaGenerator\InvalidArgumentException("Invalid output structure '{$this->outputStructure}'.");
 				}
 
 				@mkdir($directory, 0777, TRUE);
