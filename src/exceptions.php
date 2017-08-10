@@ -18,6 +18,11 @@
 	}
 
 
+	class FileSystemException extends Exception
+	{
+	}
+
+
 	class InvalidArgumentException extends Exception
 	{
 	}

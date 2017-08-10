@@ -74,8 +74,14 @@
 					throw new \Inlm\SchemaGenerator\InvalidArgumentException("Invalid output structure '{$this->outputStructure}'.");
 				}
 
+				$path = $directory . '/' . date('Y-m-d-His') . '.sql';
+
+				if (file_exists($path)) {
+					throw new \Inlm\SchemaGenerator\FileSystemException("File '$path' already exists.");
+				}
+
 				@mkdir($directory, 0777, TRUE);
-				file_put_contents($directory . '/' . date('Y-m-d-His') . '.sql', $this->sqlDocument->toSql($this->driver));
+				file_put_contents($path, $this->sqlDocument->toSql($this->driver));
 			}
 			$this->sqlDocument = NULL;
 		}
