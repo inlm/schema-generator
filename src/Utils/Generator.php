@@ -378,7 +378,7 @@
 
 			if (isset($this->indexes[$tableName][$indexName])) {
 				$origSource = $this->indexes[$tableName][$indexName]['source'];
-				$origType = $this->indexes[$tableName][$indexName]['source']->getType();
+				$origType = $this->indexes[$tableName][$indexName]['index']->getType();
 
 				if ($origType !== $type) {
 					throw new DuplicatedException("Type mismatch for index '$indexName' in table '$tableName'. Original type '$origType', new type '$type'.");
