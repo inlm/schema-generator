@@ -277,8 +277,8 @@
 
 			} else { // object
 				$className = $property->getType();
-				$isDateTime = is_subclass_of($className, 'DateTime')
-					|| is_subclass_of($className, 'DateTimeInterface');
+				$isDateTime = is_a($className, 'DateTime', TRUE)
+					|| is_a($className, 'DateTimeInterface', TRUE);
 
 				if ($isDateTime) {
 					$type = 'DATETIME';
