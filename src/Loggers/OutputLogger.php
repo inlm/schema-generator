@@ -5,14 +5,6 @@
 	use Inlm\SchemaGenerator\ILogger;
 
 
-	class OutputLogger implements ILogger
+	class OutputLogger extends \CzProject\Logger\OutputLogger implements ILogger
 	{
-		/**
-		 * @param  string
-		 * @return void
-		 */
-		public function log($msg)
-		{
-			echo $msg, "\n";
-		}
 	}

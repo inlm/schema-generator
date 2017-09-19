@@ -3,11 +3,6 @@
 	namespace Inlm\SchemaGenerator;
 
 
-	interface ILogger
+	interface ILogger extends \CzProject\Logger\ILogger
 	{
-		/**
-		 * @param  string
-		 * @return void
-		 */
-		function log($msg);
 	}

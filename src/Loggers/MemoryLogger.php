@@ -15,7 +15,7 @@
 		 * @param  string
 		 * @return void
 		 */
-		public function log($msg)
+		public function log($msg, $level = self::INFO)
 		{
 			$this->log .= $msg;
 			$this->log .= "\n";
