@@ -5,6 +5,7 @@
 	use CzProject\SqlSchema;
 	use Inlm\SchemaGenerator\DataType;
 	use Inlm\SchemaGenerator\DuplicatedException;
+	use Inlm\SchemaGenerator\InvalidArgumentException;
 	use Inlm\SchemaGenerator\MissingException;
 
 
@@ -264,18 +265,21 @@
 		public function addColumn($tableName, $columnName, DataType $columnType = NULL, $sourceId = NULL)
 		{
 			if (isset($this->columns[$tableName][$columnName])) {
-				$origSource = $this->columns[$tableName][$columnName]['source'];
-
-				if ($origSource !== $sourceId) {
-					throw new DuplicatedException("Column '$columnName' for table '$tableName' already exists.");
-				}
-
 				$column = $this->columns[$tableName][$columnName]['column'];
 
 				if ($columnType) {
-					$column->setType($columnType->getType());
-					$column->setParameters($columnType->getParameters());
-					$column->setOptions($columnType->getOptions());
+					$oldType = $column->getType();
+					$oldParameters = $column->getParameters();
+					$oldOptions = $column->getOptions();
+
+					if ($oldType === NULL && empty($oldParameters) && empty($oldOptions)) { // type is not filled
+						$column->setType($columnType->getType());
+						$column->setParameters($columnType->getParameters());
+						$column->setOptions($columnType->getOptions());
+
+					} elseif (!$columnType->isCompatible($column->getType(), $column->getParameters(), $column->getOptions())) {
+						throw new InvalidArgumentException("Type is not compatible with column $tableName.$columnName");
+					}
 				}
 
 				return $column;

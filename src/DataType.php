@@ -69,4 +69,26 @@
 		{
 			return $this->options;
 		}
+
+
+		/**
+		 * @param  string
+		 * @return bool
+		 */
+		public function isCompatible($type, array $parameters = NULL, array $options = NULL)
+		{
+			if ($this->type !== $type) {
+				return FALSE;
+			}
+
+			if ($this->parameters !== $parameters) {
+				return FALSE;
+			}
+
+			if ($this->options !== $options) {
+				return FALSE;
+			}
+
+			return TRUE;
+		}
 	}
