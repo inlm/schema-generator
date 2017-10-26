@@ -28,6 +28,11 @@
 	}
 
 
+	class InvalidStateException extends Exception
+	{
+	}
+
+
 	class MissingException extends Exception
 	{
 	}

@@ -31,6 +31,8 @@
 		 */
 		public function end()
 		{
+			$this->checkIfStarted();
+
 			if (!$this->sqlDocument->isEmpty()) {
 				$dibiDriver = $this->connection->getDriver();
 				$sqlDriver = NULL;
@@ -51,6 +53,7 @@
 					$dibiDriver->query($query);
 				}
 			}
-			$this->sqlDocument = NULL;
+
+			$this->stop();
 		}
 	}

@@ -13,6 +13,9 @@
 		/** @var SqlGenerator\SqlDocument */
 		protected $sqlDocument;
 
+		/** @var bool */
+		protected $started = FALSE;
+
 		/** @var array */
 		protected $_tableAlter = array(
 			'table' => NULL,
@@ -25,6 +28,10 @@
 		 */
 		public function start()
 		{
+			if ($this->started) {
+				throw new \Inlm\SchemaGenerator\InvalidStateException('Dumper is already started.');
+			}
+
 			$this->sqlDocument = new SqlGenerator\SqlDocument;
 		}
 
@@ -34,6 +41,7 @@
 		 */
 		public function createTable(Diffs\CreatedTable $table)
 		{
+			$this->checkIfStarted();
 			$definition = $table->getDefinition();
 			$createTable = $this->sqlDocument->createTable($definition->getName());
 
@@ -83,6 +91,7 @@
 		 */
 		public function removeTable(Diffs\RemovedTable $table)
 		{
+			$this->checkIfStarted();
 			$this->sqlDocument->dropTable($table->getTableName());
 		}
 
@@ -92,6 +101,7 @@
 		 */
 		public function createTableColumn(Diffs\CreatedTableColumn $column)
 		{
+			$this->checkIfStarted();
 			$definition = $column->getDefinition();
 			$this->getTableAlter($column->getTableName())
 				->addColumn(
@@ -111,6 +121,7 @@
 		 */
 		public function updateTableColumn(Diffs\UpdatedTableColumn $column)
 		{
+			$this->checkIfStarted();
 			$definition = $column->getDefinition();
 			$this->getTableAlter($column->getTableName())
 				->modifyColumn(
@@ -130,6 +141,7 @@
 		 */
 		public function removeTableColumn(Diffs\RemovedTableColumn $column)
 		{
+			$this->checkIfStarted();
 			$this->getTableAlter($column->getTableName())
 				->dropColumn($column->getColumnName());
 		}
@@ -140,6 +152,7 @@
 		 */
 		public function createTableIndex(Diffs\CreatedTableIndex $index)
 		{
+			$this->checkIfStarted();
 			$alter = $this->getTableAlter($index->getTableName());
 			$this->addIndex($alter, $index->getDefinition());
 		}
@@ -150,6 +163,7 @@
 		 */
 		public function updateTableIndex(Diffs\UpdatedTableIndex $index)
 		{
+			$this->checkIfStarted();
 			$alter = $this->getTableAlter($index->getTableName());
 			$alter->dropIndex($index->getIndexName());
 			$this->addIndex($alter, $index->getDefinition());
@@ -161,6 +175,7 @@
 		 */
 		public function removeTableIndex(Diffs\RemovedTableIndex $index)
 		{
+			$this->checkIfStarted();
 			$this->getTableAlter($index->getTableName())
 				->dropIndex($index->getIndexName());
 		}
@@ -171,6 +186,7 @@
 		 */
 		public function createForeignKey(Diffs\CreatedForeignKey $foreignKey)
 		{
+			$this->checkIfStarted();
 			$alter = $this->getTableAlter($foreignKey->getTableName());
 			$this->addForeignKey($alter, $foreignKey->getDefinition());
 		}
@@ -181,6 +197,7 @@
 		 */
 		public function updateForeignKey(Diffs\UpdatedForeignKey $foreignKey)
 		{
+			$this->checkIfStarted();
 			$alter = $this->getTableAlter($foreignKey->getTableName());
 			$alter->dropForeignKey($foreignKey->getForeignKeyName());
 			$this->addForeignKey($alter, $foreignKey->getDefinition());
@@ -192,6 +209,7 @@
 		 */
 		public function removeForeignKey(Diffs\RemovedForeignKey $foreignKey)
 		{
+			$this->checkIfStarted();
 			$this->getTableAlter($foreignKey->getTableName())
 				->dropForeignKey($foreignKey->getForeignKeyName());
 		}
@@ -202,6 +220,7 @@
 		 */
 		public function addTableOption(Diffs\AddedTableOption $option)
 		{
+			$this->checkIfStarted();
 			$this->getTableAlter($option->getTableName())
 				->setOption($option->getOption(), $option->getValue());
 		}
@@ -212,6 +231,7 @@
 		 */
 		public function updateTableOption(Diffs\UpdatedTableOption $option)
 		{
+			$this->checkIfStarted();
 			$this->getTableAlter($option->getTableName())
 				->setOption($option->getOption(), $option->getValue());
 		}
@@ -231,8 +251,30 @@
 		 */
 		public function updateTableComment(Diffs\UpdatedTableComment $comment)
 		{
+			$this->checkIfStarted();
 			$this->getTableAlter($comment->getTableName())
 				->setComment($comment->getComment());
+		}
+
+
+		/**
+		 * @return void
+		 */
+		protected function checkIfStarted()
+		{
+			if (!$this->started) {
+				throw new \Inlm\SchemaGenerator\InvalidStateException('Dumper is not started, call $dumper->start().');
+			}
+		}
+
+
+		/**
+		 * @return void
+		 */
+		protected function stop()
+		{
+			$this->started = FALSE;
+			$this->sqlDocument = NULL;
 		}
 
 

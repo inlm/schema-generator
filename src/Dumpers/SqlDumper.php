@@ -61,6 +61,8 @@
 		 */
 		public function end()
 		{
+			$this->checkIfStarted();
+
 			if (!$this->sqlDocument->isEmpty()) {
 				$directory = $this->directory;
 
@@ -83,6 +85,7 @@
 				@mkdir($directory, 0777, TRUE);
 				file_put_contents($path, $this->sqlDocument->toSql($this->driver));
 			}
-			$this->sqlDocument = NULL;
+
+			$this->stop();
 		}
 	}
