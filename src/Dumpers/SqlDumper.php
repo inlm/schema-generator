@@ -6,6 +6,7 @@
 	use CzProject\SqlSchema;
 	use Inlm\SchemaGenerator\Diffs;
 	use Inlm\SchemaGenerator\IDumper;
+	use Nette\Utils\Strings;
 
 
 	class SqlDumper extends AbstractSqlDumper
@@ -76,7 +77,17 @@
 					throw new \Inlm\SchemaGenerator\InvalidArgumentException("Invalid output structure '{$this->outputStructure}'.");
 				}
 
-				$path = $directory . '/' . date('Y-m-d-His') . '.sql';
+				$description = '';
+
+				if (isset($this->description)) {
+					$description = Strings::webalize($this->description);
+
+					if ($description !== '') {
+						$description = '-' . $description;
+					}
+				}
+
+				$path = $directory . '/' . date('Y-m-d-His') . $description . '.sql';
 
 				if (file_exists($path)) {
 					throw new \Inlm\SchemaGenerator\FileSystemException("File '$path' already exists.");

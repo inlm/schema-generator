@@ -13,6 +13,9 @@
 		/** @var SqlGenerator\SqlDocument */
 		protected $sqlDocument;
 
+		/** @var string|NULL */
+		protected $description;
+
 		/** @var bool */
 		protected $started = FALSE;
 
@@ -24,15 +27,18 @@
 
 
 		/**
+		 * @param  string|NULL
 		 * @return void
 		 */
-		public function start()
+		public function start($description = NULL)
 		{
 			if ($this->started) {
 				throw new \Inlm\SchemaGenerator\InvalidStateException('Dumper is already started.');
 			}
 
 			$this->sqlDocument = new SqlGenerator\SqlDocument;
+			$this->description = $description;
+			$this->started = TRUE;
 		}
 
 
@@ -275,6 +281,7 @@
 		{
 			$this->started = FALSE;
 			$this->sqlDocument = NULL;
+			$this->description = NULL;
 		}
 
 

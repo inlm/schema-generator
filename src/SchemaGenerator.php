@@ -88,9 +88,10 @@
 
 
 		/**
+		 * @param  string|NULL
 		 * @return void
 		 */
-		public function generate()
+		public function generate($description = NULL)
 		{
 			if ($this->testMode) {
 				$this->log('TEST MODE');
@@ -106,7 +107,7 @@
 			$schemaDiff = new DiffGenerator($configOld->getSchema(), $configNew->getSchema());
 
 			$this->log('Generating migrations');
-			$this->dumper->start();
+			$this->dumper->start($description);
 
 			foreach ($schemaDiff->getCreatedTables() as $table) {
 				$this->log(" - created table {$table->getDefinition()->getName()}");

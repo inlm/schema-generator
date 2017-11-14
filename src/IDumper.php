@@ -8,9 +8,10 @@
 	interface IDumper
 	{
 		/**
+		 * @param  string|NULL
 		 * @return void
 		 */
-		function start();
+		function start($description = NULL);
 
 
 		/**

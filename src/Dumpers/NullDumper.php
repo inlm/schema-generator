@@ -10,9 +10,10 @@
 	class NullDumper implements IDumper
 	{
 		/**
+		 * @param  string|NULL
 		 * @return void
 		 */
-		public function start()
+		public function start($description = NULL)
 		{
 		}
 
