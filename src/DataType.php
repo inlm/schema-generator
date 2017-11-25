@@ -5,10 +5,10 @@
 
 	class DataType
 	{
-		/** @var string */
+		/** @var string|NULL */
 		private $type;
 
-		/** @var array */
+		/** @var array|NULL */
 		private $parameters;
 
 		/** @var array */
@@ -16,18 +16,15 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string|NULL
 		 * @param  array|string|NULL
 		 * @param  array  [OPTION => VALUE, OPTION2]
 		 */
 		public function __construct($type, array $parameters = NULL, array $options = array())
 		{
-			$this->type = $type;
+			$this->type = $type !== NULL ? strtoupper($type) : NULL;
 
-			if ($parameters === NULL) {
-				$parameters = array();
-
-			} elseif (!is_array($parameters)) {
+			if (!is_array($parameters) && $parameters !== NULL) {
 				$parameters = array($parameters);
 			}
 
@@ -45,7 +42,7 @@
 
 
 		/**
-		 * @return string
+		 * @return string|NULL
 		 */
 		public function getType()
 		{
@@ -54,7 +51,7 @@
 
 
 		/**
-		 * @return array
+		 * @return array|NULL
 		 */
 		public function getParameters()
 		{

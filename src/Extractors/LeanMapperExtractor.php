@@ -10,6 +10,7 @@
 	use Inlm\SchemaGenerator\MissingException;
 	use Inlm\SchemaGenerator\Utils\Generator;
 	use Inlm\SchemaGenerator\Utils\DataTypeParser;
+	use Inlm\SchemaGenerator\Utils\DataTypeProcessor;
 	use Nette;
 	use LeanMapper\IMapper;
 	use LeanMapper\Reflection;
@@ -237,69 +238,21 @@
 		 */
 		protected function extractColumnType(Reflection\Property $property, $isPrimaryColumn, $entityClass)
 		{
-			$type = NULL;
-			$parameters = NULL;
-			$options = array();
+			$datatype = NULL;
 
 			if ($property->hasCustomFlag('schema-type')) {
 				$datatype = $this->parseTypeFlag($property, 'schema-type');
-				$type = $datatype->getType();
-				$parameters = $datatype->getParameters();
-				$options = $datatype->getOptions();
 
 			} elseif ($property->hasCustomFlag('schemaType')) {
 				$datatype = $this->parseTypeFlag($property, 'schemaType');
-				$type = $datatype->getType();
-				$parameters = $datatype->getParameters();
-				$options = $datatype->getOptions();
-
-			} elseif ($property->isBasicType()) {
-				$propertyType = $property->getType();
-
-				if ($propertyType === 'integer') {
-					$type = 'INT';
-
-					if ($isPrimaryColumn) {
-						$options[] = SqlSchema\Column::OPTION_UNSIGNED;
-					}
-
-				} elseif ($propertyType === 'boolean') {
-					$type = 'TINYINT';
-					$parameters = array(1);
-					$options[] = 'UNSIGNED';
-
-				} elseif ($propertyType === 'float') {
-					$type = 'DOUBLE';
-
-				} elseif ($propertyType === 'string') {
-					$type = 'TEXT';
-				}
-
-			} else { // object
-				$className = $property->getType();
-				$isDateTime = is_a($className, 'DateTime', TRUE)
-					|| is_a($className, 'DateTimeInterface', TRUE);
-
-				if ($isDateTime) {
-					$type = 'DATETIME';
-				}
 			}
 
-			if ($type === NULL) {
-				throw new MissingException("Missing type for property '{$property->getName()}' in entity '{$entityClass}'.");
+			try {
+				return DataTypeProcessor::process($property->getType(), $datatype, $isPrimaryColumn, $this->customTypes);
+
+			} catch (MissingException $e) {
+				throw new MissingException("Missing type for property '{$property->getName()}' in entity '{$entityClass}'.", 0, $e);
 			}
-
-			$lowerType = strtolower($type);
-
-			if (isset($this->customTypes[$lowerType])) {
-				$columnType = $this->customTypes[$lowerType];
-				$type = $columnType->getType();
-				$parameters = $columnType->getParameters();
-				$options = array_merge($options, $columnType->getOptions());
-
-			}
-
-			return new DataType($type, $parameters, $options);
 		}
 
 
