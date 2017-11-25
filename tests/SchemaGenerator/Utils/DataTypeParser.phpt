@@ -126,6 +126,16 @@ test(function () {
 		),
 	), typeToArray(DataTypeParser::parse('(20,2) UNSIGNED')));
 
+	Assert::same(array(
+		'type' => NULL,
+		'parameters' => array(),
+		'options' => array(
+			'UNSIGNED' => NULL,
+			'ZEROFILL' => NULL,
+			'BINARY' => NULL,
+		),
+	), typeToArray(DataTypeParser::parse('UNSIGNED ZEROFILL BINARY')));
+
 
 	// alternative
 	Assert::same(array(
@@ -135,6 +145,16 @@ test(function () {
 			'UNSIGNED' => NULL,
 		),
 	), typeToArray(DataTypeParser::parse(':20,2 UNSIGNED', DataTypeParser::SYNTAX_ALTERNATIVE)));
+
+	Assert::same(array(
+		'type' => NULL,
+		'parameters' => array(),
+		'options' => array(
+			'UNSIGNED' => NULL,
+			'ZEROFILL' => NULL,
+			'BINARY' => NULL,
+		),
+	), typeToArray(DataTypeParser::parse('UNSIGNED ZEROFILL BINARY', DataTypeParser::SYNTAX_ALTERNATIVE)));
 });
 
 
