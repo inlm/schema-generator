@@ -22,7 +22,10 @@ $logger = new Inlm\SchemaGenerator\Loggers\MemoryLogger;
 
 $generator = new Inlm\SchemaGenerator\SchemaGenerator($extractor, $adapter, $dumper, $logger);
 // $generator->setTestMode();
+
 $generator->generate();
+// or
+$generator->generate('changes description');
 ```
 
 ## Documentation
