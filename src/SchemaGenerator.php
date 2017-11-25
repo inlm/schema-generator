@@ -66,12 +66,23 @@
 		public function setOption($option, $value)
 		{
 			if ($value === NULL) {
-				unset($this->options[$option]);
+				$this->removeOption($option);
 
 			} else {
 				$this->options[$option] = $value;
 			}
 
+			return $this;
+		}
+
+
+		/**
+		 * @param  string
+		 * @return self
+		 */
+		public function removeOption($option)
+		{
+			unset($this->options[$option]);
 			return $this;
 		}
 

@@ -8,6 +8,7 @@ $generator = new Inlm\SchemaGenerator\SchemaGenerator(...);
 $generator->setOption('COLLATE', 'utf8mb4_czech_ci');
 
 // remove option
+$generator->removeOption('ENGINE');
 $generator->setOption('ENGINE', NULL);
 ```
 
