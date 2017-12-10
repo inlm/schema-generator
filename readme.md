@@ -39,7 +39,7 @@ $generator->generate('changes description');
 Extract new DB schema from given source - entities, database or file.
 
 * [LeanMapperExtractor](docs/leanmapper-extractor.md)
-* [DibiMysqlExtractor](docs/dibi-mysql-extractor.md)
+* [DibiExtractor](docs/dibi-extractor.md)
 * [NeonExtractor](docs/neon-extractor.md)
 
 

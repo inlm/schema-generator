@@ -1,21 +1,15 @@
 <?php
 
-	namespace Inlm\SchemaGenerator\Extractors;
+	namespace Inlm\SchemaGenerator\Bridges;
 
 	use CzProject\SqlSchema;
-	use Inlm\SchemaGenerator\IExtractor;
-	use Inlm\SchemaGenerator\Utils\Generator;
 	use Inlm\SchemaGenerator\Utils\DataTypeParser;
-	use Nette;
 
 
-	class DibiMysqlExtractor implements IExtractor
+	class DibiMysql
 	{
-		/** @var \DibiConnection */
+		/** @var \DibiConnection|\Dibi\Connection */
 		private $connection;
-
-		/** @var string[] */
-		private $ignoredTables;
 
 		/** @var array  [tableName => (array) metadata] */
 		private $tableMetas;
@@ -23,28 +17,24 @@
 
 		/**
 		 * @param  \Dibi\Connection|\DibiConnection
-		 * @param  string[]
 		 */
-		public function __construct($connection, array $ignoredTables = array())
+		public function __construct($connection)
 		{
-			if (!($connection instanceof \Dibi\Connection || $connection instanceof \DibiConnection)) {
-				throw new \Inlm\SchemaGenerator\InvalidArgumentException('Connection must be instance of Dibi\Connection or DibiConnection.');
-			}
-
+			Dibi::validateConnection($connection);
 			$this->connection = $connection;
-			$this->ignoredTables = $ignoredTables;
 		}
 
 
 		/**
+		 * @param  string[]
 		 * @return Schema
 		 */
-		public function generateSchema(array $options = array(), array $customTypes = array())
+		public function generateSchema(array $ignoredTables = array())
 		{
 			$schema = new SqlSchema\Schema;
 
 			foreach ($this->getTables() as $tableName) {
-				if (in_array($tableName, $this->ignoredTables, TRUE)) {
+				if (in_array($tableName, $ignoredTables, TRUE)) {
 					continue;
 				}
 

@@ -4,6 +4,7 @@
 
 	use CzProject\SqlGenerator;
 	use CzProject\SqlSchema;
+	use Inlm\SchemaGenerator\Bridges;
 	use Inlm\SchemaGenerator\Diffs;
 	use Inlm\SchemaGenerator\IDumper;
 
@@ -37,10 +38,7 @@
 				$dibiDriver = $this->connection->getDriver();
 				$sqlDriver = NULL;
 
-				if ($dibiDriver instanceof \Dibi\Drivers\MySqlDriver || $dibiDriver instanceof DibiMySqlDriver) {
-					$sqlDriver = new SqlGenerator\Drivers\MysqlDriver;
-
-				} elseif ($dibiDriver instanceof \Dibi\Drivers\MySqliDriver || $dibiDriver instanceof DibiMySqliDriver) {
+				if (Bridges\Dibi::isMysqlDriver($dibiDriver)) {
 					$sqlDriver = new SqlGenerator\Drivers\MysqlDriver;
 
 				} else {
