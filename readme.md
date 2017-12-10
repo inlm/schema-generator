@@ -49,6 +49,7 @@ Persist DB schema to file or memory.
 
 - [NeonAdapter](docs/neon-adapter.md)
 - [MemoryAdapter](docs/memory-adapter.md)
+- [DibiAdapter](docs/dibi-adapter.md)
 
 
 ### Dumpers
