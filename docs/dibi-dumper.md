@@ -1,7 +1,7 @@
 
 # DibiDumper
 
-`DibiDumper` executes SQL queries directly in database. It requires [Dibi](https://dibiphp.com/).
+`DibiDumper` executes SQL queries directly in database. It requires [Dibi](https://dibiphp.com/). It supports only MySQL at this time.
 
 
 ```php

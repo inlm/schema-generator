@@ -36,7 +36,7 @@ $generator->generate('changes description');
 
 ### Extractors
 
-Extract new DB schema from given source - entities, database or file.
+Extracts new database schema from given source - entities, database or file.
 
 * [LeanMapperExtractor](docs/leanmapper-extractor.md)
 * [DibiExtractor](docs/dibi-extractor.md)
@@ -45,7 +45,7 @@ Extract new DB schema from given source - entities, database or file.
 
 ### Adapters
 
-Persist DB schema to file or memory.
+Persists database schema in file, memory,...
 
 - [NeonAdapter](docs/neon-adapter.md)
 - [MemoryAdapter](docs/memory-adapter.md)
@@ -53,6 +53,8 @@ Persist DB schema to file or memory.
 
 
 ### Dumpers
+
+Dumps changes of database schema into migration file, database,...
 
 * [SqlDumper](docs/sql-dumper.md)
 * [DibiDumper](docs/dibi-dumper.md)
