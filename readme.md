@@ -1,6 +1,9 @@
 
 # Schema Generator
 
+[![Build Status](https://travis-ci.org/inlm/schema-generator.svg?branch=master)](https://travis-ci.org/inlm/schema-generator)
+
+
 ## Installation
 
 [Download a latest package](https://github.com/inlm/schema-generator/releases) or use [Composer](http://getcomposer.org/):
