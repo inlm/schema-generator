@@ -383,6 +383,10 @@
 			$entities = array();
 
 			foreach ($classes as $class) {
+				if (!class_exists($class)) {
+					$robot->tryLoad($class);
+				}
+
 				$accept = class_exists($class)
 					&& ($rc = new \ReflectionClass($class))
 					&& $rc->isSubclassOf('LeanMapper\\Entity')
