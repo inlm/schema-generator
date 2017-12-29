@@ -105,22 +105,13 @@
 		 */
 		public function addHasManyTable($tableName, $sourceTable, $sourceColumn, $targetTable, $targetColumn)
 		{
-			if (isset($this->hasManyTables[$tableName])) {
-				$diff = $this->hasManyTables[$tableName]['sourceTable'] !== $sourceTable
-					|| $this->hasManyTables[$tableName]['sourceColumn'] !== $sourceColumn
-					|| $this->hasManyTables[$tableName]['targetTable'] !== $targetTable
-					|| $this->hasManyTables[$tableName]['targetColumn'] !== $targetColumn;
+			$hasManyTable = new GeneratorHasManyTable($sourceTable, $sourceColumn, $tableName, $targetTable, $targetColumn);
 
-				if ($diff) {
-					throw new DuplicatedException("HasManyTable already exists for different relation.");
-				}
+			if (isset($this->hasManyTables[$tableName]) && $this->hasManyTables[$tableName]->hasDifferences($hasManyTable)) {
+				throw new DuplicatedException("HasManyTable already exists for different relation.");
 			}
-			$this->hasManyTables[$tableName] = array(
-				'sourceTable' => $sourceTable,
-				'sourceColumn' => $sourceColumn,
-				'targetTable' => $targetTable,
-				'targetColumn' => $targetColumn,
-			);
+
+			$this->hasManyTables[$tableName] = $hasManyTable;
 			$this->addRelationship($tableName, $sourceColumn, $sourceTable);
 			$this->addRelationship($tableName, $targetColumn, $targetTable);
 			return $this;
@@ -135,10 +126,10 @@
 			foreach ($this->hasManyTables as $hasManyTable => $data) {
 				if (!$this->hasTable($hasManyTable)) {
 					$table = $this->createTable($hasManyTable);
-					$this->addColumn($hasManyTable, $data['sourceColumn'], NULL, 'VIRTUAL');
-					$this->addColumn($hasManyTable, $data['targetColumn'], NULL, 'VIRTUAL');
-					$this->addPrimaryIndex($hasManyTable, array($data['sourceColumn'], $data['targetColumn']), 'VIRTUAL');
-					$this->addIndex($hasManyTable, $data['targetColumn'], 'VIRTUAL');
+					$this->addColumn($hasManyTable, $data->getSourceColumn(), NULL, 'VIRTUAL');
+					$this->addColumn($hasManyTable, $data->getTargetColumn(), NULL, 'VIRTUAL');
+					$this->addPrimaryIndex($hasManyTable, array($data->getSourceColumn(), $data->getTargetColumn()), 'VIRTUAL');
+					$this->addIndex($hasManyTable, $data->getTargetColumn(), 'VIRTUAL');
 				}
 			}
 		}
