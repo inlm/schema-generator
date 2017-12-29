@@ -79,7 +79,7 @@
 
 			foreach ($this->getFamilyLine($reflection) as $member) {
 				$docComment = $member->getDocComment();
-				$this->extractTableComment($table, $docComment);
+				$this->extractTableComment($tableName, $docComment);
 				$this->extractTableOption($table, $docComment);
 				$this->extractTableIndexes($tableName, $member, 'primary');
 				$this->extractTableIndexes($tableName, $member, 'unique');
@@ -150,7 +150,7 @@
 		/**
 		 * @return void
 		 */
-		protected function extractTableComment(SqlSchema\Table $table, $docComment)
+		protected function extractTableComment($tableName, $docComment)
 		{
 			// @schema-comment comment
 			// @schemaComment comment
@@ -160,9 +160,8 @@
 			);
 
 			foreach ($annotations as $annotation) {
-				foreach (AnnotationsParser::parseAnnotationValues($annotation, $docComment) as $definition) {
-					$comment = trim($definition);
-					$table->setComment($comment !== '' ? $comment : NULL);
+				foreach (AnnotationsParser::parseAnnotationValues($annotation, $docComment) as $comment) {
+					$this->generator->setTableComment($tableName, $comment);
 				}
 			}
 		}

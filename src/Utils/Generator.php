@@ -239,6 +239,17 @@
 
 		/**
 		 * @param  string
+		 * @param  string|NULL
+		 * @return static
+		 */
+		public function setTableComment($tableName, $comment)
+		{
+			$comment = trim($comment);
+			$this->getTable($tableName)->setComment($comment !== '' ? $comment : NULL);
+		}
+
+
+		/**
 		 * @return string|NULL
 		 */
 		public function getTablePrimaryColumn($tableName)
