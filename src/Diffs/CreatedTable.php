@@ -18,6 +18,15 @@
 
 
 		/**
+		 * @return string
+		 */
+		public function getTableName()
+		{
+			return $this->definition->getName();
+		}
+
+
+		/**
 		 * @return SqlSchema\Table
 		 */
 		public function getDefinition()
