@@ -27,11 +27,12 @@
 
 		/**
 		 * @param  string
+		 * @param  string|SqlGenerator\IDriver
 		 */
-		public function __construct($directory, SqlGenerator\IDriver $driver)
+		public function __construct($directory, $driver)
 		{
 			$this->directory = $directory;
-			$this->driver = $driver;
+			$this->driver = $this->prepareDriver($driver);
 		}
 
 

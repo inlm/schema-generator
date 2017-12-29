@@ -15,9 +15,12 @@
 		private $driver;
 
 
-		public function __construct(SqlGenerator\IDriver $driver)
+		/**
+		 * @param  string|SqlGenerator\IDriver
+		 */
+		public function __construct($driver)
 		{
-			$this->driver = $driver;
+			$this->driver = $this->prepareDriver($driver);
 		}
 
 

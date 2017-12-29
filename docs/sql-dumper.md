@@ -5,7 +5,7 @@
 
 
 ```php
-$driver = new CzProject\SqlGenerator\Drivers\MysqlDriver;
+$driver = Inlm\SchemaGenerator\Dumpers\SqlDumper::MYSQL; // or instance of CzProject\SqlGenerator\IDriver
 $dumper = new Inlm\SchemaGenerator\Dumpers\SqlDumper(__DIR__ . '/migrations/structures/', $driver);
 ```
 

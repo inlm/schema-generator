@@ -10,6 +10,8 @@
 
 	abstract class AbstractSqlDumper implements IDumper
 	{
+		const MYSQL = 'mysql';
+
 		/** @var SqlGenerator\SqlDocument */
 		protected $sqlDocument;
 
@@ -326,5 +328,23 @@
 			}
 
 			return $this->_tableAlter['statement'];
+		}
+
+
+		/**
+		 * @param  string|SqlGenerator\IDriver
+		 * @return SqlGenerator\IDriver
+		 * @throws \Inlm\SchemaGenerator\InvalidArgumentException
+		 */
+		protected function prepareDriver($driver)
+		{
+			if (is_string($driver) && $driver === self::MYSQL) {
+				return new SqlGenerator\Drivers\MysqlDriver;
+
+			} elseif (is_object($driver) && $driver instanceof SqlGenerator\IDriver) {
+				return $driver;
+			}
+
+			throw new \Inlm\SchemaGenerator\InvalidArgumentException('Driver is not supported.');
 		}
 	}
