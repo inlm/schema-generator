@@ -364,9 +364,6 @@
 					$sourceColumn
 				);
 			}
-			// $relationshipTable = $generator->createTable();
-			// $generator->addColumn($relationship->getRelationshipTable(), $relationship->getColumnReferencingSourceTable(), NULL, NULL);
-			// $generator->addColumn($relationship->getRelationshipTable(), $relationship->getColumnReferencingTargetTable(), NULL, NULL);
 		}
 
 
