@@ -126,8 +126,8 @@
 			foreach ($this->hasManyTables as $hasManyTable => $data) {
 				if (!$this->hasTable($hasManyTable)) {
 					$table = $this->createTable($hasManyTable);
-					$this->addColumn($hasManyTable, $data->getSourceColumn(), NULL, 'VIRTUAL');
-					$this->addColumn($hasManyTable, $data->getTargetColumn(), NULL, 'VIRTUAL');
+					$this->addColumn($hasManyTable, $data->getSourceColumn(), NULL);
+					$this->addColumn($hasManyTable, $data->getTargetColumn(), NULL);
 					$this->addPrimaryIndex($hasManyTable, array($data->getSourceColumn(), $data->getTargetColumn()), 'VIRTUAL');
 					$this->addIndex($hasManyTable, $data->getTargetColumn(), 'VIRTUAL');
 				}
@@ -299,10 +299,9 @@
 		 * @param  string
 		 * @param  string
 		 * @param  DataType
-		 * @param  string|NULL
 		 * @return SqlSchema\Column
 		 */
-		public function addColumn($tableName, $columnName, DataType $columnType = NULL, $sourceId = NULL)
+		public function addColumn($tableName, $columnName, DataType $columnType = NULL)
 		{
 			if (isset($this->columns[$tableName][$columnName])) {
 				$column = $this->columns[$tableName][$columnName]->getDefinition();

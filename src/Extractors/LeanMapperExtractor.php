@@ -131,7 +131,7 @@
 					$columnType = $this->extractColumnType($property, $isPrimaryColumn, $entityClass);
 				}
 
-				$column = $this->generator->addColumn($tableName, $columnName, $columnType, $entitySource);
+				$column = $this->generator->addColumn($tableName, $columnName, $columnType);
 				$column->setNullable($property->isNullable());
 
 				$this->extractColumnComment($column, $property);
