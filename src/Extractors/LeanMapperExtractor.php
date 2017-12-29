@@ -80,7 +80,7 @@
 			foreach ($this->getFamilyLine($reflection) as $member) {
 				$docComment = $member->getDocComment();
 				$this->extractTableComment($tableName, $docComment);
-				$this->extractTableOption($table, $docComment);
+				$this->extractTableOption($tableName, $docComment);
 				$this->extractTableIndexes($tableName, $member, 'primary');
 				$this->extractTableIndexes($tableName, $member, 'unique');
 				$this->extractTableIndexes($tableName, $member, 'index');
@@ -170,7 +170,7 @@
 		/**
 		 * @return void
 		 */
-		protected function extractTableOption(SqlSchema\Table $table, $docComment)
+		protected function extractTableOption($tableName, $docComment)
 		{
 			// @schema-option option value
 			// @schemaOption option value
@@ -200,7 +200,7 @@
 						throw new MissingException("Missing option name in '@{$annotation}'.");
 					}
 
-					$table->setOption(strtoupper($option), $value !== '' ? $value : NULL);
+					$this->generator->setTableOption($tableName, $option, $value);
 				}
 			}
 		}

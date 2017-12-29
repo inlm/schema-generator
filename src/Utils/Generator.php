@@ -95,7 +95,7 @@
 					|| $this->hasManyTables[$tableName]['targetTable'] !== $targetTable
 					|| $this->hasManyTables[$tableName]['targetColumn'] !== $targetColumn;
 
-				if ($diff && $inverseDiff) {
+				if ($diff) {
 					throw new DuplicatedException("HasManyTable already exists for different relation.");
 				}
 			}
@@ -250,6 +250,19 @@
 
 
 		/**
+		 * @param  string
+		 * @param  string
+		 * @param  string|NULL
+		 * @return static
+		 */
+		public function setTableOption($tableName, $option, $value)
+		{
+			$this->getTable($tableName)->setOption(strtoupper($option), $value !== '' ? $value : NULL);
+		}
+
+
+		/**
+		 * @param  string
 		 * @return string|NULL
 		 */
 		public function getTablePrimaryColumn($tableName)
