@@ -59,6 +59,22 @@
 		{
 			$this->createHasManyTables();
 			$this->createRelationships();
+
+			// for Single Table Inheritance - makes some columns nullable
+			foreach ($this->columns as $tableName => $columns) {
+				if (!isset($this->tables[$tableName])) {
+					continue;
+				}
+
+				foreach ($columns as $column) {
+					$definition = $column['column'];
+
+					if (!$definition->isNullable() && $column['created'] < $this->tables[$tableName]['created']) {
+						$definition->setNullable();
+					}
+				}
+			}
+
 			return $this->schema;
 		}
 
@@ -206,9 +222,11 @@
 				$this->tables[$tableName] = array(
 					'table' => $table,
 					'primaryColumn' => $primaryColumn,
+					'created' => 0,
 				);
 			}
 
+			$this->tables[$tableName]['created']++;
 			return $this->tables[$tableName]['table'];
 		}
 
@@ -317,6 +335,7 @@
 					}
 				}
 
+				$this->columns[$tableName][$columnName]['created']++;
 				return $column;
 			}
 
@@ -332,6 +351,7 @@
 			$this->columns[$tableName][$columnName] = array(
 				'source' => $sourceId,
 				'column' => $column,
+				'created' => 1,
 			);
 			return $column;
 		}

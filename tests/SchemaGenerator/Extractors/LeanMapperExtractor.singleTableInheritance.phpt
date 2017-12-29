@@ -53,35 +53,34 @@ test(function () {
 					'name' => 'companyName',
 					'type' => 'VARCHAR',
 					'parameters' => array(200),
-					// 'nullable' => TRUE,
+					'nullable' => TRUE,
 				),
 
 				'ico' => array(
 					'name' => 'ico',
 					'type' => 'VARCHAR',
 					'parameters' => array(8),
-					// 'nullable' => TRUE,
+					'nullable' => TRUE,
 				),
 
 				'note' => array(
 					'name' => 'note',
 					'type' => 'VARCHAR',
 					'parameters' => array(100),
-					// 'nullable' => TRUE,
 				),
 
 				'firstName' => array(
 					'name' => 'firstName',
 					'type' => 'VARCHAR',
 					'parameters' => array(100),
-					// 'nullable' => TRUE,
+					'nullable' => TRUE,
 				),
 
 				'lastName' => array(
 					'name' => 'lastName',
 					'type' => 'VARCHAR',
 					'parameters' => array(100),
-					// 'nullable' => TRUE,
+					'nullable' => TRUE,
 				),
 			),
 
