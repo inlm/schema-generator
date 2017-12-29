@@ -61,6 +61,7 @@ Persists database schema in file, memory,...
 Dumps changes of database schema into migration file, database,...
 
 * [SqlDumper](docs/sql-dumper.md)
+* [SqlMemoryDumper](docs/sql-memory-dumper.md)
 * [DibiDumper](docs/dibi-dumper.md)
 * [NullDumper](docs/null-dumper.md)
 
