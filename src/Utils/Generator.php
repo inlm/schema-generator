@@ -51,6 +51,15 @@
 			$this->createHasManyTables();
 			$this->createRelationships();
 
+			// tries to create primary indexes
+			foreach ($this->tables as $tableName => $table) {
+				$primaryColumn = $table->getPrimaryColumn();
+
+				if ($primaryColumn !== NULL && !$this->hasPrimaryIndex($tableName)) {
+					$this->addPrimaryIndex($tableName, $primaryColumn);
+				}
+			}
+
 			// for Single Table Inheritance - makes some columns nullable
 			foreach ($this->columns as $tableName => $columns) {
 				if (!isset($this->tables[$tableName])) {

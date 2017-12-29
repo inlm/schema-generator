@@ -140,10 +140,6 @@
 				$this->extractColumnIndex($property, 'unique', $tableName, $columnName, $propertySource);
 				$this->extractColumnIndex($property, 'index', $tableName, $columnName, $propertySource);
 			}
-
-			if (!$this->generator->hasPrimaryIndex($tableName)) {
-				$this->generator->addPrimaryIndex($tableName, $this->generator->getTablePrimaryColumn($tableName));
-			}
 		}
 
 
