@@ -342,26 +342,6 @@
 
 		/**
 		 * @param  string
-		 * @param  string
-		 * @return DataType|NULL
-		 */
-		public function getColumnType($tableName, $columnName)
-		{
-			if (!isset($this->columns[$tableName][$columnName])) {
-				return NULL;
-			}
-
-			$column = $this->columns[$tableName][$columnName];
-			return new DataType(
-				$column->getType(),
-				$column->getParameters(),
-				$column->getOptions()
-			);
-		}
-
-
-		/**
-		 * @param  string
 		 * @param  string|string[]
 		 * @param  string|NULL
 		 * @return self
