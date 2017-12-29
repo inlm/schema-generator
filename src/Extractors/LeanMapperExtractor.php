@@ -57,10 +57,7 @@
 				$this->generateEntity($entity);
 			}
 
-			$this->generator->createHasManyTables();
-			$this->generator->createRelationships();
-
-			$schema = $this->generator->getSchema();
+			$schema = $this->generator->finalize();
 			$this->generator = NULL;
 			return $schema;
 		}

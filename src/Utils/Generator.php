@@ -53,6 +53,17 @@
 
 
 		/**
+		 * @return SqlSchema\Schema
+		 */
+		public function finalize()
+		{
+			$this->createHasManyTables();
+			$this->createRelationships();
+			return $this->schema;
+		}
+
+
+		/**
 		 * @param  string
 		 * @param  string
 		 * @param  string
