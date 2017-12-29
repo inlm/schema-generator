@@ -67,9 +67,9 @@
 				}
 
 				foreach ($columns as $column) {
-					$definition = $column['column'];
+					$definition = $column->getDefinition();
 
-					if (!$definition->isNullable() && $column['created'] < $this->tables[$tableName]->getNumberOfCreation()) {
+					if (!$definition->isNullable() && $column->getNumberOfCreation() < $this->tables[$tableName]->getNumberOfCreation()) {
 						$definition->setNullable();
 					}
 				}
@@ -305,7 +305,7 @@
 		public function addColumn($tableName, $columnName, DataType $columnType = NULL, $sourceId = NULL)
 		{
 			if (isset($this->columns[$tableName][$columnName])) {
-				$column = $this->columns[$tableName][$columnName]['column'];
+				$column = $this->columns[$tableName][$columnName]->getDefinition();
 
 				if ($columnType) {
 					$oldType = $column->getType();
@@ -322,7 +322,7 @@
 					}
 				}
 
-				$this->columns[$tableName][$columnName]['created']++;
+				$this->columns[$tableName][$columnName]->markAsCreated();
 				return $column;
 			}
 
@@ -335,11 +335,8 @@
 				$column->setOptions($columnType->getOptions());
 			}
 
-			$this->columns[$tableName][$columnName] = array(
-				'source' => $sourceId,
-				'column' => $column,
-				'created' => 1,
-			);
+			$this->columns[$tableName][$columnName] = new GeneratorColumn($column);
+			$this->columns[$tableName][$columnName]->markAsCreated();
 			return $column;
 		}
 
