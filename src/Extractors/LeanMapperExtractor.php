@@ -29,6 +29,9 @@
 		/** @var array  [name => DataType] */
 		protected $customTypes;
 
+		/** @var Generator */
+		protected $generator;
+
 
 		/**
 		 * @param  string|string[]
@@ -46,22 +49,24 @@
 		 */
 		public function generateSchema(array $options = array(), array $customTypes = array())
 		{
-			$generator = new Generator($options);
+			$this->generator = new Generator($options);
 			$this->customTypes = $customTypes;
 			$entities = $this->findEntities();
 
 			foreach ($entities as $entity) {
-				$this->generateEntity($generator, $entity);
+				$this->generateEntity($entity);
 			}
 
-			$generator->createHasManyTables();
-			$generator->createRelationships();
+			$this->generator->createHasManyTables();
+			$this->generator->createRelationships();
 
-			return $generator->getSchema();
+			$schema = $this->generator->getSchema();
+			$this->generator = NULL;
+			return $schema;
 		}
 
 
-		protected function generateEntity(Generator $generator, $entityClass)
+		protected function generateEntity($entityClass)
 		{
 			$reflection = call_user_func(array($entityClass, 'getReflection'), $this->mapper);
 			$properties = $reflection->getEntityProperties();
@@ -72,16 +77,16 @@
 
 			$tableName = $this->mapper->getTable($entityClass);
 			$tablePrimaryColumn = $this->mapper->getPrimaryKey($tableName);
-			$table = $generator->createTable($tableName, $tablePrimaryColumn);
+			$table = $this->generator->createTable($tableName, $tablePrimaryColumn);
 			$propertySources = array();
 
 			foreach ($this->getFamilyLine($reflection) as $member) {
 				$docComment = $member->getDocComment();
 				$this->extractTableComment($table, $docComment);
 				$this->extractTableOption($table, $docComment);
-				$this->extractTableIndexes($generator, $tableName, $member, 'primary');
-				$this->extractTableIndexes($generator, $tableName, $member, 'unique');
-				$this->extractTableIndexes($generator, $tableName, $member, 'index');
+				$this->extractTableIndexes($tableName, $member, 'primary');
+				$this->extractTableIndexes($tableName, $member, 'unique');
+				$this->extractTableIndexes($tableName, $member, 'index');
 
 				$memberClass = $member->getName();
 				$memberProperties = array_keys($member->getEntityProperties());
@@ -103,14 +108,14 @@
 					$relationship = $property->getRelationship();
 
 					if ($relationship instanceof Relationship\HasMany) {
-						$this->addHasManyRelationship($generator, $relationship, $tableName);
+						$this->addHasManyRelationship($relationship, $tableName);
 						continue; // virtual column
 
 					} elseif ($relationship instanceof Relationship\HasOne) {
-						$generator->addRelationship($tableName, $relationship->getColumnReferencingTargetTable(), $relationship->getTargetTable());
+						$this->generator->addRelationship($tableName, $relationship->getColumnReferencingTargetTable(), $relationship->getTargetTable());
 
 					} elseif ($relationship instanceof Relationship\BelongsTo) {
-						$generator->addRelationship($relationship->getTargetTable(), $relationship->getColumnReferencingSourceTable(), $tableName);
+						$this->generator->addRelationship($relationship->getTargetTable(), $relationship->getColumnReferencingSourceTable(), $tableName);
 						continue; // virtual column
 
 					} else {
@@ -122,25 +127,25 @@
 				$entitySource = isset($propertySources[$propertyName]) ? $propertySources[$propertyName] : $entityClass;
 				$propertySource = $entitySource . '::' . $propertyName;
 				$columnName = $property->getColumn();
-				$isPrimaryColumn = $generator->isTablePrimaryColumn($tableName, $columnName);
+				$isPrimaryColumn = $this->generator->isTablePrimaryColumn($tableName, $columnName);
 				$columnType = NULL;
 
 				if (!$property->hasRelationship()) {
 					$columnType = $this->extractColumnType($property, $isPrimaryColumn, $entityClass);
 				}
 
-				$column = $generator->addColumn($tableName, $columnName, $columnType, $entitySource);
+				$column = $this->generator->addColumn($tableName, $columnName, $columnType, $entitySource);
 				$column->setNullable($property->isNullable());
 
 				$this->extractColumnComment($column, $property);
-				$this->extractColumnAutoIncrement($column, $property, $generator->getTablePrimaryColumn($tableName));
-				$this->extractColumnIndex($generator, $property, 'primary', $tableName, $columnName, $propertySource);
-				$this->extractColumnIndex($generator, $property, 'unique', $tableName, $columnName, $propertySource);
-				$this->extractColumnIndex($generator, $property, 'index', $tableName, $columnName, $propertySource);
+				$this->extractColumnAutoIncrement($column, $property, $this->generator->getTablePrimaryColumn($tableName));
+				$this->extractColumnIndex($property, 'primary', $tableName, $columnName, $propertySource);
+				$this->extractColumnIndex($property, 'unique', $tableName, $columnName, $propertySource);
+				$this->extractColumnIndex($property, 'index', $tableName, $columnName, $propertySource);
 			}
 
-			if (!$generator->hasPrimaryIndex($tableName)) {
-				$generator->addPrimaryIndex($tableName, $generator->getTablePrimaryColumn($tableName));
+			if (!$this->generator->hasPrimaryIndex($tableName)) {
+				$this->generator->addPrimaryIndex($tableName, $this->generator->getTablePrimaryColumn($tableName));
 			}
 		}
 
@@ -208,7 +213,7 @@
 		/**
 		 * @return void
 		 */
-		protected function extractTableIndexes(Generator $generator, $tableName, Reflection\EntityReflection $reflection, $indexType)
+		protected function extractTableIndexes($tableName, Reflection\EntityReflection $reflection, $indexType)
 		{
 			// @schema-<type> property1, property2
 			// @schema<Type> property, property2
@@ -227,7 +232,7 @@
 						$columns[] = $this->mapper->getColumn($property);
 					}
 
-					$this->addIndexByType($generator, $type, $tableName, $columns, $entityClass);
+					$this->addIndexByType($type, $tableName, $columns, $entityClass);
 				}
 			}
 		}
@@ -305,7 +310,7 @@
 		/**
 		 * @return void
 		 */
-		protected function extractColumnIndex(Generator $generator, Reflection\Property $property, $type, $tableName, $columnName, $propertySource)
+		protected function extractColumnIndex(Reflection\Property $property, $type, $tableName, $columnName, $propertySource)
 		{
 			$flags = array(
 				'schema-' . $type,
@@ -314,23 +319,23 @@
 
 			foreach ($flags as $flag) {
 				if ($property->hasCustomFlag($flag)) {
-					$this->addIndexByType($generator, $type, $tableName, $columnName, $propertySource);
+					$this->addIndexByType($type, $tableName, $columnName, $propertySource);
 					return;
 				}
 			}
 		}
 
 
-		protected function addIndexByType(Generator $generator, $indexType, $tableName, $columns, $sourceId)
+		protected function addIndexByType($indexType, $tableName, $columns, $sourceId)
 		{
 			if ($indexType === 'index') {
-				$generator->addIndex($tableName, $columns, $sourceId);
+				$this->generator->addIndex($tableName, $columns, $sourceId);
 
 			} elseif ($indexType === 'unique') {
-				$generator->addUniqueIndex($tableName, $columns, $sourceId);
+				$this->generator->addUniqueIndex($tableName, $columns, $sourceId);
 
 			} elseif ($indexType === 'primary') {
-				$generator->addPrimaryIndex($tableName, $columns, $sourceId);
+				$this->generator->addPrimaryIndex($tableName, $columns, $sourceId);
 
 			} else {
 				throw new InvalidArgumentException("Unknow index type '$indexType'.");
@@ -338,7 +343,7 @@
 		}
 
 
-		protected function addHasManyRelationship(Generator $generator, Relationship\HasMany $relationship, $sourceTable)
+		protected function addHasManyRelationship(Relationship\HasMany $relationship, $sourceTable)
 		{
 			$relationshipTable = $relationship->getRelationshipTable();
 			$sourceColumn = $relationship->getColumnReferencingSourceTable();
@@ -346,7 +351,7 @@
 			$targetColumn = $relationship->getColumnReferencingTargetTable();
 
 			if ($this->mapper->getRelationshipTable($sourceTable, $targetTable) === $relationshipTable) {
-				$generator->addHasManyTable(
+				$this->generator->addHasManyTable(
 					$relationshipTable,
 					$sourceTable,
 					$sourceColumn,
@@ -355,7 +360,7 @@
 				);
 
 			} else {
-				$generator->addHasManyTable(
+				$this->generator->addHasManyTable(
 					$relationshipTable,
 					$targetTable,
 					$targetColumn,
