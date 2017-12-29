@@ -7,13 +7,29 @@
 
 	class UpdatedTable
 	{
+		/** @var string */
+		private $tableName;
+
 		/** @var array */
 		private $updates;
 
 
-		public function __construct(array $updates)
+		/**
+		 * @param  string
+		 */
+		public function __construct($tableName, array $updates)
 		{
+			$this->tableName = $tableName;
 			$this->updates = $updates;
+		}
+
+
+		/**
+		 * @return string
+		 */
+		public function getTableName()
+		{
+			return $this->tableName;
 		}
 
 

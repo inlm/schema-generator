@@ -111,7 +111,7 @@
 			$this->generateCommentUpdate($updates, $old, $new);
 
 			if (!empty($updates)) {
-				return new Diffs\UpdatedTable($updates);
+				return new Diffs\UpdatedTable($new->getName(), $updates);
 			}
 
 			return NULL;
