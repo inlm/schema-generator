@@ -26,9 +26,6 @@
 		/** @var array  [name => SqlSchema\Table] */
 		private $indexes = array();
 
-		/** @var array  [name => SqlSchema\ForeignKey] */
-		private $foreignKeys = array();
-
 		/** @var array */
 		private $relationships = array();
 
