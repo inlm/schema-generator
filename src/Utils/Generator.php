@@ -69,7 +69,7 @@
 				foreach ($columns as $column) {
 					$definition = $column['column'];
 
-					if (!$definition->isNullable() && $column['created'] < $this->tables[$tableName]['created']) {
+					if (!$definition->isNullable() && $column['created'] < $this->tables[$tableName]->getNumberOfCreation()) {
 						$definition->setNullable();
 					}
 				}
@@ -150,16 +150,16 @@
 						throw new MissingException("Missing target table '$targetTable' for relationship '$sourceTable'.'$sourceColumn' => '$targetTable'.");
 					}
 
-					if ($this->tables[$targetTable]['primaryColumn'] === NULL) {
+					if ($this->tables[$targetTable]->getPrimaryColumn() === NULL) {
 						throw new MissingException("Table '$targetTable' has no primary column.");
 					}
 
-					$targetColumn = $this->tables[$targetTable]['primaryColumn'];
+					$targetColumn = $this->tables[$targetTable]->getPrimaryColumn();
 
-					$_sourceTable = $this->tables[$sourceTable]['table'];
+					$_sourceTable = $this->tables[$sourceTable]->getDefinition();
 					$_sourceColumn = $_sourceTable->getColumn($sourceColumn);
 
-					$_targetTable = $this->tables[$targetTable]['table'];
+					$_targetTable = $this->tables[$targetTable]->getDefinition();
 					$_targetColumn = $_targetTable->getColumn($targetColumn);
 
 					if ($_sourceColumn === NULL) {
@@ -210,15 +210,11 @@
 					$table->setOption($option, $optionValue);
 				}
 
-				$this->tables[$tableName] = array(
-					'table' => $table,
-					'primaryColumn' => $primaryColumn,
-					'created' => 0,
-				);
+				$this->tables[$tableName] = new GeneratorTable($table, $primaryColumn);
 			}
 
-			$this->tables[$tableName]['created']++;
-			return $this->tables[$tableName]['table'];
+			$this->tables[$tableName]->markAsCreated();
+			return $this->tables[$tableName]->getDefinition();
 		}
 
 
@@ -232,7 +228,7 @@
 				throw new MissingException("Missing table '$tableName'.");
 			}
 
-			return $this->tables[$tableName]['table'];
+			return $this->tables[$tableName]->getDefinition();
 		}
 
 
@@ -280,7 +276,7 @@
 				throw new MissingException("Missing table '$tableName'.");
 			}
 
-			return $this->tables[$tableName]['primaryColumn'];
+			return $this->tables[$tableName]->getPrimaryColumn();
 		}
 
 
@@ -295,7 +291,7 @@
 				throw new MissingException("Missing table '$tableName'.");
 			}
 
-			return $columnName !== NULL && $this->tables[$tableName]['primaryColumn'] === $columnName;
+			return $columnName !== NULL && $this->tables[$tableName]->getPrimaryColumn() === $columnName;
 		}
 
 
