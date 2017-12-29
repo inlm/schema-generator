@@ -211,6 +211,11 @@
 				}
 
 				$this->tables[$tableName] = new GeneratorTable($table, $primaryColumn);
+
+			} else {
+				if ($this->tables[$tableName]->getPrimaryColumn() !== $primaryColumn) {
+					throw new \RuntimeException("Table '$tableName' already exists with another primary column '{$this->tables[$tableName]->getPrimaryColumn()}'.");
+				}
 			}
 
 			$this->tables[$tableName]->markAsCreated();
