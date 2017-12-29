@@ -121,7 +121,7 @@
 		/**
 		 * @return void
 		 */
-		public function createHasManyTables()
+		protected function createHasManyTables()
 		{
 			foreach ($this->hasManyTables as $hasManyTable => $data) {
 				if (!$this->hasTable($hasManyTable)) {
@@ -138,7 +138,7 @@
 		/**
 		 * @return void
 		 */
-		public function createRelationships()
+		protected function createRelationships()
 		{
 			foreach ($this->relationships as $sourceTable => $sourceColumns) {
 				foreach ($sourceColumns as $sourceColumn => $targetTable) {
@@ -227,7 +227,7 @@
 		 * @param  string
 		 * @return SqlSchema\Table
 		 */
-		public function getTable($tableName)
+		protected function getTable($tableName)
 		{
 			if (!$this->hasTable($tableName)) {
 				throw new MissingException("Missing table '$tableName'.");
@@ -241,7 +241,7 @@
 		 * @param  string
 		 * @return bool
 		 */
-		public function hasTable($tableName)
+		protected function hasTable($tableName)
 		{
 			return isset($this->tables[$tableName]);
 		}
@@ -388,7 +388,7 @@
 		 * @param  string
 		 * @return bool
 		 */
-		public function hasPrimaryIndex($tableName)
+		protected function hasPrimaryIndex($tableName)
 		{
 			return isset($this->indexes[$tableName][NULL]);
 		}
