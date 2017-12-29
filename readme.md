@@ -37,6 +37,10 @@ $generator->generate('changes description');
 * [Table Options](docs/table-options.md)
 * [Examples](docs/examples.md)
 
+Supported databases:
+
+* MySQL
+
 
 ### Extractors
 
