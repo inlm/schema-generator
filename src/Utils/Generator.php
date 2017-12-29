@@ -46,15 +46,6 @@
 		/**
 		 * @return SqlSchema\Schema
 		 */
-		public function getSchema()
-		{
-			return $this->schema;
-		}
-
-
-		/**
-		 * @return SqlSchema\Schema
-		 */
 		public function finalize()
 		{
 			$this->createHasManyTables();
