@@ -120,78 +120,82 @@
 			$this->log('Generating migrations');
 			$this->dumper->start($description);
 
-			foreach ($schemaDiff->getCreatedTables() as $table) {
-				$this->log(" - created table {$table->getDefinition()->getName()}");
-				$this->dumper->createTable($table);
-			}
+			foreach ($schemaDiff->getCreatedAndUpdatedTables() as $diff) {
+				if ($diff instanceof Diffs\CreatedTable) {
+					$this->log(" - created table {$diff->getTableName()}");
+					$this->dumper->createTable($diff);
 
-			foreach ($schemaDiff->getUpdatedTables() as $updatedTable) {
-				// create
-				foreach ($updatedTable->getCreatedColumns() as $column) {
-					$this->log(" - created column {$column->getTableName()}.{$column->getDefinition()->getName()}");
-					$this->dumper->createTableColumn($column);
-				}
+				} elseif ($diff instanceof Diffs\UpdatedTable) {
+					// create
+					foreach ($diff->getCreatedColumns() as $column) {
+						$this->log(" - created column {$column->getTableName()}.{$column->getDefinition()->getName()}");
+						$this->dumper->createTableColumn($column);
+					}
 
-				foreach ($updatedTable->getCreatedIndexes() as $index) {
-					$this->log(" - created index {$index->getTableName()}.{$index->getDefinition()->getName()}");
-					$this->dumper->createTableIndex($index);
-				}
+					foreach ($diff->getCreatedIndexes() as $index) {
+						$this->log(" - created index {$index->getTableName()}.{$index->getDefinition()->getName()}");
+						$this->dumper->createTableIndex($index);
+					}
 
-				foreach ($updatedTable->getCreatedForeignKeys() as $foreignKey) {
-					$this->log(" - created foreign key {$foreignKey->getTableName()}.{$foreignKey->getDefinition()->getName()}");
-					$this->dumper->createForeignKey($foreignKey);
-				}
+					foreach ($diff->getCreatedForeignKeys() as $foreignKey) {
+						$this->log(" - created foreign key {$foreignKey->getTableName()}.{$foreignKey->getDefinition()->getName()}");
+						$this->dumper->createForeignKey($foreignKey);
+					}
 
-				foreach ($updatedTable->getAddedOptions() as $option) {
-					$this->log(" - added option {$option->getTableName()}.{$option->getOption()}");
-					$this->dumper->addTableOption($option);
-				}
+					foreach ($diff->getAddedOptions() as $option) {
+						$this->log(" - added option {$option->getTableName()}.{$option->getOption()}");
+						$this->dumper->addTableOption($option);
+					}
 
-				// update
-				foreach ($updatedTable->getUpdatedColumns() as $column) {
-					$this->log(" - updated column {$column->getTableName()}.{$column->getDefinition()->getName()}");
-					$this->dumper->updateTableColumn($column);
-				}
+					// update
+					foreach ($diff->getUpdatedColumns() as $column) {
+						$this->log(" - updated column {$column->getTableName()}.{$column->getDefinition()->getName()}");
+						$this->dumper->updateTableColumn($column);
+					}
 
-				foreach ($updatedTable->getUpdatedIndexes() as $index) {
-					$this->log(" - updated index {$index->getTableName()}.{$index->getDefinition()->getName()}");
-					$this->dumper->updateTableIndex($index);
-				}
+					foreach ($diff->getUpdatedIndexes() as $index) {
+						$this->log(" - updated index {$index->getTableName()}.{$index->getDefinition()->getName()}");
+						$this->dumper->updateTableIndex($index);
+					}
 
-				foreach ($updatedTable->getUpdatedForeignKeys() as $foreignKey) {
-					$this->log(" - updated foreign key {$foreignKey->getTableName()}.{$foreignKey->getDefinition()->getName()}");
-					$this->dumper->updateForeignKey($foreignKey);
-				}
+					foreach ($diff->getUpdatedForeignKeys() as $foreignKey) {
+						$this->log(" - updated foreign key {$foreignKey->getTableName()}.{$foreignKey->getDefinition()->getName()}");
+						$this->dumper->updateForeignKey($foreignKey);
+					}
 
-				foreach ($updatedTable->getUpdatedOptions() as $option) {
-					$this->log(" - updated option {$option->getTableName()}.{$option->getOption()}");
-					$this->dumper->updateTableOption($option);
-				}
+					foreach ($diff->getUpdatedOptions() as $option) {
+						$this->log(" - updated option {$option->getTableName()}.{$option->getOption()}");
+						$this->dumper->updateTableOption($option);
+					}
 
-				foreach ($updatedTable->getUpdatedComments() as $comment) {
-					$this->log(" - updated comment for {$comment->getTableName()}");
-					$this->dumper->updateTableComment($comment);
-				}
+					foreach ($diff->getUpdatedComments() as $comment) {
+						$this->log(" - updated comment for {$comment->getTableName()}");
+						$this->dumper->updateTableComment($comment);
+					}
 
-				// remove
-				foreach ($updatedTable->getRemovedForeignKeys() as $foreignKey) {
-					$this->log(" - REMOVED foreign key {$foreignKey->getTableName()}.{$foreignKey->getForeignKeyName()}");
-					$this->dumper->removeForeignKey($foreignKey);
-				}
+					// remove
+					foreach ($diff->getRemovedForeignKeys() as $foreignKey) {
+						$this->log(" - REMOVED foreign key {$foreignKey->getTableName()}.{$foreignKey->getForeignKeyName()}");
+						$this->dumper->removeForeignKey($foreignKey);
+					}
 
-				foreach ($updatedTable->getRemovedIndexes() as $index) {
-					$this->log(" - REMOVED index {$index->getTableName()}.{$index->getIndexName()}");
-					$this->dumper->removeTableIndex($index);
-				}
+					foreach ($diff->getRemovedIndexes() as $index) {
+						$this->log(" - REMOVED index {$index->getTableName()}.{$index->getIndexName()}");
+						$this->dumper->removeTableIndex($index);
+					}
 
-				foreach ($updatedTable->getRemovedColumns() as $column) {
-					$this->log(" - REMOVED column {$column->getTableName()}.{$column->getColumnName()}");
-					$this->dumper->removeTableColumn($column);
-				}
+					foreach ($diff->getRemovedColumns() as $column) {
+						$this->log(" - REMOVED column {$column->getTableName()}.{$column->getColumnName()}");
+						$this->dumper->removeTableColumn($column);
+					}
 
-				foreach ($updatedTable->getRemovedOptions() as $option) {
-					$this->log(" - REMOVED option {$option->getTableName()}.{$option->getOption()}");
-					$this->dumper->removeTableOption($option);
+					foreach ($diff->getRemovedOptions() as $option) {
+						$this->log(" - REMOVED option {$option->getTableName()}.{$option->getOption()}");
+						$this->dumper->removeTableOption($option);
+					}
+
+				} else {
+					throw new UnsupportedException('Diff ' . get_class($diff) . ' is not supported.');
 				}
 			}
 

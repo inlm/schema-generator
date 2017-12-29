@@ -22,6 +22,31 @@
 
 
 		/**
+		 * @return array  of Diffs\CreatedTable|Diffs\UpdatedTable
+		 */
+		public function getCreatedAndUpdatedTables()
+		{
+			$tableOrder = $this->resolveOrder();
+			$createdTables = $this->getCreatedTables();
+			$updatedTables = $this->getUpdatedTables();
+			$result = array_merge($createdTables, $updatedTables);
+
+			usort($result, function ($a, $b) use ($tableOrder) {
+				$orderA = $this->getTableOrder($tableOrder, $a);
+				$orderB = $this->getTableOrder($tableOrder, $b);
+
+				if ($orderA === $orderB) {
+					return 0;
+				}
+
+				return $orderA > $orderB ? 1 : -1;
+			});
+
+			return $result;
+		}
+
+
+		/**
 		 * @return Diffs\CreatedTable[]
 		 */
 		public function getCreatedTables()
@@ -353,5 +378,44 @@
 			}
 
 			return FALSE;
+		}
+
+
+		/**
+		 * @return array  [tableName => order]
+		 */
+		private function resolveOrder()
+		{
+			$resolver = new \Cz\Dependency;
+
+			foreach ($this->new->getTables() as $table) {
+				$sourceTable = $table->getName();
+				$targetTables = array();
+
+				foreach ($table->getForeignKeys() as $foreignKey) {
+					$targetTables[] = $foreignKey->getTargetTable();
+				}
+
+				$resolver->add($sourceTable, $targetTables);
+			}
+
+			$order = $resolver->getResolved();
+			return array_flip($order);
+		}
+
+
+		/**
+		 * @param  array
+		 * @param  Diffs\CreatedTable|Diffs\UpdatedTable
+		 * @return int|NULL
+		 */
+		private function getTableOrder(array $tableOrder, $diff)
+		{
+			if (!($diff instanceof Diffs\CreatedTable) && !($diff instanceof Diffs\UpdatedTable)) {
+				throw new UnsupportedException('Diff ' . get_class($diff) . ' is not supported.');
+			}
+
+			$name = $diff->getTableName();
+			return isset($tableOrder[$name]) ? $tableOrder[$name] : NULL;
 		}
 	}
