@@ -115,7 +115,7 @@
 
 				$propertyName = $property->getName();
 				$columnName = $property->getColumn();
-				$isPrimaryColumn = $this->generator->isTablePrimaryColumn($tableName, $columnName);
+				$isPrimaryColumn = $columnName === $tablePrimaryColumn;
 				$columnType = NULL;
 
 				if (!$property->hasRelationship()) {

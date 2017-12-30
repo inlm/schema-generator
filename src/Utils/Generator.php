@@ -285,21 +285,6 @@
 		/**
 		 * @param  string
 		 * @param  string
-		 * @return bool
-		 */
-		public function isTablePrimaryColumn($tableName, $columnName)
-		{
-			if (!$this->hasTable($tableName)) {
-				throw new MissingException("Missing table '$tableName'.");
-			}
-
-			return $columnName !== NULL && $this->tables[$tableName]->getPrimaryColumn() === $columnName;
-		}
-
-
-		/**
-		 * @param  string
-		 * @param  string
 		 * @param  DataType
 		 * @return SqlSchema\Column
 		 */
