@@ -328,6 +328,19 @@
 
 		/**
 		 * @param  string
+		 * @param  string
+		 * @param  string|NULL
+		 * @return self
+		 */
+		public function setColumnComment($tableName, $columnName, $comment)
+		{
+			$this->getColumnDefinition($tableName, $columnName)->setComment($comment);
+			return $this;
+		}
+
+
+		/**
+		 * @param  string
 		 * @return SqlSchema\Column
 		 */
 		protected function getColumnDefinition($tableName, $columnName)

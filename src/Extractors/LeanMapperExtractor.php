@@ -125,7 +125,7 @@
 				$column = $this->generator->addColumn($tableName, $columnName, $columnType);
 				$this->generator->setColumnNullable($tableName, $columnName, $property->isNullable());
 
-				$this->extractColumnComment($column, $property);
+				$this->extractColumnComment($tableName, $columnName, $property);
 				$this->extractColumnAutoIncrement($column, $property, $isPrimaryColumn);
 				$this->extractColumnIndex($property, 'primary', $tableName, $columnName);
 				$this->extractColumnIndex($property, 'unique', $tableName, $columnName);
@@ -262,15 +262,17 @@
 
 
 		/**
+		 * @param  string
+		 * @param  string
 		 * @return void
 		 */
-		protected function extractColumnComment(SqlSchema\Column $column, Reflection\Property $property)
+		protected function extractColumnComment($tableName, $columnName, Reflection\Property $property)
 		{
 			if ($property->hasCustomFlag('schema-comment')) {
-				$column->setComment($property->getCustomFlagValue('schema-comment'));
+				$this->generator->setColumnComment($tableName, $columnName, $property->getCustomFlagValue('schema-comment'));
 
 			} elseif ($property->hasCustomFlag('schemaComment')) {
-				$column->setComment($property->getCustomFlagValue('schemaComment'));
+				$this->generator->setColumnComment($tableName, $columnName, $property->getCustomFlagValue('schemaComment'));
 			}
 		}
 
