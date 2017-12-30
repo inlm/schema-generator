@@ -214,7 +214,7 @@
 						$columns[] = $this->mapper->getColumn($property);
 					}
 
-					$this->addIndexByType($type, $tableName, $columns);
+					$this->addIndexByType($indexType, $tableName, $columns);
 				}
 			}
 		}
