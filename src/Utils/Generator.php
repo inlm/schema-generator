@@ -341,6 +341,19 @@
 
 		/**
 		 * @param  string
+		 * @param  string
+		 * @param  bool
+		 * @return self
+		 */
+		public function setColumnAutoIncrement($tableName, $columnName, $isAutoIncrement = TRUE)
+		{
+			$this->getColumnDefinition($tableName, $columnName)->setAutoIncrement($isAutoIncrement);
+			return $this;
+		}
+
+
+		/**
+		 * @param  string
 		 * @return SqlSchema\Column
 		 */
 		protected function getColumnDefinition($tableName, $columnName)

@@ -126,7 +126,7 @@
 				$this->generator->setColumnNullable($tableName, $columnName, $property->isNullable());
 
 				$this->extractColumnComment($tableName, $columnName, $property);
-				$this->extractColumnAutoIncrement($column, $property, $isPrimaryColumn);
+				$this->extractColumnAutoIncrement($tableName, $columnName, $property, $isPrimaryColumn);
 				$this->extractColumnIndex($property, 'primary', $tableName, $columnName);
 				$this->extractColumnIndex($property, 'unique', $tableName, $columnName);
 				$this->extractColumnIndex($property, 'index', $tableName, $columnName);
@@ -278,15 +278,17 @@
 
 
 		/**
+		 * @param  string
+		 * @param  string
 		 * @return void
 		 */
-		protected function extractColumnAutoIncrement(SqlSchema\Column $column, Reflection\Property $property, $isPrimaryColumn)
+		protected function extractColumnAutoIncrement($tableName, $columnName, Reflection\Property $property, $isPrimaryColumn)
 		{
 			if ($property->hasCustomFlag('schema-autoIncrement') || $property->hasCustomFlag('schemaAutoIncrement')) {
-				$column->setAutoIncrement(TRUE);
+				$this->generator->setColumnAutoIncrement($tableName, $columnName, TRUE);
 
 			} else { // auto-detect
-				$column->setAutoIncrement($isPrimaryColumn && $property->getType() === 'integer');
+				$this->generator->setColumnAutoIncrement($tableName, $columnName, $isPrimaryColumn && $property->getType() === 'integer');
 			}
 		}
 
