@@ -272,7 +272,7 @@
 		 * @param  string
 		 * @param  string
 		 * @param  DataType
-		 * @return SqlSchema\Column
+		 * @return self
 		 */
 		public function addColumn($tableName, $columnName, DataType $columnType = NULL)
 		{
@@ -309,7 +309,7 @@
 
 			$this->columns[$tableName][$columnName] = new GeneratorColumn($column);
 			$this->columns[$tableName][$columnName]->markAsCreated();
-			return $column;
+			return $this;
 		}
 
 
