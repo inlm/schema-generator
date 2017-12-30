@@ -17,19 +17,19 @@
 		/** @var SqlSchema\Schema */
 		private $schema;
 
-		/** @var array  [name => SqlSchema\Table] */
+		/** @var array  [name => GeneratorTable] */
 		private $tables = array();
 
-		/** @var array  [name => SqlSchema\Table] */
+		/** @var array  [name => GeneratorColumn] */
 		private $columns = array();
 
-		/** @var array  [name => SqlSchema\Table] */
+		/** @var array */
 		private $indexes = array();
 
 		/** @var array */
 		private $relationships = array();
 
-		/** @var array */
+		/** @var array  [name => GeneratorHasManyTable] */
 		private $hasManyTables = array();
 
 

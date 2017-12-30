@@ -7,10 +7,10 @@
 
 	class DiffGenerator
 	{
-		/** @var Schema */
+		/** @var SqlSchema\Schema */
 		private $old;
 
-		/** @var Schema */
+		/** @var SqlSchema\Schema */
 		private $new;
 
 

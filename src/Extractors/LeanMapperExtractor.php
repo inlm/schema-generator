@@ -45,7 +45,7 @@
 
 
 		/**
-		 * @return Schema
+		 * @return SqlSchema\Schema
 		 */
 		public function generateSchema(array $options = array(), array $customTypes = array())
 		{

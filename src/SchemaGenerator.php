@@ -16,7 +16,7 @@
 		/** @var IDumper */
 		private $dumper;
 
-		/** @var ILogger */
+		/** @var ILogger|NULL */
 		private $logger;
 
 		/** @var array */

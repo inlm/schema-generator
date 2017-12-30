@@ -27,7 +27,7 @@
 
 		/**
 		 * @param  string[]
-		 * @return Schema
+		 * @return SqlSchema\Schema
 		 */
 		public function generateSchema(array $ignoredTables = array())
 		{
