@@ -80,9 +80,9 @@
 				$docComment = $member->getDocComment();
 				$this->extractTableComment($tableName, $docComment);
 				$this->extractTableOption($tableName, $docComment);
-				$this->extractTableIndexes($tableName, $member, 'primary');
-				$this->extractTableIndexes($tableName, $member, 'unique');
-				$this->extractTableIndexes($tableName, $member, 'index');
+				$this->extractTableIndexes($tableName, $member, 'primary', $entityClass);
+				$this->extractTableIndexes($tableName, $member, 'unique', $entityClass);
+				$this->extractTableIndexes($tableName, $member, 'index', $entityClass);
 
 				$memberClass = $member->getName();
 				$memberProperties = array_keys($member->getEntityProperties());
@@ -196,7 +196,7 @@
 		/**
 		 * @return void
 		 */
-		protected function extractTableIndexes($tableName, Reflection\EntityReflection $reflection, $indexType)
+		protected function extractTableIndexes($tableName, Reflection\EntityReflection $reflection, $indexType, $entityClass)
 		{
 			// @schema-<type> property1, property2
 			// @schema<Type> property, property2
@@ -211,7 +211,7 @@
 					$columns = array();
 
 					foreach ($properties as $property) {
-						$columns[] = $this->mapper->getColumn($property);
+						$columns[] = $this->mapper->getColumn($entityClass, $property);
 					}
 
 					$this->addIndexByType($indexType, $tableName, $columns);
