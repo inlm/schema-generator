@@ -170,6 +170,10 @@
 				foreach (AnnotationsParser::parseAnnotationValues($annotation, $docComment) as $definition) {
 					$definition = trim($definition);
 
+					if ($definition === '*/') { // fix for bug in AnnotationsParser::parseAnnotationValues
+						$definition = '';
+					}
+
 					if ($definition === '') {
 						throw new EmptyException("Empty definition of '@{$annotation}'.");
 					}
