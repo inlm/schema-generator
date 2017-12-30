@@ -224,7 +224,7 @@
 		 * @param  string
 		 * @return SqlSchema\Table
 		 */
-		protected function getTable($tableName)
+		protected function getTableDefinition($tableName)
 		{
 			if (!$this->hasTable($tableName)) {
 				throw new MissingException("Missing table '$tableName'.");
@@ -252,7 +252,7 @@
 		public function setTableComment($tableName, $comment)
 		{
 			$comment = trim($comment);
-			$this->getTable($tableName)->setComment($comment !== '' ? $comment : NULL);
+			$this->getTableDefinition($tableName)->setComment($comment !== '' ? $comment : NULL);
 		}
 
 
@@ -264,7 +264,7 @@
 		 */
 		public function setTableOption($tableName, $option, $value)
 		{
-			$this->getTable($tableName)->setOption(strtoupper($option), $value !== '' ? $value : NULL);
+			$this->getTableDefinition($tableName)->setOption(strtoupper($option), $value !== '' ? $value : NULL);
 		}
 
 
@@ -298,7 +298,7 @@
 				return $column;
 			}
 
-			$table = $this->getTable($tableName);
+			$table = $this->getTableDefinition($tableName);
 			$column = $table->addColumn($columnName, NULL, array(), array());
 
 			if ($columnType) {
@@ -374,7 +374,7 @@
 				return;
 			}
 
-			$table = $this->getTable($tableName);
+			$table = $this->getTableDefinition($tableName);
 			$this->indexes[$tableName][$indexName] = new GeneratorIndex($tableName, $table->addIndex($indexName, $type, $columns));
 		}
 
