@@ -31,6 +31,15 @@
 
 
 		/**
+		 * @return string
+		 */
+		public function getIndexName()
+		{
+			return $this->definition->getName();
+		}
+
+
+		/**
 		 * @return SqlSchema\Index
 		 */
 		public function getDefinition()

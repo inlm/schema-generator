@@ -31,6 +31,15 @@
 
 
 		/**
+		 * @return string
+		 */
+		public function getForeignKeyName()
+		{
+			return $this->definition->getName();
+		}
+
+
+		/**
 		 * @return SqlSchema\ForeignKey
 		 */
 		public function getDefinition()
