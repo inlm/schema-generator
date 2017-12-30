@@ -75,7 +75,6 @@
 			$tableName = $this->mapper->getTable($entityClass);
 			$tablePrimaryColumn = $this->mapper->getPrimaryKey($tableName);
 			$table = $this->generator->createTable($tableName, $tablePrimaryColumn);
-			$propertySources = array();
 
 			foreach ($this->getFamilyLine($reflection) as $member) {
 				$docComment = $member->getDocComment();
@@ -87,12 +86,6 @@
 
 				$memberClass = $member->getName();
 				$memberProperties = array_keys($member->getEntityProperties());
-
-				foreach ($memberProperties as $memberProperty) {
-					if (!isset($propertySources[$memberProperty])) {
-						$propertySources[$memberProperty] = $memberClass;
-					}
-				}
 			}
 
 			// hack - primary column must be always first (@property-read is always last)
@@ -121,8 +114,6 @@
 				}
 
 				$propertyName = $property->getName();
-				$entitySource = isset($propertySources[$propertyName]) ? $propertySources[$propertyName] : $entityClass;
-				$propertySource = $entitySource . '::' . $propertyName;
 				$columnName = $property->getColumn();
 				$isPrimaryColumn = $this->generator->isTablePrimaryColumn($tableName, $columnName);
 				$columnType = NULL;
@@ -136,9 +127,9 @@
 
 				$this->extractColumnComment($column, $property);
 				$this->extractColumnAutoIncrement($column, $property, $this->generator->getTablePrimaryColumn($tableName));
-				$this->extractColumnIndex($property, 'primary', $tableName, $columnName, $propertySource);
-				$this->extractColumnIndex($property, 'unique', $tableName, $columnName, $propertySource);
-				$this->extractColumnIndex($property, 'index', $tableName, $columnName, $propertySource);
+				$this->extractColumnIndex($property, 'primary', $tableName, $columnName);
+				$this->extractColumnIndex($property, 'unique', $tableName, $columnName);
+				$this->extractColumnIndex($property, 'index', $tableName, $columnName);
 			}
 		}
 
@@ -209,7 +200,6 @@
 		{
 			// @schema-<type> property1, property2
 			// @schema<Type> property, property2
-			$entityClass = $reflection->getName();
 			$annotations = array(
 				'schema-' . $indexType,
 				'schema' . ucfirst($indexType),
@@ -224,7 +214,7 @@
 						$columns[] = $this->mapper->getColumn($property);
 					}
 
-					$this->addIndexByType($type, $tableName, $columns, $entityClass);
+					$this->addIndexByType($type, $tableName, $columns);
 				}
 			}
 		}
@@ -302,7 +292,7 @@
 		/**
 		 * @return void
 		 */
-		protected function extractColumnIndex(Reflection\Property $property, $type, $tableName, $columnName, $propertySource)
+		protected function extractColumnIndex(Reflection\Property $property, $type, $tableName, $columnName)
 		{
 			$flags = array(
 				'schema-' . $type,
@@ -311,23 +301,23 @@
 
 			foreach ($flags as $flag) {
 				if ($property->hasCustomFlag($flag)) {
-					$this->addIndexByType($type, $tableName, $columnName, $propertySource);
+					$this->addIndexByType($type, $tableName, $columnName);
 					return;
 				}
 			}
 		}
 
 
-		protected function addIndexByType($indexType, $tableName, $columns, $sourceId)
+		protected function addIndexByType($indexType, $tableName, $columns)
 		{
 			if ($indexType === 'index') {
-				$this->generator->addIndex($tableName, $columns, $sourceId);
+				$this->generator->addIndex($tableName, $columns);
 
 			} elseif ($indexType === 'unique') {
-				$this->generator->addUniqueIndex($tableName, $columns, $sourceId);
+				$this->generator->addUniqueIndex($tableName, $columns);
 
 			} elseif ($indexType === 'primary') {
-				$this->generator->addPrimaryIndex($tableName, $columns, $sourceId);
+				$this->generator->addPrimaryIndex($tableName, $columns);
 
 			} else {
 				throw new InvalidArgumentException("Unknow index type '$indexType'.");

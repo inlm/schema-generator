@@ -125,8 +125,8 @@
 					$table = $this->createTable($hasManyTable);
 					$this->addColumn($hasManyTable, $data->getSourceColumn(), NULL);
 					$this->addColumn($hasManyTable, $data->getTargetColumn(), NULL);
-					$this->addPrimaryIndex($hasManyTable, array($data->getSourceColumn(), $data->getTargetColumn()), 'VIRTUAL');
-					$this->addIndex($hasManyTable, $data->getTargetColumn(), 'VIRTUAL');
+					$this->addPrimaryIndex($hasManyTable, array($data->getSourceColumn(), $data->getTargetColumn()));
+					$this->addIndex($hasManyTable, $data->getTargetColumn());
 				}
 			}
 		}
@@ -345,12 +345,11 @@
 		/**
 		 * @param  string
 		 * @param  string|string[]
-		 * @param  string|NULL
 		 * @return self
 		 */
-		public function addIndex($tableName, $columns, $sourceId = NULL)
+		public function addIndex($tableName, $columns)
 		{
-			$this->addTableIndex($tableName, SqlSchema\Index::TYPE_INDEX, $columns, $sourceId);
+			$this->addTableIndex($tableName, SqlSchema\Index::TYPE_INDEX, $columns);
 			return $this;
 		}
 
@@ -358,12 +357,11 @@
 		/**
 		 * @param  string
 		 * @param  string|string[]
-		 * @param  string|NULL
 		 * @return self
 		 */
-		public function addUniqueIndex($tableName, $columns, $sourceId = NULL)
+		public function addUniqueIndex($tableName, $columns)
 		{
-			$this->addTableIndex($tableName, SqlSchema\Index::TYPE_UNIQUE, $columns, $sourceId);
+			$this->addTableIndex($tableName, SqlSchema\Index::TYPE_UNIQUE, $columns);
 			return $this;
 		}
 
@@ -371,12 +369,11 @@
 		/**
 		 * @param  string
 		 * @param  string|string[]
-		 * @param  string|NULL
 		 * @return self
 		 */
-		public function addPrimaryIndex($tableName, $columns, $sourceId = NULL)
+		public function addPrimaryIndex($tableName, $columns)
 		{
-			$this->addTableIndex($tableName, SqlSchema\Index::TYPE_PRIMARY, $columns, $sourceId);
+			$this->addTableIndex($tableName, SqlSchema\Index::TYPE_PRIMARY, $columns);
 			return $this;
 		}
 
@@ -394,32 +391,20 @@
 		/**
 		 * @param  string
 		 * @param  string
+		 * @param  string|string[]
 		 * @return void
 		 */
-		protected function addTableIndex($tableName, $type, $columns, $sourceId = NULL)
+		protected function addTableIndex($tableName, $type, $columns)
 		{
 			$indexName = $type !== SqlSchema\Index::TYPE_PRIMARY ? $this->formatIndexName($columns) : NULL;
 
 			if (isset($this->indexes[$tableName][$indexName])) {
-				$origSource = $this->indexes[$tableName][$indexName]['source'];
-				$origType = $this->indexes[$tableName][$indexName]['index']->getType();
-
-				if ($origType !== $type) {
-					throw new DuplicatedException("Type mismatch for index '$indexName' in table '$tableName'. Original type '$origType', new type '$type'.");
-				}
-
-				if ($origSource !== $sourceId) {
-					throw new DuplicatedException("Index '$indexName' for table '$tableName' already exists.");
-				}
-
+				$this->indexes[$tableName][$indexName]->checkCompatibility($type, $columns);
 				return;
 			}
 
 			$table = $this->getTable($tableName);
-			$this->indexes[$tableName][$indexName] = array(
-				'source' => $sourceId,
-				'index' => $table->addIndex($indexName, $type, $columns),
-			);
+			$this->indexes[$tableName][$indexName] = new GeneratorIndex($tableName, $table->addIndex($indexName, $type, $columns));
 		}
 
 
