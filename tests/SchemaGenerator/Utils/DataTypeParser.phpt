@@ -75,10 +75,9 @@ test(function () {
 		'parameters' => array(),
 		'options' => array(
 			'UNSIGNED' => NULL,
-			'BINARY' => NULL,
 			'ZEROFILL' => NULL,
 		),
-	), typeToArray(DataTypeParser::parse('UNSIGNED BINARY ZEROFILL INT')));
+	), typeToArray(DataTypeParser::parse('UNSIGNED ZEROFILL INT')));
 
 
 	// alternative
@@ -87,10 +86,9 @@ test(function () {
 		'parameters' => array(),
 		'options' => array(
 			'UNSIGNED' => NULL,
-			'BINARY' => NULL,
 			'ZEROFILL' => NULL,
 		),
-	), typeToArray(DataTypeParser::parse('UNSIGNED BINARY ZEROFILL INT', DataTypeParser::SYNTAX_ALTERNATIVE)));
+	), typeToArray(DataTypeParser::parse('UNSIGNED ZEROFILL INT', DataTypeParser::SYNTAX_ALTERNATIVE)));
 });
 
 
@@ -132,9 +130,8 @@ test(function () {
 		'options' => array(
 			'UNSIGNED' => NULL,
 			'ZEROFILL' => NULL,
-			'BINARY' => NULL,
 		),
-	), typeToArray(DataTypeParser::parse('UNSIGNED ZEROFILL BINARY')));
+	), typeToArray(DataTypeParser::parse('UNSIGNED ZEROFILL')));
 
 
 	// alternative
@@ -152,9 +149,8 @@ test(function () {
 		'options' => array(
 			'UNSIGNED' => NULL,
 			'ZEROFILL' => NULL,
-			'BINARY' => NULL,
 		),
-	), typeToArray(DataTypeParser::parse('UNSIGNED ZEROFILL BINARY', DataTypeParser::SYNTAX_ALTERNATIVE)));
+	), typeToArray(DataTypeParser::parse('UNSIGNED ZEROFILL', DataTypeParser::SYNTAX_ALTERNATIVE)));
 });
 
 

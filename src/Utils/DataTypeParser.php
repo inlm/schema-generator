@@ -80,7 +80,6 @@
 			$knownOptions = array(
 				SqlSchema\Column::OPTION_UNSIGNED => TRUE,
 				SqlSchema\Column::OPTION_ZEROFILL => TRUE,
-				SqlSchema\Column::OPTION_BINARY => TRUE,
 			);
 
 			foreach ($tokens as $token) {
