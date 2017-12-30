@@ -397,7 +397,7 @@
 			$line = array($member = $reflection);
 
 			while ($member = $member->getParentClass()) {
-				if ($member->name === 'LeanMapper\Entity') {
+				if ($member === NULL || $member->name === 'LeanMapper\Entity') {
 					break;
 				}
 
