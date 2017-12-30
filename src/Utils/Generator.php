@@ -270,20 +270,6 @@
 
 		/**
 		 * @param  string
-		 * @return string|NULL
-		 */
-		public function getTablePrimaryColumn($tableName)
-		{
-			if (!$this->hasTable($tableName)) {
-				throw new MissingException("Missing table '$tableName'.");
-			}
-
-			return $this->tables[$tableName]->getPrimaryColumn();
-		}
-
-
-		/**
-		 * @param  string
 		 * @param  string
 		 * @param  DataType
 		 * @return SqlSchema\Column

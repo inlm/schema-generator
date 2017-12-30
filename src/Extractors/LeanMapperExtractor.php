@@ -126,7 +126,7 @@
 				$column->setNullable($property->isNullable());
 
 				$this->extractColumnComment($column, $property);
-				$this->extractColumnAutoIncrement($column, $property, $this->generator->getTablePrimaryColumn($tableName));
+				$this->extractColumnAutoIncrement($column, $property, $isPrimaryColumn);
 				$this->extractColumnIndex($property, 'primary', $tableName, $columnName);
 				$this->extractColumnIndex($property, 'unique', $tableName, $columnName);
 				$this->extractColumnIndex($property, 'index', $tableName, $columnName);
@@ -278,13 +278,13 @@
 		/**
 		 * @return void
 		 */
-		protected function extractColumnAutoIncrement(SqlSchema\Column $column, Reflection\Property $property, $primaryKey)
+		protected function extractColumnAutoIncrement(SqlSchema\Column $column, Reflection\Property $property, $isPrimaryColumn)
 		{
 			if ($property->hasCustomFlag('schema-autoIncrement') || $property->hasCustomFlag('schemaAutoIncrement')) {
 				$column->setAutoIncrement(TRUE);
 
 			} else { // auto-detect
-				$column->setAutoIncrement($primaryKey === $column->getName() && $property->getType() === 'integer');
+				$column->setAutoIncrement($isPrimaryColumn && $property->getType() === 'integer');
 			}
 		}
 
