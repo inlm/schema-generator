@@ -315,6 +315,33 @@
 
 		/**
 		 * @param  string
+		 * @param  string
+		 * @param  bool
+		 * @return self
+		 */
+		public function setColumnNullable($tableName, $columnName, $isNullable = TRUE)
+		{
+			$this->getColumnDefinition($tableName, $columnName)->setNullable($isNullable);
+			return $this;
+		}
+
+
+		/**
+		 * @param  string
+		 * @return SqlSchema\Column
+		 */
+		protected function getColumnDefinition($tableName, $columnName)
+		{
+			if (!isset($this->columns[$tableName][$columnName])) {
+				throw new MissingException("Missing column '$tableName.$columnName'.");
+			}
+
+			return $this->columns[$tableName][$columnName]->getDefinition();
+		}
+
+
+		/**
+		 * @param  string
 		 * @param  string|string[]
 		 * @return self
 		 */

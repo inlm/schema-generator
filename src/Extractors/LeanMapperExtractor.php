@@ -123,7 +123,7 @@
 				}
 
 				$column = $this->generator->addColumn($tableName, $columnName, $columnType);
-				$column->setNullable($property->isNullable());
+				$this->generator->setColumnNullable($tableName, $columnName, $property->isNullable());
 
 				$this->extractColumnComment($column, $property);
 				$this->extractColumnAutoIncrement($column, $property, $isPrimaryColumn);
