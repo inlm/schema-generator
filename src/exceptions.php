@@ -23,6 +23,11 @@
 	}
 
 
+	class IncompatibleException extends Exception
+	{
+	}
+
+
 	class InvalidArgumentException extends Exception
 	{
 	}
