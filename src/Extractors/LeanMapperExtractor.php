@@ -74,7 +74,7 @@
 
 			$tableName = $this->mapper->getTable($entityClass);
 			$tablePrimaryColumn = $this->mapper->getPrimaryKey($tableName);
-			$table = $this->generator->createTable($tableName, $tablePrimaryColumn);
+			$this->generator->createTable($tableName, $tablePrimaryColumn);
 
 			foreach ($this->getFamilyLine($reflection) as $member) {
 				$docComment = $member->getDocComment();

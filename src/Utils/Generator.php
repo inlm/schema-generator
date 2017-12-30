@@ -122,7 +122,7 @@
 		{
 			foreach ($this->hasManyTables as $hasManyTable => $data) {
 				if (!$this->hasTable($hasManyTable)) {
-					$table = $this->createTable($hasManyTable);
+					$this->createTable($hasManyTable);
 					$this->addColumn($hasManyTable, $data->getSourceColumn(), NULL);
 					$this->addColumn($hasManyTable, $data->getTargetColumn(), NULL);
 					$this->addPrimaryIndex($hasManyTable, array($data->getSourceColumn(), $data->getTargetColumn()));
@@ -196,7 +196,7 @@
 		/**
 		 * @param  string
 		 * @param  string|NULL
-		 * @return SqlSchema\Table
+		 * @return self
 		 */
 		public function createTable($tableName, $primaryColumn = NULL)
 		{
@@ -216,7 +216,7 @@
 			}
 
 			$this->tables[$tableName]->markAsCreated();
-			return $this->tables[$tableName]->getDefinition();
+			return $this;
 		}
 
 
