@@ -27,8 +27,8 @@
 		public static function isMysqlDriver($driver)
 		{
 			return $driver instanceof \Dibi\Drivers\MySqlDriver
-				|| $driver instanceof DibiMySqlDriver
+				|| $driver instanceof \DibiMySqlDriver
 				|| $driver instanceof \Dibi\Drivers\MySqliDriver
-				|| $driver instanceof DibiMySqliDriver;
+				|| $driver instanceof \DibiMySqliDriver;
 		}
 	}
