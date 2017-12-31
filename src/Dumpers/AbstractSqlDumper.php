@@ -282,7 +282,6 @@
 		protected function stop()
 		{
 			$this->started = FALSE;
-			$this->sqlDocument = NULL;
 			$this->description = NULL;
 		}
 

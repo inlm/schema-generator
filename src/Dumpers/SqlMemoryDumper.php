@@ -38,5 +38,6 @@
 		 */
 		public function end()
 		{
+			$this->stop();
 		}
 	}
