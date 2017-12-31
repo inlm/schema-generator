@@ -5,6 +5,7 @@ require __DIR__ . '/Test/Diff.php';
 require __DIR__ . '/Test/DummyAdapter.php';
 require __DIR__ . '/Test/DummyExtractor.php';
 require __DIR__ . '/Test/Schema.php';
+require __DIR__ . '/Test/TestGenerator.php';
 
 Tester\Environment::setup();
 
