@@ -38,7 +38,7 @@
 
 		/**
 		 * @param  int
-		 * @return self
+		 * @return static
 		 */
 		public function setOutputStructure($outputStructure)
 		{
@@ -48,7 +48,7 @@
 
 
 		/**
-		 * @return self
+		 * @return static
 		 * @deprecated
 		 */
 		public function setDeepStructure()

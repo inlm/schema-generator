@@ -81,7 +81,7 @@
 		 * @param  string
 		 * @param  string
 		 * @param  string
-		 * @return self
+		 * @return static
 		 */
 		public function addRelationship($sourceTable, $sourceColumn, $targetTable)
 		{
@@ -98,7 +98,7 @@
 
 		/**
 		 * @param  string
-		 * @return self
+		 * @return static
 		 */
 		public function addHasManyTable($tableName, $sourceTable, $sourceColumn, $targetTable, $targetColumn)
 		{
@@ -196,7 +196,7 @@
 		/**
 		 * @param  string
 		 * @param  string|NULL
-		 * @return self
+		 * @return static
 		 */
 		public function createTable($tableName, $primaryColumn = NULL)
 		{
@@ -272,7 +272,7 @@
 		 * @param  string
 		 * @param  string
 		 * @param  DataType
-		 * @return self
+		 * @return static
 		 */
 		public function addColumn($tableName, $columnName, DataType $columnType = NULL)
 		{
@@ -317,7 +317,7 @@
 		 * @param  string
 		 * @param  string
 		 * @param  bool
-		 * @return self
+		 * @return static
 		 */
 		public function setColumnNullable($tableName, $columnName, $isNullable = TRUE)
 		{
@@ -330,7 +330,7 @@
 		 * @param  string
 		 * @param  string
 		 * @param  string|NULL
-		 * @return self
+		 * @return static
 		 */
 		public function setColumnComment($tableName, $columnName, $comment)
 		{
@@ -343,7 +343,7 @@
 		 * @param  string
 		 * @param  string
 		 * @param  bool
-		 * @return self
+		 * @return static
 		 */
 		public function setColumnAutoIncrement($tableName, $columnName, $isAutoIncrement = TRUE)
 		{
@@ -369,7 +369,7 @@
 		/**
 		 * @param  string
 		 * @param  string|string[]
-		 * @return self
+		 * @return static
 		 */
 		public function addIndex($tableName, $columns)
 		{
@@ -381,7 +381,7 @@
 		/**
 		 * @param  string
 		 * @param  string|string[]
-		 * @return self
+		 * @return static
 		 */
 		public function addUniqueIndex($tableName, $columns)
 		{
@@ -393,7 +393,7 @@
 		/**
 		 * @param  string
 		 * @param  string|string[]
-		 * @return self
+		 * @return static
 		 */
 		public function addPrimaryIndex($tableName, $columns)
 		{

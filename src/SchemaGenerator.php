@@ -49,7 +49,7 @@
 		 * @param  string
 		 * @param  scalar|scalar[]
 		 * @param  array
-		 * @return self
+		 * @return static
 		 */
 		public function setCustomType($name, $dbType, $dbParameters = array(), array $dbOptions = array())
 		{
@@ -61,7 +61,7 @@
 		/**
 		 * @param  string
 		 * @param  scalar|NULL
-		 * @return self
+		 * @return static
 		 */
 		public function setOption($option, $value)
 		{
@@ -78,7 +78,7 @@
 
 		/**
 		 * @param  string
-		 * @return self
+		 * @return static
 		 */
 		public function removeOption($option)
 		{
@@ -89,7 +89,7 @@
 
 		/**
 		 * @param  bool
-		 * @return self
+		 * @return static
 		 */
 		public function setTestMode($testMode = TRUE)
 		{

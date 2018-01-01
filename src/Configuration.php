@@ -39,7 +39,7 @@
 
 
 		/**
-		 * @return self
+		 * @return static
 		 */
 		public function setOptions(array $options)
 		{
@@ -52,7 +52,7 @@
 		/**
 		 * @param  string
 		 * @param  scalar|NULL
-		 * @return self
+		 * @return static
 		 */
 		public function setOption($option, $value)
 		{
