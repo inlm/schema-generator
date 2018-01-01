@@ -273,7 +273,7 @@
 		private function generateCommentUpdate(array &$updates, SqlSchema\Table $old, SqlSchema\Table $new)
 		{
 			if ($old->getComment() !== $new->getComment()) {
-				$updates[] = new Diffs\UpdatedTableComment($new->getName(), $new->getComment());
+				$updates[] = new Diffs\UpdatedTableComment($new->getName(), (string) $new->getComment());
 			}
 		}
 
