@@ -68,7 +68,7 @@
 			$reflection = call_user_func(array($entityClass, 'getReflection'), $this->mapper);
 			$properties = $reflection->getEntityProperties();
 
-			if (empty($properties)) {
+			if (empty($properties) || $this->isEntityIgnored($reflection->getDocComment())) {
 				return;
 			}
 
@@ -131,6 +131,29 @@
 				$this->extractColumnIndex($property, 'unique', $tableName, $columnName);
 				$this->extractColumnIndex($property, 'index', $tableName, $columnName);
 			}
+		}
+
+
+		/**
+		 * @param  string
+		 * @return bool
+		 */
+		protected function isEntityIgnored($docComment)
+		{
+			// @schema-ignore
+			// @schemaIgnore
+			$annotations = array(
+				'schema-ignore',
+				'schemaIgnore',
+			);
+
+			foreach ($annotations as $annotation) {
+				if (AnnotationsParser::parseSimpleAnnotationValue($annotation, $docComment) !== NULL) {
+					return TRUE;
+				}
+			}
+
+			return FALSE;
 		}
 
 
