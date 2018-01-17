@@ -5,6 +5,7 @@ use Inlm\SchemaGenerator\Configuration;
 use Inlm\SchemaGenerator\ConfigurationSerializer;
 use Inlm\SchemaGenerator\DataType;
 use Inlm\SchemaGenerator\Extractors\LeanMapperExtractor;
+use Inlm\SchemaGenerator\SchemaGenerator;
 use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';
@@ -17,7 +18,7 @@ test(function () {
 
 	$schema = $extractor->generateSchema(array(), array(
 		'test\leanmapperextractor\customtypes\image' => new DataType('varchar', array(100)),
-	));
+	), SchemaGenerator::MYSQL);
 	$serialized = ConfigurationSerializer::serialize(new Configuration($schema));
 	$generated = $serialized['schema'];
 	ksort($generated, SORT_STRING);

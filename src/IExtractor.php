@@ -8,7 +8,10 @@
 	interface IExtractor
 	{
 		/**
+		 * @param  array
+		 * @param  array
+		 * @param  string|NULL
 		 * @return Schema
 		 */
-		function generateSchema(array $options, array $customTypes = array());
+		function generateSchema(array $options = array(), array $customTypes = array(), $databaseType = NULL);
 	}

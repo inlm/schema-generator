@@ -9,9 +9,10 @@
 	{
 		/**
 		 * @param  string|NULL
+		 * @param  string|NULL
 		 * @return void
 		 */
-		function start($description = NULL);
+		function start($description = NULL, $databaseType = NULL);
 
 
 		/**

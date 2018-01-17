@@ -12,7 +12,7 @@ $generator->removeOption('ENGINE');
 $generator->setOption('ENGINE', NULL);
 ```
 
-Prepared options:
+Prepared options for MySQL:
 
 - `ENGINE` = `InnoDB`
 - `COLLATE` = `utf8mb4_czech_ci`

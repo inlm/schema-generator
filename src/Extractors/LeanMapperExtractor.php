@@ -29,6 +29,9 @@
 		/** @var array  [name => DataType] */
 		protected $customTypes;
 
+		/** @var string|NULL */
+		protected $databaseType;
+
 		/** @var Generator */
 		protected $generator;
 
@@ -47,10 +50,11 @@
 		/**
 		 * @return SqlSchema\Schema
 		 */
-		public function generateSchema(array $options = array(), array $customTypes = array())
+		public function generateSchema(array $options = array(), array $customTypes = array(), $databaseType = NULL)
 		{
-			$this->generator = new Generator($options);
+			$this->generator = new Generator($options, $databaseType);
 			$this->customTypes = $customTypes;
+			$this->databaseType = $databaseType;
 			$entities = $this->findEntities();
 
 			foreach ($entities as $entity) {
@@ -262,7 +266,7 @@
 			}
 
 			try {
-				return DataTypeProcessor::process($property->getType(), $datatype, $isPrimaryColumn, $this->customTypes);
+				return DataTypeProcessor::process($property->getType(), $datatype, $isPrimaryColumn, $this->customTypes, $this->databaseType);
 
 			} catch (MissingException $e) {
 				throw new MissingException("Missing type for property '{$property->getName()}' in entity '{$entityClass}'.", 0, $e);

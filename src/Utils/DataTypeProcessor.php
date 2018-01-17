@@ -23,9 +23,10 @@
 		 * @param  DataType|NULL
 		 * @param  bool
 		 * @param  array  [type => DataType]
+		 * @param  string|NULL
 		 * @return DataType
 		 */
-		public static function process($inputType, DataType $dbType = NULL, $isPrimaryColumn, array $customTypes)
+		public static function process($inputType, DataType $dbType = NULL, $isPrimaryColumn, array $customTypes, $databaseType = NULL)
 		{
 			$type = NULL;
 			$parameters = array();

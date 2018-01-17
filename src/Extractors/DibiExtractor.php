@@ -34,7 +34,7 @@
 		/**
 		 * @return SqlSchema\Schema
 		 */
-		public function generateSchema(array $options = array(), array $customTypes = array())
+		public function generateSchema(array $options = array(), array $customTypes = array(), $databaseType = NULL)
 		{
 			$dibiDriver = $this->connection->getDriver();
 

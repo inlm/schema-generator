@@ -18,7 +18,7 @@
 		/** @var string */
 		private $directory;
 
-		/** @var SqlGenerator\IDriver */
+		/** @var SqlGenerator\IDriver|string|NULL */
 		private $driver;
 
 		/** @var int */
@@ -27,12 +27,12 @@
 
 		/**
 		 * @param  string
-		 * @param  string|SqlGenerator\IDriver
+		 * @param  SqlGenerator\IDriver|string|NULL
 		 */
-		public function __construct($directory, $driver)
+		public function __construct($directory, $driver = NULL)
 		{
 			$this->directory = $directory;
-			$this->driver = $this->prepareDriver($driver);
+			$this->driver = $driver;
 		}
 
 
@@ -66,6 +66,7 @@
 			$this->checkIfStarted();
 
 			if (!$this->sqlDocument->isEmpty()) {
+				$driver = $this->prepareDriver($this->driver !== NULL ? $this->driver : $this->databaseType);
 				$directory = $this->directory;
 
 				if ($this->outputStructure === self::YEAR_MONTH) {
@@ -95,7 +96,7 @@
 				}
 
 				@mkdir($directory, 0777, TRUE);
-				file_put_contents($path, $this->sqlDocument->toSql($this->driver));
+				file_put_contents($path, $this->sqlDocument->toSql($driver));
 			}
 
 			$this->stop();

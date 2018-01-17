@@ -5,5 +5,5 @@
 
 
 ```php
-$dumper = new Inlm\SchemaGenerator\Dumpers\NullDumper();
+$dumper = new Inlm\SchemaGenerator\Dumpers\NullDumper;
 ```

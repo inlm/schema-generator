@@ -20,7 +20,7 @@
 		/**
 		 * @return Schema
 		 */
-		public function generateSchema(array $options, array $customTypes = array())
+		public function generateSchema(array $options = array(), array $customTypes = array(), $databaseType = NULL)
 		{
 			return $this->schema;
 		}

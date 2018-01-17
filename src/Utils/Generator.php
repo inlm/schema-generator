@@ -7,12 +7,16 @@
 	use Inlm\SchemaGenerator\DuplicatedException;
 	use Inlm\SchemaGenerator\InvalidArgumentException;
 	use Inlm\SchemaGenerator\MissingException;
+	use Inlm\SchemaGenerator\SchemaGenerator;
 
 
 	class Generator
 	{
 		/** @var array */
 		private $options;
+
+		/** @var string|NULL */
+		private $databaseType;
 
 		/** @var SqlSchema\Schema */
 		private $schema;
@@ -33,9 +37,10 @@
 		private $hasManyTables = array();
 
 
-		public function __construct(array $options = array())
+		public function __construct(array $options = array(), $databaseType = NULL)
 		{
 			$this->options = $options;
+			$this->databaseType = $databaseType;
 			$this->schema = new SqlSchema\Schema;
 		}
 
@@ -182,12 +187,19 @@
 					$_sourceColumn->setParameters($_targetColumn->getParameters());
 					$_sourceColumn->setOptions($_targetColumn->getOptions());
 
+					$foreignKeyName = $this->formatForeignKey($sourceTable, $sourceColumn);
 					$_sourceTable->addForeignKey(
-						$this->formatForeignKey($sourceTable, $sourceColumn),
+						$foreignKeyName,
 						$sourceColumn,
 						$targetTable,
 						$targetColumn
 					);
+
+					if ($this->databaseType === SchemaGenerator::MYSQL) { // foreign keys requires index
+						if (!$this->hasIndexWithFirstColumn($sourceTable, $sourceColumn)) {
+							$this->addTableIndex($sourceTable, SqlSchema\Index::TYPE_INDEX, $sourceColumn, $foreignKeyName);
+						}
+					}
 				}
 			}
 		}
@@ -415,12 +427,42 @@
 		/**
 		 * @param  string
 		 * @param  string
+		 * @return bool
+		 */
+		protected function hasIndexWithFirstColumn($tableName, $columnName)
+		{
+			if (!isset($this->indexes[$tableName])) {
+				return FALSE;
+			}
+
+			foreach ($this->indexes[$tableName] as $indexName => $generatorIndex) {
+				$definition = $generatorIndex->getDefinition();
+
+				foreach ($definition->getColumns() as $indexColumn) {
+					if ($indexColumn->getName() === $columnName) {
+						return TRUE;
+					}
+
+					break;
+				}
+			}
+
+			return FALSE;
+		}
+
+
+		/**
+		 * @param  string
+		 * @param  string
 		 * @param  string|string[]
+		 * @param  string|NULL
 		 * @return void
 		 */
-		protected function addTableIndex($tableName, $type, $columns)
+		protected function addTableIndex($tableName, $type, $columns, $indexName = NULL)
 		{
-			$indexName = $type !== SqlSchema\Index::TYPE_PRIMARY ? $this->formatIndexName($columns) : NULL;
+			if ($indexName === NULL) {
+				$indexName = $type !== SqlSchema\Index::TYPE_PRIMARY ? $this->formatIndexName($columns) : NULL;
+			}
 
 			if (isset($this->indexes[$tableName][$indexName])) {
 				$this->indexes[$tableName][$indexName]->checkCompatibility($type, $columns);

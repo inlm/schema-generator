@@ -1,7 +1,7 @@
 
 # DibiExtractor
 
-It generates schema from existing MySQL database. Requires [Dibi](https://dibiphp.com). It supports only MySQL at this time.
+It generates schema from existing database. Requires [Dibi](https://dibiphp.com). It supports only MySQL at this time.
 
 ```php
 $connection = new Dibi\Connection(...);

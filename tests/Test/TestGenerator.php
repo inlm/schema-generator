@@ -22,9 +22,9 @@
 			$test = new static;
 			$test->adapter = new DummyAdapter(new SchemaGenerator\Configuration($oldSchema));
 			$test->extractor = new DummyExtractor($newSchema);
-			$test->dumper = new SchemaGenerator\Dumpers\SqlMemoryDumper(SchemaGenerator\Dumpers\SqlMemoryDumper::MYSQL);
+			$test->dumper = new SchemaGenerator\Dumpers\SqlMemoryDumper;
 			$test->logger = new SchemaGenerator\Loggers\MemoryLogger;
-			$test->generator = new SchemaGenerator\SchemaGenerator($test->extractor, $test->adapter, $test->dumper, $test->logger);
+			$test->generator = new SchemaGenerator\SchemaGenerator($test->extractor, $test->adapter, $test->dumper, $test->logger, SchemaGenerator\SchemaGenerator::MYSQL);
 
 			return $test;
 		}

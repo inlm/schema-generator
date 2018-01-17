@@ -5,8 +5,7 @@
 
 
 ```php
-$driver = Inlm\SchemaGenerator\Dumpers\SqlDumper::MYSQL; // or instance of CzProject\SqlGenerator\IDriver
-$dumper = new Inlm\SchemaGenerator\Dumpers\SqlDumper(__DIR__ . '/migrations/structures/', $driver);
+$dumper = new Inlm\SchemaGenerator\Dumpers\SqlDumper(__DIR__ . '/migrations/structures/');
 ```
 
 You can enable deep structure and save files to subdirectories:
@@ -15,4 +14,11 @@ You can enable deep structure and save files to subdirectories:
 $dumper->setOutputStructure($dumper::YEAR_MONTH); // YYYY/MM/YYYY-MM-DD-HHMMSS.sql
 $dumper->setOutputStructure($dumper::YEAR); // YYYY/YYYY-MM-DD-HHMMSS.sql
 $dumper->setOutputStructure($dumper::FLAT); // YYYY-MM-DD-HHMMSS.sql
+```
+
+If you need, you can provide custom SQL driver in constructor:
+
+```php
+$driver = new CzProject\SqlGenerator\Drivers\MysqlDriver; // instance of CzProject\SqlGenerator\IDriver
+$dumper = new Inlm\SchemaGenerator\Dumpers\SqlDumper(__DIR__ . '/migrations/structures/', $driver);
 ```

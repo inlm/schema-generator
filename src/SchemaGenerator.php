@@ -7,6 +7,8 @@
 
 	class SchemaGenerator
 	{
+		const MYSQL = 'mysql';
+
 		/** @var IExtractor */
 		private $extractor;
 
@@ -19,6 +21,9 @@
 		/** @var ILogger|NULL */
 		private $logger;
 
+		/** @var string */
+		private $databaseType;
+
 		/** @var array */
 		private $options;
 
@@ -29,18 +34,14 @@
 		private $testMode = FALSE;
 
 
-		public function __construct(IExtractor $extractor, IAdapter $adapter, IDumper $dumper, ILogger $logger = NULL)
+		public function __construct(IExtractor $extractor, IAdapter $adapter, IDumper $dumper, ILogger $logger = NULL, $databaseType = self::MYSQL)
 		{
 			$this->extractor = $extractor;
 			$this->adapter = $adapter;
 			$this->dumper = $dumper;
 			$this->logger = $logger;
-			$this->options = array(
-				'ENGINE' => 'InnoDB',
-				'CHARACTER SET' => 'utf8mb4',
-				'COLLATE' => 'utf8mb4_czech_ci',
-			);
-			$this->setCustomType('money', 'DECIMAL', array(15, 4));
+			$this->databaseType = $databaseType;
+			$this->prepareDefaults($databaseType);
 		}
 
 
@@ -111,14 +112,14 @@
 			$configOld = $this->adapter->load();
 			$options = $configOld->getOptions() + $this->options;
 			$this->log('Generating schema');
-			$configNew = new Configuration($this->extractor->generateSchema($options, $this->customTypes));
+			$configNew = new Configuration($this->extractor->generateSchema($options, $this->customTypes, $this->databaseType));
 			$configNew->setOptions($options);
 
 			$this->log('Generating diff');
 			$schemaDiff = new DiffGenerator($configOld->getSchema(), $configNew->getSchema());
 
 			$this->log('Generating migrations');
-			$this->dumper->start($description);
+			$this->dumper->start($description, $this->databaseType);
 
 			foreach ($schemaDiff->getCreatedAndUpdatedTables() as $diff) {
 				if ($diff instanceof Diffs\CreatedTable) {
@@ -212,6 +213,19 @@
 			}
 
 			$this->log('Done.');
+		}
+
+
+		private function prepareDefaults($databaseType)
+		{
+			if ($databaseType === self::MYSQL) {
+				$this->options = array(
+					'ENGINE' => 'InnoDB',
+					'CHARACTER SET' => 'utf8mb4',
+					'COLLATE' => 'utf8mb4_czech_ci',
+				);
+				$this->setCustomType('money', 'DECIMAL', array(15, 4));
+			}
 		}
 
 

@@ -6,17 +6,19 @@
 	use CzProject\SqlSchema;
 	use Inlm\SchemaGenerator\Diffs;
 	use Inlm\SchemaGenerator\IDumper;
+	use Inlm\SchemaGenerator\SchemaGenerator;
 
 
 	abstract class AbstractSqlDumper implements IDumper
 	{
-		const MYSQL = 'mysql';
-
 		/** @var SqlGenerator\SqlDocument */
 		protected $sqlDocument;
 
 		/** @var string|NULL */
 		protected $description;
+
+		/** @var string */
+		protected $databaseType;
 
 		/** @var bool */
 		protected $started = FALSE;
@@ -30,9 +32,10 @@
 
 		/**
 		 * @param  string|NULL
+		 * @param  string|NULL
 		 * @return void
 		 */
-		public function start($description = NULL)
+		public function start($description = NULL, $databaseType = NULL)
 		{
 			if ($this->started) {
 				throw new \Inlm\SchemaGenerator\InvalidStateException('Dumper is already started.');
@@ -40,6 +43,7 @@
 
 			$this->sqlDocument = new SqlGenerator\SqlDocument;
 			$this->description = $description;
+			$this->databaseType = $databaseType;
 			$this->started = TRUE;
 		}
 
@@ -331,13 +335,17 @@
 
 
 		/**
-		 * @param  string|SqlGenerator\IDriver
+		 * @param  SqlGenerator\IDriver|string|NULL
 		 * @return SqlGenerator\IDriver
 		 * @throws \Inlm\SchemaGenerator\InvalidArgumentException
 		 */
 		protected function prepareDriver($driver)
 		{
-			if (is_string($driver) && $driver === self::MYSQL) {
+			if ($driver === NULL) {
+				throw new \Inlm\SchemaGenerator\InvalidArgumentException('You must provide driver to dumper.');
+			}
+
+			if (is_string($driver) && $driver === SchemaGenerator::MYSQL) {
 				return new SqlGenerator\Drivers\MysqlDriver;
 
 			} elseif (is_object($driver) && $driver instanceof SqlGenerator\IDriver) {

@@ -27,7 +27,7 @@
 		/**
 		 * @return Schema
 		 */
-		public function generateSchema(array $options = array(), array $customTypes = array())
+		public function generateSchema(array $options = array(), array $customTypes = array(), $databaseType = NULL)
 		{
 			$content = FileSystem::read($this->file);
 			$config = array();

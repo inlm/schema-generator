@@ -9,6 +9,6 @@ $generator->setCustomType('money', 'DECIMAL', array(15, 4));
 $generator->setCustomType('App\Model\Image', 'VARCHAR', array(100));
 ```
 
-Prepared custom types:
+Prepared custom types for MySQL:
 
 - `money` - `DECIMAL(15, 4)`
