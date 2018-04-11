@@ -402,7 +402,7 @@
 			$entities = array();
 
 			foreach ($classes as $class) {
-				if (!class_exists($class)) {
+				if (!class_exists($class) && !interface_exists($class)) {
 					$robot->tryLoad($class);
 				}
 
