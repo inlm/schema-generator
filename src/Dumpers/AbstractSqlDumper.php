@@ -4,6 +4,7 @@
 
 	use CzProject\SqlGenerator;
 	use CzProject\SqlSchema;
+	use Inlm\SchemaGenerator\Database;
 	use Inlm\SchemaGenerator\Diffs;
 	use Inlm\SchemaGenerator\IDumper;
 	use Inlm\SchemaGenerator\SchemaGenerator;
@@ -345,7 +346,7 @@
 				throw new \Inlm\SchemaGenerator\InvalidArgumentException('You must provide driver to dumper.');
 			}
 
-			if (is_string($driver) && $driver === SchemaGenerator::MYSQL) {
+			if (is_string($driver) && $driver === Database::MYSQL) {
 				return new SqlGenerator\Drivers\MysqlDriver;
 
 			} elseif (is_object($driver) && $driver instanceof SqlGenerator\IDriver) {

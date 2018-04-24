@@ -10,7 +10,7 @@ require __DIR__ . '/lm-sti/Mapper.php';
 $directory = __DIR__ . '/lm-empty-properties';
 $adapter = new Test\DummyAdapter(new SchemaGenerator\Configuration(new SqlSchema\Schema));
 $extractor = new SchemaGenerator\Extractors\LeanMapperExtractor($directory, new LeanMapper\DefaultMapper);
-$dumper = new SchemaGenerator\Dumpers\SqlMemoryDumper(SchemaGenerator\SchemaGenerator::MYSQL);
+$dumper = new SchemaGenerator\Dumpers\SqlMemoryDumper(SchemaGenerator\Database::MYSQL);
 $logger = new SchemaGenerator\Loggers\MemoryLogger;
 
 $schemaGenerator = new SchemaGenerator\SchemaGenerator($extractor, $adapter, $dumper, $logger);

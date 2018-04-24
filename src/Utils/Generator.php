@@ -3,6 +3,7 @@
 	namespace Inlm\SchemaGenerator\Utils;
 
 	use CzProject\SqlSchema;
+	use Inlm\SchemaGenerator\Database;
 	use Inlm\SchemaGenerator\DataType;
 	use Inlm\SchemaGenerator\DuplicatedException;
 	use Inlm\SchemaGenerator\InvalidArgumentException;
@@ -195,7 +196,7 @@
 						$targetColumn
 					);
 
-					if ($this->databaseType === SchemaGenerator::MYSQL) { // foreign keys requires index
+					if ($this->databaseType === Database::MYSQL) { // foreign keys requires index
 						if (!$this->hasIndexWithFirstColumn($sourceTable, $sourceColumn)) {
 							$this->addTableIndex($sourceTable, SqlSchema\Index::TYPE_INDEX, $sourceColumn, $foreignKeyName);
 						}

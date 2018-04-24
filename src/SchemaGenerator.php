@@ -7,8 +7,6 @@
 
 	class SchemaGenerator
 	{
-		const MYSQL = 'mysql';
-
 		/** @var IExtractor */
 		private $extractor;
 
@@ -34,7 +32,7 @@
 		private $testMode = FALSE;
 
 
-		public function __construct(IExtractor $extractor, IAdapter $adapter, IDumper $dumper, ILogger $logger = NULL, $databaseType = self::MYSQL)
+		public function __construct(IExtractor $extractor, IAdapter $adapter, IDumper $dumper, ILogger $logger = NULL, $databaseType = Database::MYSQL)
 		{
 			$this->extractor = $extractor;
 			$this->adapter = $adapter;
@@ -218,7 +216,7 @@
 
 		private function prepareDefaults($databaseType)
 		{
-			if ($databaseType === self::MYSQL) {
+			if ($databaseType === Database::MYSQL) {
 				$this->options = array(
 					'ENGINE' => 'InnoDB',
 					'CHARACTER SET' => 'utf8mb4',

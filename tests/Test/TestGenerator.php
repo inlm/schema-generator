@@ -24,7 +24,7 @@
 			$test->extractor = new DummyExtractor($newSchema);
 			$test->dumper = new SchemaGenerator\Dumpers\SqlMemoryDumper;
 			$test->logger = new SchemaGenerator\Loggers\MemoryLogger;
-			$test->generator = new SchemaGenerator\SchemaGenerator($test->extractor, $test->adapter, $test->dumper, $test->logger, SchemaGenerator\SchemaGenerator::MYSQL);
+			$test->generator = new SchemaGenerator\SchemaGenerator($test->extractor, $test->adapter, $test->dumper, $test->logger, SchemaGenerator\Database::MYSQL);
 
 			return $test;
 		}

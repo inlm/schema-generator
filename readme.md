@@ -25,7 +25,7 @@ $adapter = new Inlm\SchemaGenerator\Adapters\NeonAdapter(__DIR__ . '/.schema.neo
 $dumper = new Inlm\SchemaGenerator\Dumpers\SqlDumper(__DIR__ . '/migrations/structures/');
 $logger = new Inlm\SchemaGenerator\Loggers\MemoryLogger;
 
-$generator = new Inlm\SchemaGenerator\SchemaGenerator($extractor, $adapter, $dumper, $logger, Inlm\SchemaGenerator\SchemaGenerator::MYSQL);
+$generator = new Inlm\SchemaGenerator\SchemaGenerator($extractor, $adapter, $dumper, $logger, Inlm\SchemaGenerator\Database::MYSQL);
 // $generator->setTestMode();
 
 $generator->generate();
