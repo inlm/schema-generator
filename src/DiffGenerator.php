@@ -26,23 +26,13 @@
 		 */
 		public function getCreatedAndUpdatedTables()
 		{
-			$tableOrder = $this->resolveOrder();
 			$createdTables = $this->getCreatedTables();
 			$updatedTables = $this->getUpdatedTables();
-			$result = array_merge($createdTables, $updatedTables);
 
-			usort($result, function ($a, $b) use ($tableOrder) {
-				$orderA = $this->getTableOrder($tableOrder, $a);
-				$orderB = $this->getTableOrder($tableOrder, $b);
-
-				if ($orderA === $orderB) {
-					return 0;
-				}
-
-				return $orderA > $orderB ? 1 : -1;
-			});
-
-			return $result;
+			return $this->sortTables(
+				$this->new->getTables(),
+				array_merge($createdTables, $updatedTables)
+			);
 		}
 
 
@@ -90,7 +80,8 @@
 				}
 			}
 
-			return $tables;
+			$tables = $this->sortTables($this->old->getTables(), $tables);
+			return array_reverse($tables);
 		}
 
 
@@ -381,14 +372,33 @@
 		}
 
 
+		private function sortTables(array $allTables, array $tablesToSort)
+		{
+			$tableOrder = $this->resolveOrder($allTables);
+
+			usort($tablesToSort, function ($a, $b) use ($tableOrder) {
+				$orderA = $this->getTableOrder($tableOrder, $a);
+				$orderB = $this->getTableOrder($tableOrder, $b);
+
+				if ($orderA === $orderB) {
+					return 0;
+				}
+
+				return $orderA > $orderB ? 1 : -1;
+			});
+
+			return $tablesToSort;
+		}
+
+
 		/**
 		 * @return array  [tableName => order]
 		 */
-		private function resolveOrder()
+		private function resolveOrder(array $tables)
 		{
 			$resolver = new \Cz\Dependency;
 
-			foreach ($this->new->getTables() as $table) {
+			foreach ($tables as $table) {
 				$sourceTable = $table->getName();
 				$targetTables = array();
 
@@ -406,12 +416,12 @@
 
 		/**
 		 * @param  array
-		 * @param  Diffs\CreatedTable|Diffs\UpdatedTable
+		 * @param  Diffs\CreatedTable|Diffs\UpdatedTable|Diffs\RemovedTable
 		 * @return int|NULL
 		 */
 		private function getTableOrder(array $tableOrder, $diff)
 		{
-			if (!($diff instanceof Diffs\CreatedTable) && !($diff instanceof Diffs\UpdatedTable)) {
+			if (!($diff instanceof Diffs\CreatedTable) && !($diff instanceof Diffs\UpdatedTable) && !($diff instanceof Diffs\RemovedTable)) {
 				throw new UnsupportedException('Diff ' . get_class($diff) . ' is not supported.');
 			}
 

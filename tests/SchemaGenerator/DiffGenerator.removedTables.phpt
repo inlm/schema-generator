@@ -19,8 +19,8 @@ test(function () {
 
 	$diff = new DiffGenerator($old, $new);
 	$expected = array(
-		'book',
 		'author',
+		'book',
 	);
 
 	foreach ($diff->getRemovedTables() as $k => $removedTable) {
