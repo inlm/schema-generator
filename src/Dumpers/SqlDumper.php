@@ -96,7 +96,7 @@
 				}
 
 				@mkdir($directory, 0777, TRUE);
-				file_put_contents($path, $this->sqlDocument->toSql($driver));
+				file_put_contents($path, $this->getHeaderBlock() . $this->sqlDocument->toSql($driver));
 			}
 
 			$this->stop();

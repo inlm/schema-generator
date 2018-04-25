@@ -7,4 +7,7 @@
 ```php
 $connection = new Dibi\Connection(...);
 $dumper = new Inlm\SchemaGenerator\Dumpers\DibiDumper($connection);
+$dumper->setHeader(array(
+	'SET foreign_key_checks = 1;',
+));
 ```

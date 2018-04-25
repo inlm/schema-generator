@@ -1,4 +1,8 @@
 
+SET foreign_key_checks = 1;
+SET time_zone = "SYSTEM";
+SET sql_mode = "TRADITIONAL";
+
 CREATE TABLE `book` (
 	`id` TEXT NOT NULL,
 	`name` TEXT NOT NULL,

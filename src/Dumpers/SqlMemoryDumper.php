@@ -30,7 +30,7 @@
 		public function getSql()
 		{
 			$driver = $this->prepareDriver($this->driver !== NULL ? $this->driver : $this->databaseType);
-			return $this->sqlDocument->toSql($driver);
+			return (!$this->sqlDocument->isEmpty() ? $this->getHeaderBlock() : '') . $this->sqlDocument->toSql($driver);
 		}
 
 

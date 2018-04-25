@@ -6,6 +6,9 @@
 
 ```php
 $dumper = new Inlm\SchemaGenerator\Dumpers\SqlMemoryDumper;
+$dumper->setHeader(array(
+	'SET foreign_key_checks = 1;',
+));
 $sql = $dumper->getSql();
 ```
 

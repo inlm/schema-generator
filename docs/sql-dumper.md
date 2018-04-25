@@ -6,6 +6,9 @@
 
 ```php
 $dumper = new Inlm\SchemaGenerator\Dumpers\SqlDumper(__DIR__ . '/migrations/structures/');
+$dumper->setHeader(array(
+	'SET foreign_key_checks = 1;',
+));
 ```
 
 You can enable deep structure and save files to subdirectories:

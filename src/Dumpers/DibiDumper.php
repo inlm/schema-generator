@@ -45,6 +45,10 @@
 					throw new \Inlm\SchemaGenerator\UnsupportedException('Driver ' . get_class($dibiDriver) . ' is not supported.');
 				}
 
+				foreach ($this->getHeader() as $query) {
+					$dibiDriver->query($query);
+				}
+
 				$queries = $this->sqlDocument->getSqlQueries($sqlDriver);
 
 				foreach ($queries as $query) {

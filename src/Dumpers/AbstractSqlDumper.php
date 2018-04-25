@@ -21,6 +21,9 @@
 		/** @var string */
 		protected $databaseType;
 
+		/** @var string[]|NULL */
+		protected $header;
+
 		/** @var bool */
 		protected $started = FALSE;
 
@@ -29,6 +32,17 @@
 			'table' => NULL,
 			'statement' => NULL,
 		);
+
+
+		/**
+		 * @param  string[]|NULL
+		 * @return static
+		 */
+		public function setHeader(array $header = NULL)
+		{
+			$this->header = $header;
+			return $this;
+		}
 
 
 		/**
@@ -332,6 +346,37 @@
 			}
 
 			return $this->_tableAlter['statement'];
+		}
+
+
+		/**
+		 * @return string[]
+		 */
+		protected function getHeader()
+		{
+			if ($this->header !== NULL) {
+				return $this->header;
+			}
+
+			if ($this->databaseType === Database::MYSQL) {
+				return array(
+					'SET foreign_key_checks = 1;',
+					'SET time_zone = "SYSTEM";',
+					'SET sql_mode = "TRADITIONAL";',
+				);
+			}
+
+			return array();
+		}
+
+
+		/**
+		 * @return string
+		 */
+		protected function getHeaderBlock()
+		{
+			$header = implode("\n", $this->getHeader());
+			return $header !== '' ? ("\n" . $header . "\n") : '';
 		}
 
 
