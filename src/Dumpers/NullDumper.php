@@ -10,11 +10,11 @@
 	class NullDumper implements IDumper
 	{
 		/**
-		 * @param  string|NULL
+		 * @param  string  see Database::*
 		 * @param  string|NULL
 		 * @return void
 		 */
-		public function start($description = NULL, $databaseType = NULL)
+		public function start($databaseType, $description = NULL)
 		{
 		}
 

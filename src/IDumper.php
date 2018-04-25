@@ -8,11 +8,11 @@
 	interface IDumper
 	{
 		/**
-		 * @param  string|NULL
+		 * @param  string  see Database::*
 		 * @param  string|NULL
 		 * @return void
 		 */
-		function start($description = NULL, $databaseType = NULL);
+		function start($databaseType, $description = NULL);
 
 
 		/**

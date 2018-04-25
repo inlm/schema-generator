@@ -117,7 +117,7 @@
 			$schemaDiff = new DiffGenerator($configOld->getSchema(), $configNew->getSchema());
 
 			$this->log('Generating migrations');
-			$this->dumper->start($description, $this->databaseType);
+			$this->dumper->start($this->databaseType, $description);
 
 			foreach ($schemaDiff->getCreatedAndUpdatedTables() as $diff) {
 				if ($diff instanceof Diffs\CreatedTable) {

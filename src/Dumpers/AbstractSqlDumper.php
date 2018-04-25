@@ -46,11 +46,11 @@
 
 
 		/**
-		 * @param  string|NULL
+		 * @param  string  see Database::*
 		 * @param  string|NULL
 		 * @return void
 		 */
-		public function start($description = NULL, $databaseType = NULL)
+		public function start($databaseType, $description = NULL)
 		{
 			if ($this->started) {
 				throw new \Inlm\SchemaGenerator\InvalidStateException('Dumper is already started.');
