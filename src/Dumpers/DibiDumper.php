@@ -36,14 +36,7 @@
 
 			if (!$this->sqlDocument->isEmpty()) {
 				$dibiDriver = $this->connection->getDriver();
-				$sqlDriver = NULL;
-
-				if (Bridges\Dibi::isMysqlDriver($dibiDriver)) {
-					$sqlDriver = new SqlGenerator\Drivers\MysqlDriver;
-
-				} else {
-					throw new \Inlm\SchemaGenerator\UnsupportedException('Driver ' . get_class($dibiDriver) . ' is not supported.');
-				}
+				$sqlDriver = $this->prepareDriver($dibiDriver);
 
 				foreach ($this->getHeader() as $query) {
 					$dibiDriver->query($query);
@@ -57,5 +50,15 @@
 			}
 
 			$this->stop();
+		}
+
+
+		protected function prepareDriver($dibiDriver)
+		{
+			if (Bridges\Dibi::isMysqlDriver($dibiDriver)) {
+				return new SqlGenerator\Drivers\MysqlDriver;
+			}
+
+			throw new \Inlm\SchemaGenerator\UnsupportedException('Driver ' . get_class($dibiDriver) . ' is not supported.');
 		}
 	}

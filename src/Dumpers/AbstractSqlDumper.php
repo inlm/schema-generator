@@ -381,21 +381,14 @@
 
 
 		/**
-		 * @param  SqlGenerator\IDriver|string|NULL
+		 * @param  string|object
 		 * @return SqlGenerator\IDriver
 		 * @throws \Inlm\SchemaGenerator\InvalidArgumentException
 		 */
 		protected function prepareDriver($driver)
 		{
-			if ($driver === NULL) {
-				throw new \Inlm\SchemaGenerator\InvalidArgumentException('You must provide driver to dumper.');
-			}
-
-			if (is_string($driver) && $driver === Database::MYSQL) {
+			if ($driver === Database::MYSQL) {
 				return new SqlGenerator\Drivers\MysqlDriver;
-
-			} elseif (is_object($driver) && $driver instanceof SqlGenerator\IDriver) {
-				return $driver;
 			}
 
 			throw new \Inlm\SchemaGenerator\InvalidArgumentException('Driver is not supported.');

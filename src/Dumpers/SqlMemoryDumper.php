@@ -11,25 +11,12 @@
 
 	class SqlMemoryDumper extends AbstractSqlDumper
 	{
-		/** @var SqlGenerator\IDriver|string|NULL */
-		private $driver;
-
-
-		/**
-		 * @param  SqlGenerator\IDriver|string|NULL
-		 */
-		public function __construct($driver = NULL)
-		{
-			$this->driver = $driver;
-		}
-
-
 		/**
 		 * @return string
 		 */
 		public function getSql()
 		{
-			$driver = $this->prepareDriver($this->driver !== NULL ? $this->driver : $this->databaseType);
+			$driver = $this->prepareDriver($this->databaseType);
 			return (!$this->sqlDocument->isEmpty() ? $this->getHeaderBlock() : '') . $this->sqlDocument->toSql($driver);
 		}
 
