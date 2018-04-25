@@ -38,6 +38,7 @@ $generator->generate('changes description');
 * [Custom Types](docs/custom-types.md)
 * [Table Options](docs/table-options.md)
 * [Examples](docs/examples.md)
+* [Integrations](docs/integrations.md)
 
 Supported databases:
 
