@@ -28,3 +28,17 @@ $integration = new Inlm\SchemaGenerator\Integrations\LeanMapperIntegration(
 	$mapper = new LeanMapper\DefaultMapper
 );
 ```
+
+
+## Bridges
+
+### czproject/phpcli
+
+If you use `czproject/phpcli` you can use next prepared commands:
+
+```php
+$application = new CzProject\PhpCli\Application\Application;
+$application->addCommand(new Inlm\SchemaGenerator\Bridges\PhpCli\CreateMigrationCommand($integration));
+$application->addCommand(new Inlm\SchemaGenerator\Bridges\PhpCli\DiffCommand($integration));
+$application->addCommand(new Inlm\SchemaGenerator\Bridges\PhpCli\UpdateDatabaseCommand($integration));
+```
