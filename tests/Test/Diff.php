@@ -32,8 +32,8 @@
 			$oldBook->addColumn('name')
 				->setType('VARCHAR')
 				->setParameters(array(200));
-			$oldBook->addIndex(NULL, SqlSchema\Index::TYPE_PRIMARY, 'id');
-			$oldBook->addIndex('author_id', SqlSchema\Index::TYPE_INDEX, 'author_id');
+			$oldBook->addIndex(NULL, 'id', SqlSchema\Index::TYPE_PRIMARY);
+			$oldBook->addIndex('author_id', 'author_id', SqlSchema\Index::TYPE_INDEX);
 			$oldBook->addForeignKey('fk_author', 'author_id', 'author', 'id');
 
 			$oldAuthor = $old->addTable('author');
@@ -44,9 +44,9 @@
 				->setParameters(array(50));
 			$oldAuthor->addColumn('tag_id') // smazany
 				->setType('INT');
-			$oldAuthor->addIndex(NULL, SqlSchema\Index::TYPE_PRIMARY, 'id'); // without changes
-			$oldAuthor->addIndex('name', SqlSchema\Index::TYPE_UNIQUE, 'name'); // updated
-			$oldAuthor->addIndex('tag_id', SqlSchema\Index::TYPE_INDEX, 'tag_id'); // removed
+			$oldAuthor->addIndex(NULL, 'id', SqlSchema\Index::TYPE_PRIMARY); // without changes
+			$oldAuthor->addIndex('name', 'name', SqlSchema\Index::TYPE_UNIQUE); // updated
+			$oldAuthor->addIndex('tag_id', 'tag_id', SqlSchema\Index::TYPE_INDEX); // removed
 			$oldAuthor->addForeignKey('fk_updated', 'role_id', 'role', 'id'); // updated
 			$oldAuthor->addForeignKey('fk_tag', 'tag_id', 'tag', 'id'); // removed
 
@@ -70,8 +70,8 @@
 			$newBook->addColumn('name')
 				->setType('VARCHAR')
 				->setParameters(array(200));
-			$newBook->addIndex(NULL, SqlSchema\Index::TYPE_PRIMARY, 'id');
-			$newBook->addIndex('author_id', SqlSchema\Index::TYPE_INDEX, 'author_id');
+			$newBook->addIndex(NULL, 'id', SqlSchema\Index::TYPE_PRIMARY);
+			$newBook->addIndex('author_id', 'author_id', SqlSchema\Index::TYPE_INDEX);
 			$newBook->addForeignKey('fk_author', 'author_id', 'author', 'id');
 
 			$newAuthor = $new->addTable('author');
@@ -84,9 +84,9 @@
 				->setType('VARCHAR')
 				->setParameters(array(255))
 				->setNullable();
-			$newAuthor->addIndex(NULL, SqlSchema\Index::TYPE_PRIMARY, 'id'); // without changes
-			$newAuthor->addIndex('name', SqlSchema\Index::TYPE_INDEX, 'name'); // updated
-			$newAuthor->addIndex('website', SqlSchema\Index::TYPE_INDEX, 'website'); // created
+			$newAuthor->addIndex(NULL, 'id', SqlSchema\Index::TYPE_PRIMARY); // without changes
+			$newAuthor->addIndex('name', 'name', SqlSchema\Index::TYPE_INDEX); // updated
+			$newAuthor->addIndex('website', 'website', SqlSchema\Index::TYPE_INDEX); // created
 			$newAuthor->addForeignKey('fk_section', 'section_id', 'section', 'id'); // created
 			$newAuthor->addForeignKey('fk_updated', 'role_id', 'roles', 'id'); // updated
 

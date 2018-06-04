@@ -14,7 +14,7 @@ test(function () {
 	$old->addTable('book');
 
 	$new->addTable('book')
-		->addIndex('name', 'UNIQUE', 'name');
+		->addIndex('name', 'name', 'UNIQUE');
 
 	$generator = Test\TestGenerator::create($old, $new);
 	$generator->generator->generate();

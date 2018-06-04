@@ -201,7 +201,7 @@
 						$type = SqlSchema\Index::TYPE_FULLTEXT;
 					}
 
-					$indexes[$name] = $table->addIndex($name, $type);
+					$indexes[$name] = $table->addIndex($name, array(), $type);
 				}
 
 				$index = $indexes[$name];

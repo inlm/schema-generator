@@ -86,7 +86,7 @@
 
 		private static function createTableIndex(array $definition)
 		{
-			$index = new SqlSchema\Index($definition['name'], $definition['type']);
+			$index = new SqlSchema\Index($definition['name'], array(), $definition['type']);
 
 			foreach ($definition['columns'] as $column) {
 				$index->addColumn(self::createTableIndexColumn($column));

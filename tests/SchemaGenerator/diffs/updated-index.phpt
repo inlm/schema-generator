@@ -12,10 +12,10 @@ test(function () {
 	$new = new SqlSchema\Schema;
 
 	$old->addTable('book')
-		->addIndex('name', 'INDEX', 'name');
+		->addIndex('name', 'name', 'INDEX');
 
 	$new->addTable('book')
-		->addIndex('name', 'UNIQUE', 'name');
+		->addIndex('name', 'name', 'UNIQUE');
 
 	$generator = Test\TestGenerator::create($old, $new);
 	$generator->generator->generate();

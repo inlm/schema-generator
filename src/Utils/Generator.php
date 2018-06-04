@@ -471,7 +471,7 @@
 			}
 
 			$table = $this->getTableDefinition($tableName);
-			$this->indexes[$tableName][$indexName] = new GeneratorIndex($tableName, $table->addIndex($indexName, $type, $columns));
+			$this->indexes[$tableName][$indexName] = new GeneratorIndex($tableName, $table->addIndex($indexName, $columns, $type));
 		}
 
 

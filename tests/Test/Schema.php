@@ -257,7 +257,7 @@
 				->setNullable(TRUE)
 				->setComment('Absolute URL');
 
-			$table->addIndex(NULL, SqlSchema\Index::TYPE_PRIMARY, array('id'));
+			$table->addIndex(NULL, array('id'), SqlSchema\Index::TYPE_PRIMARY);
 
 			$table->setOption('CHARSET', 'UTF-8');
 
@@ -292,7 +292,7 @@
 			$table->addColumn('price', 'DOUBLE')
 				->setNullable(TRUE);
 
-			$table->addIndex(NULL, SqlSchema\Index::TYPE_PRIMARY, array('id'));
+			$table->addIndex(NULL, array('id'), SqlSchema\Index::TYPE_PRIMARY);
 
 			$table->addForeignKey('book_fk_author_id', array('author_id'), 'author', array('id'));
 
@@ -309,8 +309,8 @@
 			$table->addColumn('book_id', 'INT', NULL, array(SqlSchema\Column::OPTION_UNSIGNED));
 			$table->addColumn('tag_id', 'INT', NULL, array(SqlSchema\Column::OPTION_UNSIGNED));
 
-			$table->addIndex(NULL, SqlSchema\Index::TYPE_PRIMARY, array('book_id', 'tag_id'));
-			$table->addIndex('tag_id', SqlSchema\Index::TYPE_INDEX, array('tag_id'));
+			$table->addIndex(NULL, array('book_id', 'tag_id'), SqlSchema\Index::TYPE_PRIMARY);
+			$table->addIndex('tag_id', array('tag_id'), SqlSchema\Index::TYPE_INDEX);
 			$table->addForeignKey('book_tag_fk_book_id', array('book_id'), 'book', array('id'));
 			$table->addForeignKey('book_tag_fk_tag_id', array('tag_id'), 'tag', array('id'));
 
@@ -328,7 +328,7 @@
 
 			$table->addColumn('name', 'TEXT', array(20));
 
-			$table->addIndex(NULL, SqlSchema\Index::TYPE_PRIMARY, array('id'));
+			$table->addIndex(NULL, array('id'), SqlSchema\Index::TYPE_PRIMARY);
 
 			return $table;
 		}

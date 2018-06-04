@@ -15,9 +15,9 @@ test(function () {
 
 	$new->addTable('book')
 		->addForeignKey('fk_author', 'author_id', 'author', 'id')
-			->setOnDeleteAction('NO_ACTION');
+			->setOnDeleteAction('NO ACTION');
 
 	$generator = Test\TestGenerator::create($old, $new);
 	$generator->generator->generate();
-	Assert::same("\nALTER TABLE `book`\nADD CONSTRAINT `fk_author` FOREIGN KEY (`author_id`) REFERENCES `author` (`id`) ON DELETE NO_ACTION ON UPDATE RESTRICT;\n", $generator->dumper->getSql());
+	Assert::same("\nALTER TABLE `book`\nADD CONSTRAINT `fk_author` FOREIGN KEY (`author_id`) REFERENCES `author` (`id`) ON DELETE NO ACTION ON UPDATE RESTRICT;\n", $generator->dumper->getSql());
 });
