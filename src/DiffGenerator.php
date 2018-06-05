@@ -330,6 +330,10 @@
 
 				$oldColumn = $oldColumns[$i];
 
+				if ($oldColumn->getName() !== $newColumn->getName()) {
+					return TRUE;
+				}
+
 				if ($oldColumn->getOrder() !== $newColumn->getOrder()) {
 					return TRUE;
 				}
