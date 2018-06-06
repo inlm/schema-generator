@@ -16,7 +16,7 @@
 		"tharos/leanmapper": ">= 2.2",
 		"nette/robot-loader": "^2.4",
 		"czproject/sql-schema": "^2.0",
-		"czproject/sql-generator": "^1.2 >=1.2.2",
+		"czproject/sql-generator": "^1.2 >=1.2.3",
 		"czproject/logger": "^0.9.0",
 		"czproject/dependency-php": "^1.0"
 	},
