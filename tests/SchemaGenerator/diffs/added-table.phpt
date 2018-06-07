@@ -11,13 +11,15 @@ test(function () {
 	$old = new SqlSchema\Schema;
 	$new = new SqlSchema\Schema;
 
-	$old->addTable('book');
-
 	$new->addTable('book')
 		->addColumn('name', 'VARCHAR', array(200))
 			->setDefaultValue('XYZ');
 
 	$generator = Test\TestGenerator::create($old, $new);
 	$generator->generator->generate();
-	Assert::same("\nALTER TABLE `book`\nADD COLUMN `name` VARCHAR(200) NOT NULL DEFAULT 'XYZ';\n", $generator->dumper->getSql());
+	Assert::same("\n" . implode("\n", array(
+		'CREATE TABLE `book` (',
+		"\t`name` VARCHAR(200) NOT NULL DEFAULT 'XYZ'",
+		');',
+	)) . "\n", $generator->dumper->getSql());
 });

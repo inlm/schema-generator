@@ -51,12 +51,14 @@
 						'options' => $column->getOptions(),
 						'nullable' => $column->isNullable(),
 						'autoIncrement' => $column->isAutoIncrement(),
+						'defaultValue' => $column->getDefaultValue(),
 						'comment' => $column->getComment(),
 					), array(
 						'parameters' => array(),
 						'options' => array(),
 						'nullable' => FALSE,
 						'autoIncrement' => FALSE,
+						'defaultValue' => NULL,
 						'comment' => NULL,
 					));
 				}

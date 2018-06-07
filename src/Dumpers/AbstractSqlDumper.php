@@ -87,6 +87,7 @@
 				)
 					->setNullable($column->isNullable())
 					->setAutoIncrement($column->isAutoIncrement())
+					->setDefaultValue($column->getDefaultValue())
 					->setComment($column->getComment());
 			}
 
@@ -139,6 +140,7 @@
 				)
 					->setNullable($definition->isNullable())
 					->setAutoIncrement($definition->isAutoIncrement())
+					->setDefaultValue($definition->getDefaultValue())
 					->setComment($definition->getComment());
 		}
 
@@ -159,6 +161,7 @@
 				)
 					->setNullable($definition->isNullable())
 					->setAutoIncrement($definition->isAutoIncrement())
+					->setDefaultValue($definition->getDefaultValue())
 					->setComment($definition->getComment());
 		}
 

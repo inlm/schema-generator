@@ -79,6 +79,7 @@
 			);
 			$column->setNullable(isset($definition['nullable']) ? $definition['nullable'] : FALSE);
 			$column->setAutoIncrement(isset($definition['autoIncrement']) ? $definition['autoIncrement'] : FALSE);
+			$column->setDefaultValue(isset($definition['defaultValue']) ? $definition['defaultValue'] : NULL);
 			$column->setComment(isset($definition['comment']) ? $definition['comment'] : NULL);
 			return $column;
 		}

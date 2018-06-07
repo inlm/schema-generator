@@ -111,6 +111,7 @@
 							'type' => 'TINYINT',
 							'parameters' => array(1),
 							'options' => array('UNSIGNED' => NULL),
+							'defaultValue' => 1,
 						),
 
 						'price' => array(
@@ -287,7 +288,8 @@
 			$table->addColumn('website', 'TEXT')
 				->setNullable(TRUE);
 
-			$table->addColumn('available', 'TINYINT', array(1), array('UNSIGNED' => NULL));
+			$table->addColumn('available', 'TINYINT', array(1), array('UNSIGNED' => NULL))
+				->setDefaultValue(1);
 
 			$table->addColumn('price', 'DOUBLE')
 				->setNullable(TRUE);

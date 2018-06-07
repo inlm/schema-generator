@@ -21,5 +21,7 @@ test(function () {
 	$generated = $serialized['schema'];
 	ksort($generated, SORT_STRING);
 
-	Assert::same(Test\Schema::createArray(), $generated);
+	$expected = Test\Schema::createArray();
+	unset($expected['book']['columns']['available']['defaultValue']); // LeanMapperExtractor doesn't support default values
+	Assert::same($expected, $generated);
 });

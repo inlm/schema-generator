@@ -299,6 +299,10 @@
 				return TRUE;
 			}
 
+			if ($old->getDefaultValue() !== $new->getDefaultValue()) {
+				return TRUE;
+			}
+
 			if ($old->getComment() !== $new->getComment()) {
 				return TRUE;
 			}
