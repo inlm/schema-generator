@@ -109,7 +109,9 @@
 					$foreignKey->getColumns(),
 					$foreignKey->getTargetTable(),
 					$foreignKey->getTargetColumns()
-				);
+				)
+					->setOnUpdateAction($foreignKey->getOnUpdateAction())
+					->setOnDeleteAction($foreignKey->getOnDeleteAction());
 			}
 		}
 
