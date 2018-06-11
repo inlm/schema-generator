@@ -7,7 +7,7 @@
 	{
 		public function getPrimaryKey($table)
 		{
-			if ($table === 'bookmeta') {
+			if ($table === 'bookmeta' || $table === 'bookmeta2') {
 				return 'book_id';
 			}
 			return parent::getPrimaryKey($table);

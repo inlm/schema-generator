@@ -91,5 +91,44 @@ test(function () {
 				),
 			),
 		),
+
+		'bookmeta2' => array(
+			'name' => 'bookmeta2',
+			'columns' => array(
+				'book_id' => array(
+					'name' => 'book_id',
+					'type' => 'INT',
+					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
+				),
+
+				'rating' => array(
+					'name' => 'rating',
+					'type' => 'INT',
+				),
+			),
+
+			'indexes' => array(
+				'' => array(
+					'name' => NULL,
+					'type' => SqlSchema\Index::TYPE_PRIMARY,
+					'columns' => array(
+						array(
+							'name' => 'book_id',
+						),
+					),
+				)
+			),
+
+			'foreignKeys' => array(
+				'bookmeta2_fk_book_id' => array(
+					'name' => 'bookmeta2_fk_book_id',
+					'columns' => array('book_id'),
+					'targetTable' => 'book',
+					'targetColumns' => array('id'),
+					'onUpdateAction' => 'RESTRICT',
+					'onDeleteAction' => 'RESTRICT',
+				),
+			),
+		),
 	), $generated);
 });

@@ -176,17 +176,18 @@
 					$_sourceType = $_sourceColumn->getType();
 					$_targetType = $_targetColumn->getType();
 
-					if ($_sourceType !== NULL) {
-						throw new DuplicatedException("Column '$sourceTable'.'$sourceColumn' has already data type. Column is required in relationship '$sourceTable'.'$sourceColumn' => '$targetTable'.");
-					}
-
 					if ($_targetType === NULL) {
 						throw new MissingException("Column '$targetTable'.'$targetColumn' has no data type. Column is required in relationship '$sourceTable'.'$sourceColumn' => '$targetTable'.");
+					}
+
+					if ($_sourceType !== NULL && !$this->isPrimaryColumnCompatible($_sourceColumn, $_targetColumn)) {
+						throw new DuplicatedException("Column '$sourceTable'.'$sourceColumn' has already data type. Column is required in relationship '$sourceTable'.'$sourceColumn' => '$targetTable'.");
 					}
 
 					$_sourceColumn->setType($_targetColumn->getType());
 					$_sourceColumn->setParameters($_targetColumn->getParameters());
 					$_sourceColumn->setOptions($_targetColumn->getOptions());
+					$_sourceColumn->setAutoIncrement(FALSE);
 
 					$foreignKeyName = $this->formatForeignKey($sourceTable, $sourceColumn);
 					$_sourceTable->addForeignKey(
@@ -472,6 +473,31 @@
 
 			$table = $this->getTableDefinition($tableName);
 			$this->indexes[$tableName][$indexName] = new GeneratorIndex($tableName, $table->addIndex($indexName, $columns, $type));
+		}
+
+
+		/**
+		 * @return bool
+		 */
+		protected function isPrimaryColumnCompatible(SqlSchema\Column $sourceColumn, SqlSchema\Column $targetColumn)
+		{
+			if ($sourceColumn->getType() !== $targetColumn->getType()) {
+				return FALSE;
+			}
+
+			if ($sourceColumn->getParameters() !== $targetColumn->getParameters()) {
+				return FALSE;
+			}
+
+			if ($sourceColumn->getOptions() !== $targetColumn->getOptions()) {
+				return FALSE;
+			}
+
+			if ($sourceColumn->isNullable() !== $targetColumn->isNullable()) {
+				return FALSE;
+			}
+
+			return TRUE;
 		}
 
 
