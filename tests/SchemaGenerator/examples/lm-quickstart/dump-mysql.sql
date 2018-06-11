@@ -22,9 +22,9 @@ CREATE TABLE `book` (
 	`description` TEXT NULL,
 	`website` TEXT NULL,
 	`available` TINYINT(1) UNSIGNED NOT NULL,
+	PRIMARY KEY (`id`),
 	KEY `book_fk_author_id` (`author_id`),
 	KEY `book_fk_reviewer_id` (`reviewer_id`),
-	PRIMARY KEY (`id`),
 	CONSTRAINT `book_fk_author_id` FOREIGN KEY (`author_id`) REFERENCES `author` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT `book_fk_reviewer_id` FOREIGN KEY (`reviewer_id`) REFERENCES `author` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 )

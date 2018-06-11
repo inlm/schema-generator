@@ -51,9 +51,6 @@
 		 */
 		public function finalize()
 		{
-			$this->createHasManyTables();
-			$this->createRelationships();
-
 			// tries to create primary indexes
 			foreach ($this->tables as $tableName => $table) {
 				$primaryColumn = $table->getPrimaryColumn();
@@ -62,6 +59,9 @@
 					$this->addPrimaryIndex($tableName, $primaryColumn);
 				}
 			}
+
+			$this->createHasManyTables();
+			$this->createRelationships();
 
 			// for Single Table Inheritance - makes some columns nullable
 			foreach ($this->columns as $tableName => $columns) {
