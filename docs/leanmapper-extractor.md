@@ -46,6 +46,7 @@ In case if is flag `m:schemaType` missing, it uses [default type](default-types.
 | `@schemaIndex`   | create INDEX        | `@schemaIndex propertyA, propertyB`   |
 | `@schemaPrimary` | create PRIMARY KEY  | `@schemaPrimary propertyA, propertyB` |
 | `@schemaUnique`  | create UNIQUE INDEX | `@schemaUnique propertyA, propertyB`  |
+| `@schemaIgnore`  | ignore entity       | `@schemaIgnore`                       |
 
 You can define default [table options](table-options.md) globally.
 
