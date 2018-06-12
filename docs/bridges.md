@@ -11,4 +11,5 @@ $application = new CzProject\PhpCli\Application\Application;
 $application->addCommand(new Inlm\SchemaGenerator\Bridges\PhpCli\CreateMigrationCommand($integration));
 $application->addCommand(new Inlm\SchemaGenerator\Bridges\PhpCli\DiffCommand($integration));
 $application->addCommand(new Inlm\SchemaGenerator\Bridges\PhpCli\UpdateDatabaseCommand($integration));
+$application->addCommand(new Inlm\SchemaGenerator\Bridges\PhpCli\InitFromDatabaseCommand($integration));
 ```

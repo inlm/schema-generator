@@ -10,6 +10,7 @@ You can call these methods:
 * `$integration->createMigration($description, $testMode)` - it creates new migration for production
 * `$integration->showDiff()` - it shows changes between development and production
 * `$integration->updateDevelopmentDatabase($testMode)` - it updates local development database
+* `$integration->initFromDatabase()` - it inits schema file & creates first SQL migrations from current database
 
 
 ## Lean Mapper

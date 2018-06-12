@@ -59,6 +59,23 @@
 		}
 
 
+		public function initFromDatabase()
+		{
+			$generator = new SchemaGenerator\SchemaGenerator(
+				$this->createDatabaseExtractor(),
+				$this->createAdapter(),
+				$this->createSqlDumper(),
+				$this->createLogger()
+			);
+
+			$this->applyOptions($generator);
+			$this->applyCustomTypes($generator);
+
+			$generator->setTestMode(FALSE);
+			$generator->generate('init');
+		}
+
+
 		protected function applyOptions(SchemaGenerator\SchemaGenerator $generator)
 		{
 			$options = $this->getOptions();
@@ -98,6 +115,9 @@
 
 
 		abstract protected function createAdapter();
+
+
+		abstract protected function createDatabaseExtractor();
 
 
 		abstract protected function createDatabaseAdapter();

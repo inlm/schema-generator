@@ -24,4 +24,10 @@
 		 * @return void
 		 */
 		function showDiff();
+
+
+		/**
+		 * @return void
+		 */
+		function initFromDatabase();
 	}

@@ -87,6 +87,12 @@
 		}
 
 
+		protected function createDatabaseExtractor()
+		{
+			return new SchemaGenerator\Extractors\DibiExtractor($this->connection, $this->ignoredTables);
+		}
+
+
 		protected function createDatabaseAdapter()
 		{
 			return new SchemaGenerator\Adapters\DibiAdapter($this->connection, $this->ignoredTables);
