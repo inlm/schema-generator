@@ -52,7 +52,7 @@
 				} elseif ($inputType === 'boolean' || $inputType === 'bool') {
 					$type = 'TINYINT';
 					$parameters = array(1);
-					$options[] = 'UNSIGNED';
+					$options[] = SqlSchema\Column::OPTION_UNSIGNED;
 
 				} elseif ($inputType === 'float' || $inputType === 'double') {
 					$type = 'DOUBLE';
