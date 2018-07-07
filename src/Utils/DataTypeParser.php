@@ -126,7 +126,7 @@
 
 			return new DataType(
 				$type,
-				$parameters,
+				!empty($parameters) ? $parameters : NULL,
 				$options
 			);
 		}

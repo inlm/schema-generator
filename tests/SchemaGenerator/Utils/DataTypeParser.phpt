@@ -26,7 +26,7 @@ test(function () {
 test(function () {
 	Assert::same(array(
 		'type' => 'TEXT',
-		'parameters' => array(),
+		'parameters' => NULL,
 		'options' => array(),
 	), typeToArray(DataTypeParser::parse('TEXT')));
 
@@ -34,7 +34,7 @@ test(function () {
 	// alternative
 	Assert::same(array(
 		'type' => 'TEXT',
-		'parameters' => array(),
+		'parameters' => NULL,
 		'options' => array(),
 	), typeToArray(DataTypeParser::parse('TEXT', DataTypeParser::SYNTAX_ALTERNATIVE)));
 });
@@ -72,7 +72,7 @@ test(function () {
 test(function () {
 	Assert::same(array(
 		'type' => 'INT',
-		'parameters' => array(),
+		'parameters' => NULL,
 		'options' => array(
 			'UNSIGNED' => NULL,
 			'ZEROFILL' => NULL,
@@ -83,7 +83,7 @@ test(function () {
 	// alternative
 	Assert::same(array(
 		'type' => 'INT',
-		'parameters' => array(),
+		'parameters' => NULL,
 		'options' => array(
 			'UNSIGNED' => NULL,
 			'ZEROFILL' => NULL,
@@ -126,7 +126,7 @@ test(function () {
 
 	Assert::same(array(
 		'type' => NULL,
-		'parameters' => array(),
+		'parameters' => NULL,
 		'options' => array(
 			'UNSIGNED' => NULL,
 			'ZEROFILL' => NULL,
@@ -145,7 +145,7 @@ test(function () {
 
 	Assert::same(array(
 		'type' => NULL,
-		'parameters' => array(),
+		'parameters' => NULL,
 		'options' => array(
 			'UNSIGNED' => NULL,
 			'ZEROFILL' => NULL,
