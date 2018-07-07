@@ -6,16 +6,6 @@ use Tester\Assert;
 require __DIR__ . '/../../bootstrap.php';
 
 
-function typeToArray(Inlm\SchemaGenerator\DataType $type)
-{
-	return array(
-		'type' => $type->getType(),
-		'parameters' => $type->getParameters(),
-		'options' => $type->getOptions(),
-	);
-}
-
-
 test(function () {
 	Assert::exception(function () {
 		$factory = new DataTypeParser;

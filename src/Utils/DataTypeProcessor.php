@@ -26,7 +26,7 @@
 		 * @param  string|NULL
 		 * @return DataType
 		 */
-		public static function process($inputType, DataType $dbType = NULL, $isPrimaryColumn, array $customTypes, $databaseType = NULL)
+		public static function process($inputType, DataType $dbType = NULL, $isPrimaryColumn = FALSE, array $customTypes = array(), $databaseType = NULL)
 		{
 			$type = NULL;
 			$parameters = array();
@@ -68,6 +68,14 @@
 			if ($dbType !== NULL) {
 				if ($dbType->getType() !== NULL) {
 					$type = $dbType->getType();
+					$lowerType = strtolower($type);
+
+					if (isset($customTypes[$lowerType])) {
+						$columnType = $customTypes[$lowerType];
+						$type = $columnType->getType();
+						$parameters = $columnType->getParameters();
+						$options = $columnType->getOptions();
+					}
 				}
 
 				if ($dbType->getParameters() !== NULL) {

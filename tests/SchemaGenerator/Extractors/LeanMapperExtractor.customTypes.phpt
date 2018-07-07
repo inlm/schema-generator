@@ -19,6 +19,7 @@ test(function () {
 
 	$schema = $extractor->generateSchema(array(), array(
 		'test\leanmapperextractor\customtypes\image' => new DataType('varchar', array(100)),
+		'money' => new DataType('DECIMAL', array(15, 4)),
 	), Database::MYSQL);
 	$serialized = ConfigurationSerializer::serialize(new Configuration($schema));
 	$generated = $serialized['schema'];
@@ -85,6 +86,13 @@ test(function () {
 				'price' => array(
 					'name' => 'price',
 					'type' => 'DOUBLE',
+				),
+
+				'sellPrice' => array(
+					'name' => 'sellPrice',
+					'type' => 'DECIMAL',
+					'parameters' => array(15, 4),
+					'nullable' => TRUE,
 				),
 
 				'image' => array(

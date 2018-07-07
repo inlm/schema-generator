@@ -25,3 +25,13 @@ function prepareTempDir()
 	Tester\Helpers::purge($dir);
 	return $dir;
 }
+
+
+function typeToArray(Inlm\SchemaGenerator\DataType $type)
+{
+	return array(
+		'type' => $type->getType(),
+		'parameters' => $type->getParameters(),
+		'options' => $type->getOptions(),
+	);
+}
