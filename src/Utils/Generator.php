@@ -51,6 +51,8 @@
 		 */
 		public function finalize()
 		{
+			$this->modifyEmptyParameters();
+
 			// tries to create primary indexes
 			foreach ($this->tables as $tableName => $table) {
 				$primaryColumn = $table->getPrimaryColumn();
@@ -498,6 +500,50 @@
 			}
 
 			return TRUE;
+		}
+
+
+		protected function modifyEmptyParameters()
+		{
+			foreach ($this->columns as $tableName => $columns) {
+				if (!isset($this->tables[$tableName])) {
+					continue;
+				}
+
+				foreach ($columns as $column) {
+					$definition = $column->getDefinition();
+					$parameters = $definition->getParameters();
+
+					if (!empty($parameters)) {
+						continue;
+					}
+
+					$type = strtolower($definition->getType());
+					$options = $definition->getOptions();
+					$isUnsigned = array_key_exists(SqlSchema\Column::OPTION_UNSIGNED, $options);
+
+					if ($this->databaseType === Database::MYSQL) {
+						if ($type === 'tinyint') {
+							$definition->setParameters($isUnsigned ? 3 : 4);
+
+						} elseif ($type === 'smallint') {
+							$definition->setParameters($isUnsigned ? 5 : 6);
+
+						} elseif ($type === 'mediumint') {
+							$definition->setParameters($isUnsigned ? 8 : 9);
+
+						} elseif ($type === 'int') {
+							$definition->setParameters($isUnsigned ? 10 : 11);
+
+						} elseif ($type === 'bigint') {
+							$definition->setParameters(20);
+
+						} elseif ($type === 'decimal') {
+							$definition->setParameters(array(10, 0));
+						}
+					}
+				}
+			}
 		}
 
 

@@ -4,11 +4,11 @@ SET time_zone = "SYSTEM";
 SET sql_mode = "TRADITIONAL";
 
 CREATE TABLE `client` (
-	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`type` TEXT NOT NULL,
 	`name` TEXT NOT NULL,
 	`birthdate` DATETIME NULL,
-	`orders` INT NOT NULL,
+	`orders` INT(11) NOT NULL,
 	`ic` TEXT NULL,
 	`dic` TEXT NULL,
 	PRIMARY KEY (`id`)

@@ -32,6 +32,7 @@ test(function () {
 				'id' => array(
 					'name' => 'id',
 					'type' => 'INT',
+					'parameters' => array(10),
 					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
 					'autoIncrement' => TRUE,
 				),
@@ -45,6 +46,7 @@ test(function () {
 				'age' => array(
 					'name' => 'age',
 					'type' => 'INT',
+					'parameters' => array(10),
 					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
 				),
 
@@ -74,6 +76,7 @@ test(function () {
 				'id' => array(
 					'name' => 'id',
 					'type' => 'INT',
+					'parameters' => array(10),
 					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
 					'autoIncrement' => TRUE,
 				),

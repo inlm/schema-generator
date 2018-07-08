@@ -30,6 +30,7 @@ test(function () {
 				'id' => array(
 					'name' => 'id',
 					'type' => 'INT',
+					'parameters' => array(10),
 					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
 					'autoIncrement' => TRUE,
 				),
@@ -59,12 +60,14 @@ test(function () {
 				'book_id' => array(
 					'name' => 'book_id',
 					'type' => 'INT',
+					'parameters' => array(10),
 					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
 				),
 
 				'year' => array(
 					'name' => 'year',
 					'type' => 'INT',
+					'parameters' => array(11),
 				),
 			),
 
@@ -98,12 +101,14 @@ test(function () {
 				'book_id' => array(
 					'name' => 'book_id',
 					'type' => 'INT',
+					'parameters' => array(10),
 					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
 				),
 
 				'rating' => array(
 					'name' => 'rating',
 					'type' => 'INT',
+					'parameters' => array(11),
 				),
 			),
 
