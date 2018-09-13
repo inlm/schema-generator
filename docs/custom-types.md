@@ -11,4 +11,6 @@ $generator->setCustomType('App\Model\Image', 'VARCHAR', array(100));
 
 Prepared custom types for MySQL:
 
+- `bcrypt` - `CHAR(60)`
+- `md5` - `CHAR(32)`
 - `money` - `DECIMAL(15, 4)`
