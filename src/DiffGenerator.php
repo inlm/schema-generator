@@ -141,10 +141,16 @@
 		{
 			$oldColumns = array();
 			$lastColumnName = NULL;
+			$oldPositions = array();
 
 			foreach ($old->getColumns() as $column) {
-				$oldColumns[$column->getName()] = $column;
+				$columnName = $column->getName();
+				$oldColumns[$columnName] = $column;
+				$oldPositions[$columnName] = $lastColumnName;
+				$lastColumnName = $columnName;
 			}
+
+			$lastColumnName = NULL;
 
 			foreach ($new->getColumns() as $column) {
 				$columnName = $column->getName();
@@ -154,7 +160,10 @@
 
 				} else {
 					if ($this->isTableColumnUpdated($oldColumns[$columnName], $column)) {
-						$updates[] = new Diffs\UpdatedTableColumn($new->getName(), $column);
+						$updates[] = new Diffs\UpdatedTableColumn($new->getName(), $column, $lastColumnName);
+
+					} elseif ($oldPositions[$columnName] !== $lastColumnName) {
+						$updates[] = new Diffs\UpdatedTableColumn($new->getName(), $column, $lastColumnName, TRUE);
 					}
 				}
 

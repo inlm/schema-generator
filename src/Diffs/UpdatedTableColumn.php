@@ -13,11 +13,19 @@
 		/** @var SqlSchema\Column */
 		private $definition;
 
+		/** @var string|NULL */
+		private $afterColumn;
 
-		public function __construct($tableName, SqlSchema\Column $definition)
+		/** @var bool */
+		private $onlyPositionChange;
+
+
+		public function __construct($tableName, SqlSchema\Column $definition, $afterColumn = NULL, $onlyPositionChange = FALSE)
 		{
 			$this->tableName = $tableName;
 			$this->definition = $definition;
+			$this->afterColumn = $afterColumn;
+			$this->onlyPositionChange = $onlyPositionChange;
 		}
 
 
@@ -36,5 +44,23 @@
 		public function getDefinition()
 		{
 			return $this->definition;
+		}
+
+
+		/**
+		 * @return string|NULL
+		 */
+		public function getAfterColumn()
+		{
+			return $this->afterColumn;
+		}
+
+
+		/**
+		 * @return bool
+		 */
+		public function hasOnlyPositionChange()
+		{
+			return $this->onlyPositionChange;
 		}
 	}

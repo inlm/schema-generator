@@ -25,6 +25,9 @@
 		protected $header;
 
 		/** @var bool */
+		protected $positionChanges = FALSE;
+
+		/** @var bool */
 		protected $started = FALSE;
 
 		/** @var array */
@@ -41,6 +44,17 @@
 		public function setHeader(array $header = NULL)
 		{
 			$this->header = $header;
+			return $this;
+		}
+
+
+		/**
+		 * @param  bool
+		 * @return static
+		 */
+		public function enablePositionChanges($positionChanges = TRUE)
+		{
+			$this->positionChanges = $positionChanges;
 			return $this;
 		}
 
@@ -133,7 +147,7 @@
 		{
 			$this->checkIfStarted();
 			$definition = $column->getDefinition();
-			$this->getTableAlter($column->getTableName())
+			$createdColumn = $this->getTableAlter($column->getTableName())
 				->addColumn(
 					$definition->getName(),
 					$definition->getType(),
@@ -144,6 +158,15 @@
 					->setAutoIncrement($definition->isAutoIncrement())
 					->setDefaultValue($definition->getDefaultValue())
 					->setComment($definition->getComment());
+
+			if ($this->positionChanges) {
+				if ($column->getAfterColumn() === NULL) {
+					$createdColumn->moveToFirstPosition();
+
+				} else {
+					$createdColumn->moveAfterColumn($column->getAfterColumn());
+				}
+			}
 		}
 
 
@@ -153,8 +176,13 @@
 		public function updateTableColumn(Diffs\UpdatedTableColumn $column)
 		{
 			$this->checkIfStarted();
+
+			if (!$this->positionChanges && $column->hasOnlyPositionChange()) {
+				return;
+			}
+
 			$definition = $column->getDefinition();
-			$this->getTableAlter($column->getTableName())
+			$updatedColumn = $this->getTableAlter($column->getTableName())
 				->modifyColumn(
 					$definition->getName(),
 					$definition->getType(),
@@ -165,6 +193,15 @@
 					->setAutoIncrement($definition->isAutoIncrement())
 					->setDefaultValue($definition->getDefaultValue())
 					->setComment($definition->getComment());
+
+			if ($this->positionChanges) {
+				if ($column->getAfterColumn() === NULL) {
+					$updatedColumn->moveToFirstPosition();
+
+				} else {
+					$updatedColumn->moveAfterColumn($column->getAfterColumn());
+				}
+			}
 		}
 
 

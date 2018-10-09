@@ -11,3 +11,9 @@ $dumper->setHeader(array(
 ));
 $sql = $dumper->getSql();
 ```
+
+If you need generate `... AFTER column` in `ALTER TABLE` statements, call:
+
+```php
+$dumper->enablePositionChanges();
+```
