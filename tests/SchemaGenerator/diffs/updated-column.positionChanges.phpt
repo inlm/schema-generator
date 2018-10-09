@@ -11,12 +11,14 @@ $new = new SqlSchema\Schema;
 
 $oldTable = $old->addTable('book');
 $oldTable->addColumn('id', 'INT');
+$oldTable->addColumn('group', 'INT');
 $oldTable->addColumn('title', 'TEXT');
 $oldTable->addColumn('updated', 'DATETIME');
 
 $newTable = $new->addTable('book');
 $newTable->addColumn('id', 'INT');
 $newTable->addColumn('parent_id', 'INT');
+$newTable->addColumn('group', 'INT');
 $newTable->addColumn('type', 'TINYINT');
 $newTable->addColumn('updated', 'DATETIME');
 $newTable->addColumn('title', 'VARCHAR', array(200));
@@ -31,7 +33,7 @@ test(function () use ($old, $new) {
 	Assert::same(implode("\n", array(
 		"ALTER TABLE `book`",
 		"ADD COLUMN `parent_id` INT NOT NULL AFTER `id`,",
-		"ADD COLUMN `type` TINYINT NOT NULL AFTER `parent_id`,",
+		"ADD COLUMN `type` TINYINT NOT NULL AFTER `group`,",
 		"MODIFY COLUMN `updated` DATETIME NOT NULL AFTER `type`,",
 		"MODIFY COLUMN `title` VARCHAR(200) NOT NULL AFTER `updated`;",
 	)), trim($generator->dumper->getSql()));
