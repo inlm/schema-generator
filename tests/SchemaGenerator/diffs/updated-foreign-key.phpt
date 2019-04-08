@@ -19,5 +19,5 @@ test(function () {
 
 	$generator = Test\TestGenerator::create($old, $new);
 	$generator->generator->generate();
-	Assert::same("\nALTER TABLE `book`\nDROP FOREIGN KEY `fk_author`,\nADD CONSTRAINT `fk_author` FOREIGN KEY (`owner_id`) REFERENCES `author` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;\n", $generator->dumper->getSql());
+	Assert::same("ALTER TABLE `book`\nDROP FOREIGN KEY `fk_author`,\nADD CONSTRAINT `fk_author` FOREIGN KEY (`owner_id`) REFERENCES `author` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;\n", $generator->dumper->getSql());
 });

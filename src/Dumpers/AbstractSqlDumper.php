@@ -418,7 +418,7 @@
 		protected function getHeaderBlock()
 		{
 			$header = implode("\n", $this->getHeader());
-			return $header !== '' ? ("\n" . $header . "\n") : '';
+			return $header !== '' ? ($header . "\n\n") : '';
 		}
 
 

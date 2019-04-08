@@ -15,5 +15,5 @@ test(function () {
 
 	$generator = Test\TestGenerator::create($old, $new);
 	$generator->generator->generate();
-	Assert::same("\nDROP TABLE `book`;\n", $generator->dumper->getSql());
+	Assert::same("DROP TABLE `book`;\n", $generator->dumper->getSql());
 });

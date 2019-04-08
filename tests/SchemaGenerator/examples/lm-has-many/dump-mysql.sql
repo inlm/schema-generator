@@ -1,4 +1,3 @@
-
 SET foreign_key_checks = 1;
 SET time_zone = "SYSTEM";
 SET sql_mode = "TRADITIONAL";

@@ -18,5 +18,5 @@ test(function () {
 
 	$generator = Test\TestGenerator::create($old, $new);
 	$generator->generator->generate();
-	Assert::same("\nALTER TABLE `book`\nENGINE=InnoDB;\n", $generator->dumper->getSql());
+	Assert::same("ALTER TABLE `book`\nENGINE=InnoDB;\n", $generator->dumper->getSql());
 });

@@ -21,7 +21,7 @@ test(function () {
 
 	$generator = Test\TestGenerator::create($old, $new);
 	$generator->generator->generate();
-	Assert::same("\n" . implode("\n", array(
+	Assert::same(implode("\n", array(
 		'CREATE TABLE `book` (',
 		"\t`name` VARCHAR(200) NOT NULL DEFAULT 'XYZ',",
 		"\tCONSTRAINT `fk_author` FOREIGN KEY (`author_id`) REFERENCES `author` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE",

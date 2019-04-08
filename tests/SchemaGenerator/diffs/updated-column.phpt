@@ -19,7 +19,7 @@ test(function () {
 
 	$generator = Test\TestGenerator::create($old, $new);
 	$generator->generator->generate();
-	Assert::same("\nALTER TABLE `book`\nMODIFY COLUMN `name` VARCHAR(200) NOT NULL;\n", $generator->dumper->getSql());
+	Assert::same("ALTER TABLE `book`\nMODIFY COLUMN `name` VARCHAR(200) NOT NULL;\n", $generator->dumper->getSql());
 });
 
 
@@ -36,5 +36,5 @@ test(function () {
 
 	$generator = Test\TestGenerator::create($old, $new);
 	$generator->generator->generate();
-	Assert::same("\nALTER TABLE `book`\nMODIFY COLUMN `name` TEXT NOT NULL DEFAULT 'XYZ';\n", $generator->dumper->getSql());
+	Assert::same("ALTER TABLE `book`\nMODIFY COLUMN `name` TEXT NOT NULL DEFAULT 'XYZ';\n", $generator->dumper->getSql());
 });
