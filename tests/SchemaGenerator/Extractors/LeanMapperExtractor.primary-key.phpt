@@ -25,10 +25,8 @@ test(function () {
 
 	Assert::same(array(
 		'book' => array(
-			'name' => 'book',
 			'columns' => array(
 				'id' => array(
-					'name' => 'id',
 					'type' => 'INT',
 					'parameters' => array(10),
 					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
@@ -36,14 +34,12 @@ test(function () {
 				),
 
 				'name' => array(
-					'name' => 'name',
 					'type' => 'TEXT',
 				),
 			),
 
 			'indexes' => array(
 				'' => array(
-					'name' => NULL,
 					'type' => SqlSchema\Index::TYPE_PRIMARY,
 					'columns' => array(
 						array(
@@ -55,17 +51,14 @@ test(function () {
 		),
 
 		'bookmeta' => array(
-			'name' => 'bookmeta',
 			'columns' => array(
 				'book_id' => array(
-					'name' => 'book_id',
 					'type' => 'INT',
 					'parameters' => array(10),
 					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
 				),
 
 				'year' => array(
-					'name' => 'year',
 					'type' => 'INT',
 					'parameters' => array(11),
 				),
@@ -73,7 +66,6 @@ test(function () {
 
 			'indexes' => array(
 				'' => array(
-					'name' => NULL,
 					'type' => SqlSchema\Index::TYPE_PRIMARY,
 					'columns' => array(
 						array(
@@ -85,7 +77,6 @@ test(function () {
 
 			'foreignKeys' => array(
 				'bookmeta_fk_book_id' => array(
-					'name' => 'bookmeta_fk_book_id',
 					'columns' => array('book_id'),
 					'targetTable' => 'book',
 					'targetColumns' => array('id'),
@@ -96,17 +87,14 @@ test(function () {
 		),
 
 		'bookmeta2' => array(
-			'name' => 'bookmeta2',
 			'columns' => array(
 				'book_id' => array(
-					'name' => 'book_id',
 					'type' => 'INT',
 					'parameters' => array(10),
 					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
 				),
 
 				'rating' => array(
-					'name' => 'rating',
 					'type' => 'INT',
 					'parameters' => array(11),
 				),
@@ -114,7 +102,6 @@ test(function () {
 
 			'indexes' => array(
 				'' => array(
-					'name' => NULL,
 					'type' => SqlSchema\Index::TYPE_PRIMARY,
 					'columns' => array(
 						array(
@@ -126,7 +113,6 @@ test(function () {
 
 			'foreignKeys' => array(
 				'bookmeta2_fk_book_id' => array(
-					'name' => 'bookmeta2_fk_book_id',
 					'columns' => array('book_id'),
 					'targetTable' => 'book',
 					'targetColumns' => array('id'),

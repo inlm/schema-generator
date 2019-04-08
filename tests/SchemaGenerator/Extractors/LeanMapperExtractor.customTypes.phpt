@@ -27,10 +27,8 @@ test(function () {
 
 	Assert::same(array(
 		'author' => array(
-			'name' => 'author',
 			'columns' => array(
 				'id' => array(
-					'name' => 'id',
 					'type' => 'INT',
 					'parameters' => array(10),
 					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
@@ -38,20 +36,17 @@ test(function () {
 				),
 
 				'name' => array(
-					'name' => 'name',
 					'type' => 'VARCHAR',
 					'parameters' => array(100),
 				),
 
 				'age' => array(
-					'name' => 'age',
 					'type' => 'INT',
 					'parameters' => array(10),
 					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
 				),
 
 				'photo' => array(
-					'name' => 'photo',
 					'type' => 'VARCHAR',
 					'parameters' => array(100),
 				),
@@ -59,7 +54,6 @@ test(function () {
 
 			'indexes' => array(
 				'' => array(
-					'name' => NULL,
 					'type' => SqlSchema\Index::TYPE_PRIMARY,
 					'columns' => array(
 						array(
@@ -71,10 +65,8 @@ test(function () {
 		),
 
 		'book' => array(
-			'name' => 'book',
 			'columns' => array(
 				'id' => array(
-					'name' => 'id',
 					'type' => 'INT',
 					'parameters' => array(10),
 					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
@@ -82,35 +74,29 @@ test(function () {
 				),
 
 				'name' => array(
-					'name' => 'name',
 					'type' => 'TEXT',
 				),
 
 				'price' => array(
-					'name' => 'price',
 					'type' => 'DOUBLE',
 				),
 
 				'sellPrice' => array(
-					'name' => 'sellPrice',
 					'type' => 'DECIMAL',
 					'parameters' => array(15, 4),
 					'nullable' => TRUE,
 				),
 
 				'image' => array(
-					'name' => 'image',
 					'type' => 'VARCHAR',
 					'parameters' => array(100),
 				),
 
 				'pubdate' => array(
-					'name' => 'pubdate',
 					'type' => 'DATETIME',
 				),
 
 				'available' => array(
-					'name' => 'available',
 					'type' => 'TINYINT',
 					'parameters' => array(1),
 					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
@@ -119,7 +105,6 @@ test(function () {
 
 			'indexes' => array(
 				'' => array(
-					'name' => NULL,
 					'type' => SqlSchema\Index::TYPE_PRIMARY,
 					'columns' => array(
 						array(

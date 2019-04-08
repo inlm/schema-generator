@@ -24,22 +24,18 @@
 		{
 			return array(
 				'author' => array(
-					'name' => 'author',
 					'columns' => array(
 						'id' => array(
-							'name' => 'id',
 							'type' => 'INT',
 							'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
 							'autoIncrement' => TRUE,
 						),
 
 						'name' => array(
-							'name' => 'name',
 							'type' => 'TEXT',
 						),
 
 						'web' => array(
-							'name' => 'web',
 							'type' => 'TEXT',
 							'nullable' => TRUE,
 							'comment' => 'Absolute URL',
@@ -47,7 +43,6 @@
 					),
 					'indexes' => array(
 						NULL => array(
-							'name' => NULL,
 							'type' => 'PRIMARY',
 							'columns' => array(
 								array(
@@ -62,52 +57,43 @@
 				),
 
 				'book' => array(
-					'name' => 'book',
 					'columns' => array(
 						'id' => array(
-							'name' => 'id',
 							'type' => 'INT',
 							'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
 							'autoIncrement' => TRUE,
 						),
 
 						'author_id' => array(
-							'name' => 'author_id',
 							'type' => 'INT',
 							'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
 						),
 
 						'reviewer_id' => array(
-							'name' => 'reviewer_id',
 							'type' => 'INT',
 							'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
 							'nullable' => TRUE,
 						),
 
 						'pubdate' => array(
-							'name' => 'pubdate',
 							'type' => 'DATETIME',
 						),
 
 						'name' => array(
-							'name' => 'name',
 							'type' => 'TEXT',
 						),
 
 						'description' => array(
-							'name' => 'description',
 							'type' => 'TEXT',
 							'nullable' => TRUE,
 						),
 
 						'website' => array(
-							'name' => 'website',
 							'type' => 'TEXT',
 							'nullable' => TRUE,
 						),
 
 						'available' => array(
-							'name' => 'available',
 							'type' => 'TINYINT',
 							'parameters' => array(1),
 							'options' => array('UNSIGNED' => NULL),
@@ -115,14 +101,12 @@
 						),
 
 						'price' => array(
-							'name' => 'price',
 							'type' => 'DOUBLE',
 							'nullable' => TRUE,
 						),
 					),
 					'indexes' => array(
 						NULL => array(
-							'name' => NULL,
 							'type' => 'PRIMARY',
 							'columns' => array(
 								array(
@@ -133,7 +117,6 @@
 					),
 					'foreignKeys' => array(
 						'book_fk_author_id' => array(
-							'name' => 'book_fk_author_id',
 							'columns' => array('author_id'),
 							'targetTable' => 'author',
 							'targetColumns' => array('id'),
@@ -142,7 +125,6 @@
 						),
 
 						'book_fk_reviewer_id' => array(
-							'name' => 'book_fk_reviewer_id',
 							'columns' => array('reviewer_id'),
 							'targetTable' => 'author',
 							'targetColumns' => array('id'),
@@ -153,23 +135,19 @@
 				),
 
 				'book_tag' => array(
-					'name' => 'book_tag',
 					'columns' => array(
 						'book_id' => array(
-							'name' => 'book_id',
 							'type' => 'INT',
 							'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
 						),
 
 						'tag_id' => array(
-							'name' => 'tag_id',
 							'type' => 'INT',
 							'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
 						),
 					),
 					'indexes' => array(
 						NULL => array(
-							'name' => NULL,
 							'type' => 'PRIMARY',
 							'columns' => array(
 								array(
@@ -182,7 +160,6 @@
 							),
 						),
 						'tag_id' => array(
-							'name' => 'tag_id',
 							'type' => 'INDEX',
 							'columns' => array(
 								array(
@@ -193,7 +170,6 @@
 					),
 					'foreignKeys' => array(
 						'book_tag_fk_book_id' => array(
-							'name' => 'book_tag_fk_book_id',
 							'columns' => array('book_id'),
 							'targetTable' => 'book',
 							'targetColumns' => array('id'),
@@ -202,7 +178,6 @@
 						),
 
 						'book_tag_fk_tag_id' => array(
-							'name' => 'book_tag_fk_tag_id',
 							'columns' => array('tag_id'),
 							'targetTable' => 'tag',
 							'targetColumns' => array('id'),
@@ -213,25 +188,21 @@
 				),
 
 				'tag' => array(
-					'name' => 'tag',
 					'comment' => 'Tags for books.',
 					'columns' => array(
 						'id' => array(
-							'name' => 'id',
 							'type' => 'INT',
 							'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
 							'autoIncrement' => TRUE,
 						),
 
 						'name' => array(
-							'name' => 'name',
 							'type' => 'TEXT',
 							'parameters' => array(20),
 						),
 					),
 					'indexes' => array(
 						NULL => array(
-							'name' => NULL,
 							'type' => 'PRIMARY',
 							'columns' => array(
 								array(

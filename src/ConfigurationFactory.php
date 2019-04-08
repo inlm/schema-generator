@@ -26,7 +26,8 @@
 			}
 
 			if (isset($config['schema']) && is_array($config['schema'])) {
-				foreach ($config['schema'] as $definition) {
+				foreach ($config['schema'] as $tableName => $definition) {
+					$definition['name'] = isset($definition['name']) ? $definition['name'] : $tableName;
 					self::createTable($schema, $definition);
 				}
 			}
@@ -44,19 +45,22 @@
 			}
 
 			if (isset($definition['columns'])) {
-				foreach ($definition['columns'] as $column) {
+				foreach ($definition['columns'] as $columnName => $column) {
+					$column['name'] = isset($column['name']) ? $column['name'] : $columnName;
 					$table->addColumn(self::createTableColumn($column));
 				}
 			}
 
 			if (isset($definition['indexes'])) {
-				foreach ($definition['indexes'] as $index) {
+				foreach ($definition['indexes'] as $indexName => $index) {
+					$index['name'] = isset($index['name']) ? $index['name'] : $indexName;
 					$table->addIndex(self::createTableIndex($index));
 				}
 			}
 
 			if (isset($definition['foreignKeys'])) {
-				foreach ($definition['foreignKeys'] as $foreignKey) {
+				foreach ($definition['foreignKeys'] as $foreignKeyName => $foreignKey) {
+					$foreignKey['name'] = isset($foreignKey['name']) ? $foreignKey['name'] : $foreignKeyName;
 					$table->addForeignKey(self::createTableForeignKey($foreignKey));
 				}
 			}
@@ -87,7 +91,7 @@
 
 		private static function createTableIndex(array $definition)
 		{
-			$index = new SqlSchema\Index($definition['name'], array(), $definition['type']);
+			$index = new SqlSchema\Index($definition['name'] !== '' ? $definition['name'] : NULL, array(), $definition['type']);
 
 			foreach ($definition['columns'] as $column) {
 				$index->addColumn(self::createTableIndexColumn($column));

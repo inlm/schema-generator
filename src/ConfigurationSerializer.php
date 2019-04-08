@@ -37,7 +37,6 @@
 				}
 
 				$definition = self::export(array(
-					'name' => $tableName,
 					'comment' => $table->getComment(),
 				), array('comment' => NULL));
 
@@ -45,7 +44,6 @@
 					$columnName = $column->getName();
 
 					$definition['columns'][$columnName] = self::export(array(
-						'name' => $column->getName(),
 						'type' => $column->getType(),
 						'parameters' => $column->getParameters(),
 						'options' => $column->getOptions(),
@@ -79,7 +77,6 @@
 					}
 
 					$definition['indexes'][$indexName] = array(
-						'name' => $indexName,
 						'type' => $index->getType(),
 						'columns' => $indexColumns,
 					);
@@ -93,7 +90,6 @@
 					}
 
 					$definition['foreignKeys'][$foreignKeyName] = array(
-						'name' => $foreignKeyName,
 						'columns' => $foreignKey->getColumns(),
 						'targetTable' => $foreignKey->getTargetTable(),
 						'targetColumns' => $foreignKey->getTargetColumns(),
