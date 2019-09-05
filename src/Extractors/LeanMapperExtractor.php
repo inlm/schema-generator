@@ -416,6 +416,7 @@
 				}
 			}
 
+			sort($entities, SORT_STRING);
 			return $entities;
 		}
 

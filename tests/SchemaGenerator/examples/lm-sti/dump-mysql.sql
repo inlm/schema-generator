@@ -6,10 +6,10 @@ CREATE TABLE `client` (
 	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`type` TEXT NOT NULL,
 	`name` TEXT NOT NULL,
-	`birthdate` DATETIME NULL,
-	`orders` INT(11) NOT NULL,
 	`ic` TEXT NULL,
 	`dic` TEXT NULL,
+	`orders` INT(11) NOT NULL,
+	`birthdate` DATETIME NULL,
 	PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
