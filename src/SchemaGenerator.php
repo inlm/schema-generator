@@ -50,7 +50,7 @@
 		 * @param  array
 		 * @return static
 		 */
-		public function setCustomType($name, $dbType, $dbParameters = array(), array $dbOptions = array())
+		public function setCustomType($name, $dbType, $dbParameters = [], array $dbOptions = [])
 		{
 			$this->customTypes[strtolower($name)] = new DataType($dbType, $dbParameters, $dbOptions);
 			return $this;
@@ -217,14 +217,14 @@
 		private function prepareDefaults($databaseType)
 		{
 			if ($databaseType === Database::MYSQL) {
-				$this->options = array(
+				$this->options = [
 					'ENGINE' => 'InnoDB',
 					'CHARACTER SET' => 'utf8mb4',
 					'COLLATE' => 'utf8mb4_czech_ci',
-				);
-				$this->setCustomType('bcrypt', 'CHAR', array(60));
-				$this->setCustomType('md5', 'CHAR', array(32));
-				$this->setCustomType('money', 'DECIMAL', array(15, 4));
+				];
+				$this->setCustomType('bcrypt', 'CHAR', [60]);
+				$this->setCustomType('md5', 'CHAR', [32]);
+				$this->setCustomType('money', 'DECIMAL', [15, 4]);
 			}
 		}
 

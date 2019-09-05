@@ -22,7 +22,7 @@
 		 * @param  Dibi\Connection
 		 * @param  string[]
 		 */
-		public function __construct(Dibi\Connection $connection, array $ignoredTables = array())
+		public function __construct(Dibi\Connection $connection, array $ignoredTables = [])
 		{
 			$this->connection = $connection;
 			$this->ignoredTables = $ignoredTables;

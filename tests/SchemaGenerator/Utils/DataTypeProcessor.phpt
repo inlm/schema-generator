@@ -9,35 +9,35 @@ use Tester\Assert;
 require __DIR__ . '/../../bootstrap.php';
 
 
-Assert::same(array(
+Assert::same([
 	'type' => 'MONEY',
-	'parameters' => array(),
-	'options' => array(),
-), typeToArray(DataTypeProcessor::process('float', new DataType('money'))));
+	'parameters' => [],
+	'options' => [],
+], typeToArray(DataTypeProcessor::process('float', new DataType('money'))));
 
 
-Assert::same(array(
+Assert::same([
 	'type' => 'DECIMAL',
-	'parameters' => array(15, 4),
-	'options' => array(),
-), typeToArray(DataTypeProcessor::process('float', new DataType('money'), FALSE, array(
-	'money' => new DataType('DECIMAL', array(15, 4)),
-))));
+	'parameters' => [15, 4],
+	'options' => [],
+], typeToArray(DataTypeProcessor::process('float', new DataType('money'), FALSE, [
+	'money' => new DataType('DECIMAL', [15, 4]),
+])));
 
 
-Assert::same(array(
+Assert::same([
 	'type' => 'DECIMAL',
-	'parameters' => array(15, 4),
-	'options' => array(Column::OPTION_UNSIGNED => NULL),
-), typeToArray(DataTypeProcessor::process('float', new DataType('money', NULL, array(Column::OPTION_UNSIGNED)), FALSE, array(
-	'money' => new DataType('DECIMAL', array(15, 4)),
-))));
+	'parameters' => [15, 4],
+	'options' => [Column::OPTION_UNSIGNED => NULL],
+], typeToArray(DataTypeProcessor::process('float', new DataType('money', NULL, [Column::OPTION_UNSIGNED]), FALSE, [
+	'money' => new DataType('DECIMAL', [15, 4]),
+])));
 
 
-Assert::same(array(
+Assert::same([
 	'type' => 'DECIMAL',
-	'parameters' => array(10, 2),
-	'options' => array(Column::OPTION_UNSIGNED => NULL),
-), typeToArray(DataTypeProcessor::process('float', new DataType('money', array(10, 2), array(Column::OPTION_UNSIGNED)), FALSE, array(
-	'money' => new DataType('DECIMAL', array(15, 4)),
-))));
+	'parameters' => [10, 2],
+	'options' => [Column::OPTION_UNSIGNED => NULL],
+], typeToArray(DataTypeProcessor::process('float', new DataType('money', [10, 2], [Column::OPTION_UNSIGNED]), FALSE, [
+	'money' => new DataType('DECIMAL', [15, 4]),
+])));

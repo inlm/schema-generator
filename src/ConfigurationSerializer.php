@@ -16,7 +16,7 @@
 		 */
 		public static function serialize(Configuration $configuration)
 		{
-			$res = array();
+			$res = [];
 			$options = $configuration->getOptions();
 
 			if (!empty($options)) {
@@ -25,8 +25,8 @@
 			}
 
 			$schema = $configuration->getSchema();
-			$tables = array();
-			$_foreignKeys = array();
+			$tables = [];
+			$_foreignKeys = [];
 
 			foreach ($schema->getTables() as $table) {
 				$table->validate();
@@ -36,14 +36,14 @@
 					throw new DuplicatedException("Duplicated table name '$tableName'.");
 				}
 
-				$definition = self::export(array(
+				$definition = self::export([
 					'comment' => $table->getComment(),
-				), array('comment' => NULL));
+				], ['comment' => NULL]);
 
 				foreach ($table->getColumns() as $column) {
 					$columnName = $column->getName();
 
-					$definition['columns'][$columnName] = self::export(array(
+					$definition['columns'][$columnName] = self::export([
 						'type' => $column->getType(),
 						'parameters' => $column->getParameters(),
 						'options' => $column->getOptions(),
@@ -51,35 +51,35 @@
 						'autoIncrement' => $column->isAutoIncrement(),
 						'defaultValue' => $column->getDefaultValue(),
 						'comment' => $column->getComment(),
-					), array(
-						'parameters' => array(),
-						'options' => array(),
+					], [
+						'parameters' => [],
+						'options' => [],
 						'nullable' => FALSE,
 						'autoIncrement' => FALSE,
 						'defaultValue' => NULL,
 						'comment' => NULL,
-					));
+					]);
 				}
 
 				foreach ($table->getIndexes() as $index) {
 					$indexName = $index->getName();
-					$indexColumns = array();
+					$indexColumns = [];
 
 					foreach ($index->getColumns() as $indexColumn) {
-						$indexColumns[] = self::export(array(
+						$indexColumns[] = self::export([
 							'name' => $indexColumn->getName(),
 							'order' => $indexColumn->getOrder(),
 							'length' => $indexColumn->getLength(),
-						), array(
+						], [
 							'order' => 'ASC',
 							'length' => NULL,
-						));
+						]);
 					}
 
-					$definition['indexes'][$indexName] = array(
+					$definition['indexes'][$indexName] = [
 						'type' => $index->getType(),
 						'columns' => $indexColumns,
-					);
+					];
 				}
 
 				foreach ($table->getForeignKeys() as $foreignKey) {
@@ -89,13 +89,13 @@
 						throw new DuplicatedException("Duplicated foreign key '$foreignKeyName' in table '$tableName'.");
 					}
 
-					$definition['foreignKeys'][$foreignKeyName] = array(
+					$definition['foreignKeys'][$foreignKeyName] = [
 						'columns' => $foreignKey->getColumns(),
 						'targetTable' => $foreignKey->getTargetTable(),
 						'targetColumns' => $foreignKey->getTargetColumns(),
 						'onUpdateAction' => $foreignKey->getOnUpdateAction(),
 						'onDeleteAction' => $foreignKey->getOnDeleteAction(),
-					);
+					];
 					$_foreignKeys[$foreignKeyName] = TRUE;
 				}
 
@@ -120,7 +120,7 @@
 		}
 
 
-		private static function export(array $data, array $defaults = array())
+		private static function export(array $data, array $defaults = [])
 		{
 			foreach ($defaults as $key => $value) {
 				if ($data[$key] === $value) {

@@ -78,8 +78,8 @@
 			$column = new SqlSchema\Column(
 				$definition['name'],
 				$definition['type'],
-				isset($definition['parameters']) ? $definition['parameters'] : array(),
-				isset($definition['options']) ? $definition['options'] : array()
+				isset($definition['parameters']) ? $definition['parameters'] : [],
+				isset($definition['options']) ? $definition['options'] : []
 			);
 			$column->setNullable(isset($definition['nullable']) ? $definition['nullable'] : FALSE);
 			$column->setAutoIncrement(isset($definition['autoIncrement']) ? $definition['autoIncrement'] : FALSE);
@@ -91,7 +91,7 @@
 
 		private static function createTableIndex(array $definition)
 		{
-			$index = new SqlSchema\Index($definition['name'] !== '' ? $definition['name'] : NULL, array(), $definition['type']);
+			$index = new SqlSchema\Index($definition['name'] !== '' ? $definition['name'] : NULL, [], $definition['type']);
 
 			foreach ($definition['columns'] as $column) {
 				$index->addColumn(self::createTableIndexColumn($column));

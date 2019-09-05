@@ -11,7 +11,7 @@
 		private $schema;
 
 		/** @var array */
-		private $options = array();
+		private $options = [];
 
 
 		public function __construct(Schema $schema)

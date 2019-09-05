@@ -17,7 +17,7 @@ $schemaGenerator->generate();
 
 Assert::matchFile($directory . '/dump-mysql.sql', $dumper->getSql());
 
-Assert::same(implode("\n", array(
+Assert::same(implode("\n", [
 	'Generating schema',
 	'Generating diff',
 	'Generating migrations',
@@ -28,4 +28,4 @@ Assert::same(implode("\n", array(
 	'Saving schema',
 	'Done.',
 	'',
-)), $logger->getLog());
+]), $logger->getLog());

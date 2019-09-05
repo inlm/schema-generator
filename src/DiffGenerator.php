@@ -41,8 +41,8 @@
 		 */
 		public function getCreatedTables()
 		{
-			$tables = array();
-			$oldTables = array();
+			$tables = [];
+			$oldTables = [];
 
 			foreach ($this->old->getTables() as $oldTable) {
 				$oldTables[$oldTable->getName()] = TRUE;
@@ -65,8 +65,8 @@
 		 */
 		public function getRemovedTables()
 		{
-			$tables = array();
-			$newTables = array();
+			$tables = [];
+			$newTables = [];
 
 			foreach ($this->new->getTables() as $newTable) {
 				$newTables[$newTable->getName()] = TRUE;
@@ -90,8 +90,8 @@
 		 */
 		public function getUpdatedTables()
 		{
-			$tables = array();
-			$tablesToUpdate = array();
+			$tables = [];
+			$tablesToUpdate = [];
 
 			foreach ($this->old->getTables() as $oldTable) {
 				$tablesToUpdate[$oldTable->getName()] = $oldTable;
@@ -118,7 +118,7 @@
 		 */
 		private function generateUpdate(SqlSchema\Table $old, SqlSchema\Table $new)
 		{
-			$updates = array();
+			$updates = [];
 
 			$this->generateColumnUpdates($updates, $old, $new);
 			$this->generateIndexUpdates($updates, $old, $new);
@@ -139,10 +139,10 @@
 		 */
 		private function generateColumnUpdates(array &$updates, SqlSchema\Table $old, SqlSchema\Table $new)
 		{
-			$oldColumns = array();
+			$oldColumns = [];
 			$lastColumnName = NULL;
 			$lastUpdatedColumnName = NULL;
-			$oldPositions = array();
+			$oldPositions = [];
 
 			foreach ($old->getColumns() as $column) {
 				$columnName = $column->getName();
@@ -185,7 +185,7 @@
 		 */
 		private function generateIndexUpdates(array &$updates, SqlSchema\Table $old, SqlSchema\Table $new)
 		{
-			$oldIndexes = array();
+			$oldIndexes = [];
 
 			foreach ($old->getIndexes() as $index) {
 				$oldIndexes[$index->getName()] = $index;
@@ -217,7 +217,7 @@
 		 */
 		private function generateForeignKeyUpdates(array &$updates, SqlSchema\Table $old, SqlSchema\Table $new)
 		{
-			$oldForeignKeys = array();
+			$oldForeignKeys = [];
 
 			foreach ($old->getForeignKeys() as $foreignKey) {
 				$oldForeignKeys[$foreignKey->getName()] = $foreignKey;
@@ -417,11 +417,11 @@
 		private function resolveOrder(array $tables)
 		{
 			$resolver = new \Cz\Dependency;
-			$tablesToSort = array();
+			$tablesToSort = [];
 
 			foreach ($tables as $table) {
 				$sourceTable = $table->getName();
-				$targetTables = array();
+				$targetTables = [];
 
 				foreach ($table->getForeignKeys() as $foreignKey) {
 					$targetTables[] = $foreignKey->getTargetTable();

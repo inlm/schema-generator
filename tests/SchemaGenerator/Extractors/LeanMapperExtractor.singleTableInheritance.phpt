@@ -21,69 +21,69 @@ test(function () {
 	$generated = $serialized['schema'];
 	ksort($generated, SORT_STRING);
 
-	Assert::same(array(
-		'user' => array(
-			'columns' => array(
-				'id' => array(
+	Assert::same([
+		'user' => [
+			'columns' => [
+				'id' => [
 					'type' => 'INT',
-					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
+					'options' => [SqlSchema\Column::OPTION_UNSIGNED => NULL],
 					'autoIncrement' => TRUE,
-				),
+				],
 
-				'type' => array(
+				'type' => [
 					'type' => 'TINYINT',
-					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
-				),
+					'options' => [SqlSchema\Column::OPTION_UNSIGNED => NULL],
+				],
 
-				'created' => array(
+				'created' => [
 					'type' => 'DATETIME',
-				),
+				],
 
-				'updated' => array(
+				'updated' => [
 					'type' => 'DATETIME',
 					'nullable' => TRUE,
-				),
+				],
 
-				'companyName' => array(
+				'companyName' => [
 					'type' => 'VARCHAR',
-					'parameters' => array(200),
+					'parameters' => [200],
 					'nullable' => TRUE,
-				),
+				],
 
-				'ico' => array(
+				'ico' => [
 					'type' => 'VARCHAR',
-					'parameters' => array(8),
+					'parameters' => [8],
 					'nullable' => TRUE,
-				),
+				],
 
-				'note' => array(
+				'note' => [
 					'type' => 'VARCHAR',
-					'parameters' => array(100),
-				),
+					'parameters' => [100],
+				],
 
-				'firstName' => array(
+				'firstName' => [
 					'type' => 'VARCHAR',
-					'parameters' => array(100),
+					'parameters' => [100],
 					'nullable' => TRUE,
-				),
+				],
 
-				'lastName' => array(
+				'lastName' => [
 					'type' => 'VARCHAR',
-					'parameters' => array(100),
+					'parameters' => [100],
 					'nullable' => TRUE,
-				),
-			),
+				],
+			],
 
-			'indexes' => array(
-				'' => array(
+			'indexes' => [
+				'' => [
 					'type' => SqlSchema\Index::TYPE_PRIMARY,
-					'columns' => array(
-						array(
+					'columns' => [
+						[
 							'name' => 'id',
-						),
-					),
-				)
-			)
-		),
-	), $generated);
+						],
+					],
+				]
+			]
+		],
+	], $generated);
 });

@@ -33,7 +33,7 @@
 
 		public function getOptions()
 		{
-			return array();
+			return [];
 		}
 
 

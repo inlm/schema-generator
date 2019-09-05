@@ -8,81 +8,81 @@ use Tester\Assert;
 require __DIR__ . '/../../bootstrap.php';
 
 
-Assert::same(array(
+Assert::same([
 	'type' => 'INT',
-	'parameters' => array(),
-	'options' => array(),
-), typeToArray(DataTypeProcessor::process('int', NULL, FALSE, array(), Database::MYSQL)));
+	'parameters' => [],
+	'options' => [],
+], typeToArray(DataTypeProcessor::process('int', NULL, FALSE, [], Database::MYSQL)));
 
 
-Assert::same(array(
+Assert::same([
 	'type' => 'INT',
-	'parameters' => array(),
-	'options' => array(Column::OPTION_UNSIGNED => NULL),
-), typeToArray(DataTypeProcessor::process('int', NULL, TRUE, array(), Database::MYSQL)));
+	'parameters' => [],
+	'options' => [Column::OPTION_UNSIGNED => NULL],
+], typeToArray(DataTypeProcessor::process('int', NULL, TRUE, [], Database::MYSQL)));
 
 
-Assert::same(array(
+Assert::same([
 	'type' => 'INT',
-	'parameters' => array(),
-	'options' => array(),
-), typeToArray(DataTypeProcessor::process('integer', NULL, FALSE, array(), Database::MYSQL)));
+	'parameters' => [],
+	'options' => [],
+], typeToArray(DataTypeProcessor::process('integer', NULL, FALSE, [], Database::MYSQL)));
 
 
-Assert::same(array(
+Assert::same([
 	'type' => 'INT',
-	'parameters' => array(),
-	'options' => array(Column::OPTION_UNSIGNED => NULL),
-), typeToArray(DataTypeProcessor::process('integer', NULL, TRUE, array(), Database::MYSQL)));
+	'parameters' => [],
+	'options' => [Column::OPTION_UNSIGNED => NULL],
+], typeToArray(DataTypeProcessor::process('integer', NULL, TRUE, [], Database::MYSQL)));
 
 
 // bools
-Assert::same(array(
+Assert::same([
 	'type' => 'TINYINT',
-	'parameters' => array(1),
-	'options' => array(Column::OPTION_UNSIGNED => NULL),
-), typeToArray(DataTypeProcessor::process('bool', NULL, FALSE, array(), Database::MYSQL)));
+	'parameters' => [1],
+	'options' => [Column::OPTION_UNSIGNED => NULL],
+], typeToArray(DataTypeProcessor::process('bool', NULL, FALSE, [], Database::MYSQL)));
 
 
-Assert::same(array(
+Assert::same([
 	'type' => 'TINYINT',
-	'parameters' => array(1),
-	'options' => array(Column::OPTION_UNSIGNED => NULL),
-), typeToArray(DataTypeProcessor::process('boolean', NULL, FALSE, array(), Database::MYSQL)));
+	'parameters' => [1],
+	'options' => [Column::OPTION_UNSIGNED => NULL],
+], typeToArray(DataTypeProcessor::process('boolean', NULL, FALSE, [], Database::MYSQL)));
 
 
 // floats
-Assert::same(array(
+Assert::same([
 	'type' => 'DOUBLE',
-	'parameters' => array(),
-	'options' => array(),
-), typeToArray(DataTypeProcessor::process('float', NULL, FALSE, array(), Database::MYSQL)));
+	'parameters' => [],
+	'options' => [],
+], typeToArray(DataTypeProcessor::process('float', NULL, FALSE, [], Database::MYSQL)));
 
 
-Assert::same(array(
+Assert::same([
 	'type' => 'DOUBLE',
-	'parameters' => array(),
-	'options' => array(),
-), typeToArray(DataTypeProcessor::process('double', NULL, FALSE, array(), Database::MYSQL)));
+	'parameters' => [],
+	'options' => [],
+], typeToArray(DataTypeProcessor::process('double', NULL, FALSE, [], Database::MYSQL)));
 
 
 // strings
-Assert::same(array(
+Assert::same([
 	'type' => 'TEXT',
-	'parameters' => array(),
-	'options' => array(),
-), typeToArray(DataTypeProcessor::process('string', NULL, FALSE, array(), Database::MYSQL)));
+	'parameters' => [],
+	'options' => [],
+], typeToArray(DataTypeProcessor::process('string', NULL, FALSE, [], Database::MYSQL)));
 
 
 // datetimes
-Assert::same(array(
+Assert::same([
 	'type' => 'DATETIME',
-	'parameters' => array(),
-	'options' => array(),
-), typeToArray(DataTypeProcessor::process(\DateTime::class, NULL, FALSE, array(), Database::MYSQL)));
+	'parameters' => [],
+	'options' => [],
+], typeToArray(DataTypeProcessor::process(\DateTime::class, NULL, FALSE, [], Database::MYSQL)));
 
-Assert::same(array(
+Assert::same([
 	'type' => 'DATETIME',
-	'parameters' => array(),
-	'options' => array(),
-), typeToArray(DataTypeProcessor::process(\DateTimeInterface::class, NULL, FALSE, array(), Database::MYSQL)));
+	'parameters' => [],
+	'options' => [],
+], typeToArray(DataTypeProcessor::process(\DateTimeInterface::class, NULL, FALSE, [], Database::MYSQL)));

@@ -23,22 +23,22 @@
 		private $schema;
 
 		/** @var array  [name => GeneratorTable] */
-		private $tables = array();
+		private $tables = [];
 
 		/** @var array  [name => GeneratorColumn] */
-		private $columns = array();
+		private $columns = [];
 
 		/** @var array */
-		private $indexes = array();
+		private $indexes = [];
 
 		/** @var array */
-		private $relationships = array();
+		private $relationships = [];
 
 		/** @var array  [name => GeneratorHasManyTable] */
-		private $hasManyTables = array();
+		private $hasManyTables = [];
 
 
-		public function __construct(array $options = array(), $databaseType = NULL)
+		public function __construct(array $options = [], $databaseType = NULL)
 		{
 			$this->options = $options;
 			$this->databaseType = $databaseType;
@@ -133,7 +133,7 @@
 					$this->createTable($hasManyTable);
 					$this->addColumn($hasManyTable, $data->getSourceColumn(), NULL);
 					$this->addColumn($hasManyTable, $data->getTargetColumn(), NULL);
-					$this->addPrimaryIndex($hasManyTable, array($data->getSourceColumn(), $data->getTargetColumn()));
+					$this->addPrimaryIndex($hasManyTable, [$data->getSourceColumn(), $data->getTargetColumn()]);
 					$this->addIndex($hasManyTable, $data->getTargetColumn());
 				}
 			}
@@ -315,7 +315,7 @@
 			}
 
 			$table = $this->getTableDefinition($tableName);
-			$column = $table->addColumn($columnName, NULL, array(), array());
+			$column = $table->addColumn($columnName, NULL, [], []);
 
 			if ($columnType) {
 				$column->setType($columnType->getType());
@@ -539,7 +539,7 @@
 							$definition->setParameters(20);
 
 						} elseif ($type === 'decimal') {
-							$definition->setParameters(array(10, 0));
+							$definition->setParameters([10, 0]);
 						}
 					}
 				}
@@ -554,7 +554,7 @@
 		protected function formatIndexName($columns)
 		{
 			if (!is_array($columns)) {
-				$columns = array($columns);
+				$columns = [$columns];
 			}
 			return implode('_', $columns);
 		}
@@ -567,7 +567,7 @@
 		protected function formatForeignKey($table, $columns)
 		{
 			if (!is_array($columns)) {
-				$columns = array($columns);
+				$columns = [$columns];
 			}
 			return $table . '_fk_' . implode('_', $columns);
 		}

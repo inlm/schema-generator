@@ -29,9 +29,9 @@ function prepareTempDir()
 
 function typeToArray(Inlm\SchemaGenerator\DataType $type)
 {
-	return array(
+	return [
 		'type' => $type->getType(),
 		'parameters' => $type->getParameters(),
 		'options' => $type->getOptions(),
-	);
+	];
 }

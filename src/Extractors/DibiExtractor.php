@@ -24,7 +24,7 @@
 		 * @param  Dibi\Connection
 		 * @param  string[]
 		 */
-		public function __construct(Dibi\Connection $connection, array $ignoredTables = array())
+		public function __construct(Dibi\Connection $connection, array $ignoredTables = [])
 		{
 			$this->connection = $connection;
 			$this->ignoredTables = $ignoredTables;
@@ -34,7 +34,7 @@
 		/**
 		 * @return SqlSchema\Schema
 		 */
-		public function generateSchema(array $options = array(), array $customTypes = array(), $databaseType = NULL)
+		public function generateSchema(array $options = [], array $customTypes = [], $databaseType = NULL)
 		{
 			$dibiDriver = $this->connection->getDriver();
 

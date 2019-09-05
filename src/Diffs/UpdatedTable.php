@@ -156,7 +156,7 @@
 		 */
 		private function findUpdates($class)
 		{
-			$result = array();
+			$result = [];
 
 			foreach ($this->updates as $update) {
 				if ($update instanceof $class) {

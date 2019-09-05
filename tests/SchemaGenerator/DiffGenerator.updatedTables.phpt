@@ -12,79 +12,79 @@ $updatedTables = $diff->getUpdatedTables();
  * Created columns
  */
 test(function () use ($updatedTables) {
-	$result = array();
+	$result = [];
 
 	foreach ($updatedTables as $updatedTable) {
 		foreach ($updatedTable->getCreatedColumns() as $createdColumn) {
 			$definition = $createdColumn->getDefinition();
 
-			$result[] = array(
+			$result[] = [
 				'type' => get_class($definition),
 				'table' => $createdColumn->getTableName(),
 				'column' => $definition->getName(),
 				'afterColumn' => $createdColumn->getAfterColumn(),
-			);
+			];
 		}
 	}
 
-	Assert::same(array(
-		array(
+	Assert::same([
+		[
 			'type' => 'CzProject\SqlSchema\Column',
 			'table' => 'author',
 			'column' => 'website',
 			'afterColumn' => 'name',
-		),
-	), $result);
+		],
+	], $result);
 });
 
 /**
  * Updated columns
  */
 test(function () use ($updatedTables) {
-	$result = array();
+	$result = [];
 
 	foreach ($updatedTables as $updatedTable) {
 		foreach ($updatedTable->getUpdatedColumns() as $updatedColumn) {
 			$definition = $updatedColumn->getDefinition();
 
-			$result[] = array(
+			$result[] = [
 				'type' => get_class($definition),
 				'table' => $updatedColumn->getTableName(),
 				'column' => $definition->getName(),
-			);
+			];
 		}
 	}
 
-	Assert::same(array(
-		array(
+	Assert::same([
+		[
 			'type' => 'CzProject\SqlSchema\Column',
 			'table' => 'author',
 			'column' => 'name',
-		),
-	), $result);
+		],
+	], $result);
 });
 
 /**
  * Removed columns
  */
 test(function () use ($updatedTables) {
-	$result = array();
+	$result = [];
 
 	foreach ($updatedTables as $updatedTable) {
 		foreach ($updatedTable->getRemovedColumns() as $removedColumn) {
-			$result[] = array(
+			$result[] = [
 				'table' => $removedColumn->getTableName(),
 				'column' => $removedColumn->getColumnName(),
-			);
+			];
 		}
 	}
 
-	Assert::same(array(
-		array(
+	Assert::same([
+		[
 			'table' => 'author',
 			'column' => 'tag_id',
-		),
-	), $result);
+		],
+	], $result);
 });
 
 
@@ -92,77 +92,77 @@ test(function () use ($updatedTables) {
  * Created indexes
  */
 test(function () use ($updatedTables) {
-	$result = array();
+	$result = [];
 
 	foreach ($updatedTables as $updatedTable) {
 		foreach ($updatedTable->getCreatedIndexes() as $createdIndex) {
 			$definition = $createdIndex->getDefinition();
 
-			$result[] = array(
+			$result[] = [
 				'type' => get_class($definition),
 				'table' => $createdIndex->getTableName(),
 				'index' => $definition->getName(),
-			);
+			];
 		}
 	}
 
-	Assert::same(array(
-		array(
+	Assert::same([
+		[
 			'type' => 'CzProject\SqlSchema\Index',
 			'table' => 'author',
 			'index' => 'website',
-		),
-	), $result);
+		],
+	], $result);
 });
 
 /**
  * Updated indexes
  */
 test(function () use ($updatedTables) {
-	$result = array();
+	$result = [];
 
 	foreach ($updatedTables as $updatedTable) {
 		foreach ($updatedTable->getUpdatedIndexes() as $updatedIndex) {
 			$definition = $updatedIndex->getDefinition();
 
-			$result[] = array(
+			$result[] = [
 				'type' => get_class($definition),
 				'table' => $updatedIndex->getTableName(),
 				'index' => $definition->getName(),
-			);
+			];
 		}
 	}
 
-	Assert::same(array(
-		array(
+	Assert::same([
+		[
 			'type' => 'CzProject\SqlSchema\Index',
 			'table' => 'author',
 			'index' => 'name',
-		),
-	), $result);
+		],
+	], $result);
 });
 
 /**
  * Removed indexes
  */
 test(function () use ($updatedTables) {
-	$result = array();
+	$result = [];
 
 	foreach ($updatedTables as $updatedTable) {
 		foreach ($updatedTable->getRemovedIndexes() as $removedIndex) {
-			$result[] = array(
+			$result[] = [
 				'table' => $removedIndex->getTableName(),
 				'index' => $removedIndex->getIndexName(),
-			);
+			];
 		}
 	}
 
-	Assert::same(array(
-		array(
+	Assert::same([
+		[
 			'table' => 'author',
 			'index' => 'tag_id',
-		),
-	), $result);
+		],
+	], $result);
 });
 
 
@@ -170,75 +170,75 @@ test(function () use ($updatedTables) {
  * Created FKs
  */
 test(function () use ($updatedTables) {
-	$result = array();
+	$result = [];
 
 	foreach ($updatedTables as $updatedTable) {
 		foreach ($updatedTable->getCreatedForeignKeys() as $createdForeignKey) {
 			$definition = $createdForeignKey->getDefinition();
 
-			$result[] = array(
+			$result[] = [
 				'type' => get_class($definition),
 				'table' => $createdForeignKey->getTableName(),
 				'fk' => $definition->getName(),
-			);
+			];
 		}
 	}
 
-	Assert::same(array(
-		array(
+	Assert::same([
+		[
 			'type' => 'CzProject\SqlSchema\ForeignKey',
 			'table' => 'author',
 			'fk' => 'fk_section',
-		),
-	), $result);
+		],
+	], $result);
 });
 
 /**
  * Updated FKs
  */
 test(function () use ($updatedTables) {
-	$result = array();
+	$result = [];
 
 	foreach ($updatedTables as $updatedTable) {
 		foreach ($updatedTable->getUpdatedForeignKeys() as $updatedForeignKey) {
 			$definition = $updatedForeignKey->getDefinition();
 
-			$result[] = array(
+			$result[] = [
 				'type' => get_class($definition),
 				'table' => $updatedForeignKey->getTableName(),
 				'index' => $definition->getName(),
-			);
+			];
 		}
 	}
 
-	Assert::same(array(
-		array(
+	Assert::same([
+		[
 			'type' => 'CzProject\SqlSchema\ForeignKey',
 			'table' => 'author',
 			'index' => 'fk_updated',
-		),
-	), $result);
+		],
+	], $result);
 });
 
 /**
  * Removed FKs
  */
 test(function () use ($updatedTables) {
-	$result = array();
+	$result = [];
 
 	foreach ($updatedTables as $updatedTable) {
 		foreach ($updatedTable->getRemovedForeignKeys() as $removedForeignKey) {
-			$result[] = array(
+			$result[] = [
 				'table' => $removedForeignKey->getTableName(),
 				'index' => $removedForeignKey->getForeignKeyName(),
-			);
+			];
 		}
 	}
 
-	Assert::same(array(
-		array(
+	Assert::same([
+		[
 			'table' => 'author',
 			'index' => 'fk_tag',
-		),
-	), $result);
+		],
+	], $result);
 });

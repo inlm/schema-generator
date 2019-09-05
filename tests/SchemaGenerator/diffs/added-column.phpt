@@ -14,7 +14,7 @@ test(function () {
 	$old->addTable('book');
 
 	$new->addTable('book')
-		->addColumn('name', 'VARCHAR', array(200))
+		->addColumn('name', 'VARCHAR', [200])
 			->setDefaultValue('XYZ');
 
 	$generator = Test\TestGenerator::create($old, $new);

@@ -25,7 +25,7 @@ test(function () {
 	$schemaGenerator = new SchemaGenerator($extractor, $adapter, $dumper, $logger);
 	$schemaGenerator->generate();
 
-	Assert::same(implode("\n", array(
+	Assert::same(implode("\n", [
 		'Generating schema',
 		'Generating diff',
 		'Generating migrations',
@@ -43,5 +43,5 @@ test(function () {
 		'Saving schema',
 		'Done.',
 		'',
-	)), $logger->getLog());
+	]), $logger->getLog());
 });

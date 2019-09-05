@@ -17,102 +17,102 @@ require __DIR__ . '/../../Test/LeanMapperExtractor/custom-types/Book.php';
 test(function () {
 	$extractor = new LeanMapperExtractor(__DIR__ . '/../../Test/LeanMapperExtractor/custom-types', new \LeanMapper\DefaultMapper);
 
-	$schema = $extractor->generateSchema(array(), array(
-		'test\leanmapperextractor\customtypes\image' => new DataType('varchar', array(100)),
-		'money' => new DataType('DECIMAL', array(15, 4)),
-	), Database::MYSQL);
+	$schema = $extractor->generateSchema([], [
+		'test\leanmapperextractor\customtypes\image' => new DataType('varchar', [100]),
+		'money' => new DataType('DECIMAL', [15, 4]),
+	], Database::MYSQL);
 	$serialized = ConfigurationSerializer::serialize(new Configuration($schema));
 	$generated = $serialized['schema'];
 	ksort($generated, SORT_STRING);
 
-	Assert::same(array(
-		'author' => array(
-			'columns' => array(
-				'id' => array(
+	Assert::same([
+		'author' => [
+			'columns' => [
+				'id' => [
 					'type' => 'INT',
-					'parameters' => array(10),
-					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
+					'parameters' => [10],
+					'options' => [SqlSchema\Column::OPTION_UNSIGNED => NULL],
 					'autoIncrement' => TRUE,
-				),
+				],
 
-				'name' => array(
+				'name' => [
 					'type' => 'VARCHAR',
-					'parameters' => array(100),
-				),
+					'parameters' => [100],
+				],
 
-				'age' => array(
+				'age' => [
 					'type' => 'INT',
-					'parameters' => array(10),
-					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
-				),
+					'parameters' => [10],
+					'options' => [SqlSchema\Column::OPTION_UNSIGNED => NULL],
+				],
 
-				'photo' => array(
+				'photo' => [
 					'type' => 'VARCHAR',
-					'parameters' => array(100),
-				),
-			),
+					'parameters' => [100],
+				],
+			],
 
-			'indexes' => array(
-				'' => array(
+			'indexes' => [
+				'' => [
 					'type' => SqlSchema\Index::TYPE_PRIMARY,
-					'columns' => array(
-						array(
+					'columns' => [
+						[
 							'name' => 'id',
-						),
-					),
-				)
-			)
-		),
+						],
+					],
+				]
+			]
+		],
 
-		'book' => array(
-			'columns' => array(
-				'id' => array(
+		'book' => [
+			'columns' => [
+				'id' => [
 					'type' => 'INT',
-					'parameters' => array(10),
-					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
+					'parameters' => [10],
+					'options' => [SqlSchema\Column::OPTION_UNSIGNED => NULL],
 					'autoIncrement' => TRUE,
-				),
+				],
 
-				'name' => array(
+				'name' => [
 					'type' => 'TEXT',
-				),
+				],
 
-				'price' => array(
+				'price' => [
 					'type' => 'DOUBLE',
-				),
+				],
 
-				'sellPrice' => array(
+				'sellPrice' => [
 					'type' => 'DECIMAL',
-					'parameters' => array(15, 4),
+					'parameters' => [15, 4],
 					'nullable' => TRUE,
-				),
+				],
 
-				'image' => array(
+				'image' => [
 					'type' => 'VARCHAR',
-					'parameters' => array(100),
-				),
+					'parameters' => [100],
+				],
 
-				'pubdate' => array(
+				'pubdate' => [
 					'type' => 'DATETIME',
-				),
+				],
 
-				'available' => array(
+				'available' => [
 					'type' => 'TINYINT',
-					'parameters' => array(1),
-					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
-				),
-			),
+					'parameters' => [1],
+					'options' => [SqlSchema\Column::OPTION_UNSIGNED => NULL],
+				],
+			],
 
-			'indexes' => array(
-				'' => array(
+			'indexes' => [
+				'' => [
 					'type' => SqlSchema\Index::TYPE_PRIMARY,
-					'columns' => array(
-						array(
+					'columns' => [
+						[
 							'name' => 'id',
-						),
-					),
-				)
-			)
-		),
-	), $generated);
+						],
+					],
+				]
+			]
+		],
+	], $generated);
 });

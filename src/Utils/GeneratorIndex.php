@@ -45,7 +45,7 @@
 			$indexName = $this->definition->getName();
 
 			if (!is_array($columns)) {
-				$columns = array($columns);
+				$columns = [$columns];
 			}
 
 			$origType = $this->definition->getType();
@@ -54,7 +54,7 @@
 				throw new \Inlm\SchemaGenerator\IncompatibleException("Type mismatch for index '$indexName' in table '{$this->tableName}'. Original type '$origType', new type '$type'.");
 			}
 
-			$origColumns = array();
+			$origColumns = [];
 
 			foreach ($this->definition->getColumns() as $column) {
 				$origColumns[] = $column->getName();

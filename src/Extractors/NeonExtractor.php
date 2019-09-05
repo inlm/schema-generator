@@ -27,10 +27,10 @@
 		/**
 		 * @return Schema
 		 */
-		public function generateSchema(array $options = array(), array $customTypes = array(), $databaseType = NULL)
+		public function generateSchema(array $options = [], array $customTypes = [], $databaseType = NULL)
 		{
 			$content = FileSystem::read($this->file);
-			$config = array();
+			$config = [];
 
 			if ($content !== '') {
 				$config = Neon::decode($content);

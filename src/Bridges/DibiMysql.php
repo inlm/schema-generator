@@ -26,7 +26,7 @@
 		 * @param  string[]
 		 * @return SqlSchema\Schema
 		 */
-		public function generateSchema(array $ignoredTables = array())
+		public function generateSchema(array $ignoredTables = [])
 		{
 			$schema = new SqlSchema\Schema;
 
@@ -45,7 +45,7 @@
 		private function getTables()
 		{
 			$rows = $this->connection->fetchAll('SHOW FULL TABLES');
-			$tables = array();
+			$tables = [];
 
 			foreach ($rows as $row) {
 				$data = $row->toArray();
@@ -80,11 +80,11 @@
 			$table = new SqlSchema\Table($name);
 			$this->assignTableMetaData($table);
 			$rows = $this->connection->fetchAll('SHOW FULL COLUMNS FROM %n', $name);
-			$meta = isset($this->tableMetas[$name]) ? $this->tableMetas[$name] : array();
+			$meta = isset($this->tableMetas[$name]) ? $this->tableMetas[$name] : [];
 			$columnsMeta = $this->getColumnsMeta($name);
 
 			foreach ($rows as $row) {
-				$rowMeta = isset($columnsMeta[$row['Field']]) ? $columnsMeta[$row['Field']] : array();
+				$rowMeta = isset($columnsMeta[$row['Field']]) ? $columnsMeta[$row['Field']] : [];
 				$datatype = DataTypeParser::parse($row['Type']);
 				$options = $datatype->getOptions();
 
@@ -133,11 +133,11 @@
 			}
 
 			$meta = $this->tableMetas[$name];
-			$options = array(
+			$options = [
 				'Engine' => 'ENGINE',
 				'CHARACTER SET' => 'CHARACTER SET',
 				'Collation' => 'COLLATE',
-			);
+			];
 
 			foreach ($options as $key => $option) {
 				if (isset($meta[$key])) {
@@ -160,7 +160,7 @@
 				WHERE table_schema = DATABASE()
 					AND table_name = %s', $tableName
 			);
-			$meta = array();
+			$meta = [];
 
 			foreach ($rows as $row) {
 				$meta[$row['column_name']]['CHARACTER SET'] = $row['character_set_name'];
@@ -176,7 +176,7 @@
 		private function createTableIndexes(SqlSchema\Table $table)
 		{
 			$rows = $this->connection->fetchAll('SHOW INDEXES FROM %n', $table->getName());
-			$indexes = array();
+			$indexes = [];
 
 			foreach ($rows as $row) {
 				$name = $row['Key_name'];
@@ -198,7 +198,7 @@
 						$type = SqlSchema\Index::TYPE_FULLTEXT;
 					}
 
-					$indexes[$name] = $table->addIndex($name, array(), $type);
+					$indexes[$name] = $table->addIndex($name, [], $type);
 				}
 
 				$index = $indexes[$name];
@@ -232,13 +232,13 @@
   					AND
 					KEY_COLUMN_USAGE.TABLE_NAME = %s', $table->getName()
 			);
-			$fks = array();
+			$fks = [];
 
 			foreach ($rows as $row) {
 				$name = $row['CONSTRAINT_NAME'];
 
 				if (!isset($fks[$name])) {
-					$fks[$name] = $table->addForeignKey($name, array(), $row['REFERENCED_TABLE_NAME'], array())
+					$fks[$name] = $table->addForeignKey($name, [], $row['REFERENCED_TABLE_NAME'], [])
 						->setOnUpdateAction($row['UPDATE_RULE'])
 						->setOnDeleteAction($row['DELETE_RULE']);
 				}

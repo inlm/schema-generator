@@ -26,11 +26,11 @@
 		 * @param  string|NULL
 		 * @return DataType
 		 */
-		public static function process($inputType, DataType $dbType = NULL, $isPrimaryColumn = FALSE, array $customTypes = array(), $databaseType = NULL)
+		public static function process($inputType, DataType $dbType = NULL, $isPrimaryColumn = FALSE, array $customTypes = [], $databaseType = NULL)
 		{
 			$type = NULL;
-			$parameters = array();
-			$options = array();
+			$parameters = [];
+			$options = [];
 
 			if ($inputType !== NULL) {
 				// predefined & custom types
@@ -51,7 +51,7 @@
 
 				} elseif ($inputType === 'boolean' || $inputType === 'bool') {
 					$type = 'TINYINT';
-					$parameters = array(1);
+					$parameters = [1];
 					$options[] = SqlSchema\Column::OPTION_UNSIGNED;
 
 				} elseif ($inputType === 'float' || $inputType === 'double') {

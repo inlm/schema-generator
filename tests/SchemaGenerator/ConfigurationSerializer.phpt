@@ -19,42 +19,42 @@ test(function () {
 	$schema = new SqlSchema\Schema;
 	$configuration = new Configuration($schema);
 
-	Assert::same(array(), ConfigurationSerializer::serialize($configuration));
+	Assert::same([], ConfigurationSerializer::serialize($configuration));
 });
 
 
 test(function () {
 	$schema = new SqlSchema\Schema;
 	$configuration = new Configuration($schema);
-	$configuration->setOptions(array(
+	$configuration->setOptions([
 		'STORAGE' => '',
 		'ENGINE' => 'InnoDB',
 		'CHARSET' => 'UTF-8',
-	));
+	]);
 
-	Assert::same(array(
-		'options' => array(
+	Assert::same([
+		'options' => [
 			'CHARSET' => 'UTF-8',
 			'ENGINE' => 'InnoDB',
 			'STORAGE' => '',
-		),
-	), ConfigurationSerializer::serialize($configuration));
+		],
+	], ConfigurationSerializer::serialize($configuration));
 });
 
 
 test(function () {
 	$configuration = new Configuration(Test\Schema::create());
-	$configuration->setOptions(array(
+	$configuration->setOptions([
 		'ENGINE' => 'InnoDB',
 		'CHARSET' => 'UTF-8',
-	));
+	]);
 
-	Assert::same(array(
-		'options' => array(
+	Assert::same([
+		'options' => [
 			'CHARSET' => 'UTF-8',
 			'ENGINE' => 'InnoDB',
-		),
+		],
 
 		'schema' => Test\Schema::createArray(),
-	), ConfigurationSerializer::serialize($configuration));
+	], ConfigurationSerializer::serialize($configuration));
 });

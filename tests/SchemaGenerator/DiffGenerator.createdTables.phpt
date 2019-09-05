@@ -18,10 +18,10 @@ test(function () {
 	$new->addTable('tag');
 
 	$diff = new DiffGenerator($old, $new);
-	$expected = array(
+	$expected = [
 		'book',
 		'author',
-	);
+	];
 
 	foreach ($diff->getCreatedTables() as $k => $createdTable) {
 		$definition = $createdTable->getDefinition();

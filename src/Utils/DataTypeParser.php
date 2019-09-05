@@ -41,46 +41,46 @@
 		public static function parse($s, $syntax = self::SYNTAX_DEFAULT)
 		{
 			$type = NULL;
-			$parameters = array();
-			$options = array();
-			$delimiters = array(
-				self::CONTEXT_DEFAULT => array(
+			$parameters = [];
+			$options = [];
+			$delimiters = [
+				self::CONTEXT_DEFAULT => [
 					// tokenType, newContext
-					' ' => array(self::TOKEN_DEFAULT, self::CONTEXT_DEFAULT),
-					"\t" => array(self::TOKEN_DEFAULT, self::CONTEXT_DEFAULT),
-					"\n" => array(self::TOKEN_DEFAULT, self::CONTEXT_DEFAULT),
-					"\r" => array(self::TOKEN_DEFAULT, self::CONTEXT_DEFAULT),
-					'(' => array(self::TOKEN_DEFAULT, self::CONTEXT_ARGS),
-				),
-				self::CONTEXT_ARGS => array(
-					',' => array(self::TOKEN_ARGUMENT, self::CONTEXT_ARGS),
-					')' => array(self::TOKEN_ARGUMENT, self::CONTEXT_DEFAULT),
-				),
-				self::CONTEXT_FINISH => array(
+					' ' => [self::TOKEN_DEFAULT, self::CONTEXT_DEFAULT],
+					"\t" => [self::TOKEN_DEFAULT, self::CONTEXT_DEFAULT],
+					"\n" => [self::TOKEN_DEFAULT, self::CONTEXT_DEFAULT],
+					"\r" => [self::TOKEN_DEFAULT, self::CONTEXT_DEFAULT],
+					'(' => [self::TOKEN_DEFAULT, self::CONTEXT_ARGS],
+				],
+				self::CONTEXT_ARGS => [
+					',' => [self::TOKEN_ARGUMENT, self::CONTEXT_ARGS],
+					')' => [self::TOKEN_ARGUMENT, self::CONTEXT_DEFAULT],
+				],
+				self::CONTEXT_FINISH => [
 					self::CONTEXT_DEFAULT => self::TOKEN_DEFAULT,
 					self::CONTEXT_ARGS => self::TOKEN_ARGUMENT,
-				),
-			);
+				],
+			];
 
 			if ($syntax & self::SYNTAX_ALTERNATIVE) {
-				$delimiters[self::CONTEXT_DEFAULT][':'] = array(self::TOKEN_DEFAULT, self::CONTEXT_ALT_ARGS);
-				$delimiters[self::CONTEXT_ALT_ARGS] = array(
-					',' => array(self::TOKEN_ARGUMENT, self::CONTEXT_ALT_ARGS),
-					' ' => array(self::TOKEN_ARGUMENT, self::CONTEXT_DEFAULT),
-					"\t" => array(self::TOKEN_ARGUMENT, self::CONTEXT_DEFAULT),
-					"\n" => array(self::TOKEN_ARGUMENT, self::CONTEXT_DEFAULT),
-					"\r" => array(self::TOKEN_ARGUMENT, self::CONTEXT_DEFAULT),
-				);
+				$delimiters[self::CONTEXT_DEFAULT][':'] = [self::TOKEN_DEFAULT, self::CONTEXT_ALT_ARGS];
+				$delimiters[self::CONTEXT_ALT_ARGS] = [
+					',' => [self::TOKEN_ARGUMENT, self::CONTEXT_ALT_ARGS],
+					' ' => [self::TOKEN_ARGUMENT, self::CONTEXT_DEFAULT],
+					"\t" => [self::TOKEN_ARGUMENT, self::CONTEXT_DEFAULT],
+					"\n" => [self::TOKEN_ARGUMENT, self::CONTEXT_DEFAULT],
+					"\r" => [self::TOKEN_ARGUMENT, self::CONTEXT_DEFAULT],
+				];
 				$delimiters[self::CONTEXT_FINISH][self::CONTEXT_ALT_ARGS] = self::TOKEN_ARGUMENT;
 			}
 
 			$findParameters = TRUE;
 			$inParameters = FALSE;
 			$tokens = self::process($s, self::CONTEXT_DEFAULT, $delimiters);
-			$knownOptions = array(
+			$knownOptions = [
 				SqlSchema\Column::OPTION_UNSIGNED => TRUE,
 				SqlSchema\Column::OPTION_ZEROFILL => TRUE,
-			);
+			];
 
 			foreach ($tokens as $token) {
 				if ($token[0] === self::TOKEN_ARGUMENT) {
@@ -134,7 +134,7 @@
 
 		private static function process($s, $context, array $delimiters)
 		{
-			$result = array();
+			$result = [];
 			$pos = 0;
 			$length = strlen($s);
 
@@ -148,7 +148,7 @@
 
 					if (is_array($action)) {
 						if ($token !== '') {
-							$result[] = array($action[0], $token);
+							$result[] = [$action[0], $token];
 						}
 
 						$context = $action[1];
@@ -160,7 +160,7 @@
 				$token = substr($s, $pos, $i - $pos);
 
 				if ($token !== '') {
-					$result[] = array($delimiters[self::CONTEXT_FINISH][$context], $token);
+					$result[] = [$delimiters[self::CONTEXT_FINISH][$context], $token];
 				}
 			}
 

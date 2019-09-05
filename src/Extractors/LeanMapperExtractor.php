@@ -50,7 +50,7 @@
 		/**
 		 * @return SqlSchema\Schema
 		 */
-		public function generateSchema(array $options = array(), array $customTypes = array(), $databaseType = NULL)
+		public function generateSchema(array $options = [], array $customTypes = [], $databaseType = NULL)
 		{
 			$this->generator = new Generator($options, $databaseType);
 			$this->customTypes = $customTypes;
@@ -69,7 +69,7 @@
 
 		protected function generateEntity($entityClass)
 		{
-			$reflection = call_user_func(array($entityClass, 'getReflection'), $this->mapper);
+			$reflection = call_user_func([$entityClass, 'getReflection'], $this->mapper);
 			$properties = $reflection->getEntityProperties();
 
 			if (empty($properties) || $this->isEntityIgnored($reflection->getDocComment())) {
@@ -94,7 +94,7 @@
 
 			// hack - primary column must be always first (@property-read is always last)
 			if (isset($properties[$tablePrimaryColumn])) {
-				$properties = array($tablePrimaryColumn => $properties[$tablePrimaryColumn]) + $properties;
+				$properties = [$tablePrimaryColumn => $properties[$tablePrimaryColumn]] + $properties;
 			}
 
 			foreach ($properties as $property) {
@@ -146,10 +146,10 @@
 		{
 			// @schema-ignore
 			// @schemaIgnore
-			$annotations = array(
+			$annotations = [
 				'schema-ignore',
 				'schemaIgnore',
-			);
+			];
 
 			foreach ($annotations as $annotation) {
 				if (AnnotationsParser::parseSimpleAnnotationValue($annotation, $docComment) !== NULL) {
@@ -168,10 +168,10 @@
 		{
 			// @schema-comment comment
 			// @schemaComment comment
-			$annotations = array(
+			$annotations = [
 				'schema-comment',
 				'schemaComment',
-			);
+			];
 
 			foreach ($annotations as $annotation) {
 				foreach (AnnotationsParser::parseAnnotationValues($annotation, $docComment) as $comment) {
@@ -188,10 +188,10 @@
 		{
 			// @schema-option option value
 			// @schemaOption option value
-			$annotations = array(
+			$annotations = [
 				'schema-option',
 				'schemaOption',
-			);
+			];
 
 			foreach ($annotations as $annotation) {
 				foreach (AnnotationsParser::parseAnnotationValues($annotation, $docComment) as $definition) {
@@ -231,15 +231,15 @@
 		{
 			// @schema-<type> property1, property2
 			// @schema<Type> property, property2
-			$annotations = array(
+			$annotations = [
 				'schema-' . $indexType,
 				'schema' . ucfirst($indexType),
-			);
+			];
 
 			foreach ($annotations as $annotation) {
 				foreach (AnnotationsParser::parseAnnotationValues($annotation, $reflection->getDocComment()) as $definition) {
 					$properties = array_map('trim', explode(',', $definition));
-					$columns = array();
+					$columns = [];
 
 					foreach ($properties as $property) {
 						$columns[] = $this->mapper->getColumn($entityClass, $property);
@@ -329,10 +329,10 @@
 		 */
 		protected function extractColumnIndex(Reflection\Property $property, $type, $tableName, $columnName)
 		{
-			$flags = array(
+			$flags = [
 				'schema-' . $type,
 				'schema' . ucfirst($type),
-			);
+			];
 
 			foreach ($flags as $flag) {
 				if ($property->hasCustomFlag($flag)) {
@@ -399,7 +399,7 @@
 			$robot->acceptFiles = '*.php';
 			$robot->rebuild();
 			$classes = array_keys($robot->getIndexedClasses());
-			$entities = array();
+			$entities = [];
 
 			foreach ($classes as $class) {
 				if (!class_exists($class) && !interface_exists($class)) {
@@ -426,7 +426,7 @@
 		 */
 		protected function getFamilyLine(Reflection\EntityReflection $reflection)
 		{
-			$line = array($member = $reflection);
+			$line = [$member = $reflection];
 
 			while ($member = $member->getParentClass()) {
 				if ($member === NULL || $member->name === 'LeanMapper\Entity') {

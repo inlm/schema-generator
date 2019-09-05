@@ -13,5 +13,5 @@
 		 * @param  string|NULL
 		 * @return Schema
 		 */
-		function generateSchema(array $options = array(), array $customTypes = array(), $databaseType = NULL);
+		function generateSchema(array $options = [], array $customTypes = [], $databaseType = NULL);
 	}

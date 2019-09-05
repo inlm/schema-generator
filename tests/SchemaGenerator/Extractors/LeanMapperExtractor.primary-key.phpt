@@ -18,108 +18,108 @@ require __DIR__ . '/../../Test/LeanMapperExtractor/primary-key/BookMeta.php';
 test(function () {
 	$extractor = new LeanMapperExtractor(__DIR__ . '/../../Test/LeanMapperExtractor/primary-key', new \Test\LeanMapperExtractor\PrimaryKey\Mapper);
 
-	$schema = $extractor->generateSchema(array(), array(), Database::MYSQL);
+	$schema = $extractor->generateSchema([], [], Database::MYSQL);
 	$serialized = ConfigurationSerializer::serialize(new Configuration($schema));
 	$generated = $serialized['schema'];
 	ksort($generated, SORT_STRING);
 
-	Assert::same(array(
-		'book' => array(
-			'columns' => array(
-				'id' => array(
+	Assert::same([
+		'book' => [
+			'columns' => [
+				'id' => [
 					'type' => 'INT',
-					'parameters' => array(10),
-					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
+					'parameters' => [10],
+					'options' => [SqlSchema\Column::OPTION_UNSIGNED => NULL],
 					'autoIncrement' => TRUE,
-				),
+				],
 
-				'name' => array(
+				'name' => [
 					'type' => 'TEXT',
-				),
-			),
+				],
+			],
 
-			'indexes' => array(
-				'' => array(
+			'indexes' => [
+				'' => [
 					'type' => SqlSchema\Index::TYPE_PRIMARY,
-					'columns' => array(
-						array(
+					'columns' => [
+						[
 							'name' => 'id',
-						),
-					),
-				)
-			)
-		),
+						],
+					],
+				]
+			]
+		],
 
-		'bookmeta' => array(
-			'columns' => array(
-				'book_id' => array(
+		'bookmeta' => [
+			'columns' => [
+				'book_id' => [
 					'type' => 'INT',
-					'parameters' => array(10),
-					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
-				),
+					'parameters' => [10],
+					'options' => [SqlSchema\Column::OPTION_UNSIGNED => NULL],
+				],
 
-				'year' => array(
+				'year' => [
 					'type' => 'INT',
-					'parameters' => array(11),
-				),
-			),
+					'parameters' => [11],
+				],
+			],
 
-			'indexes' => array(
-				'' => array(
+			'indexes' => [
+				'' => [
 					'type' => SqlSchema\Index::TYPE_PRIMARY,
-					'columns' => array(
-						array(
+					'columns' => [
+						[
 							'name' => 'book_id',
-						),
-					),
-				)
-			),
+						],
+					],
+				]
+			],
 
-			'foreignKeys' => array(
-				'bookmeta_fk_book_id' => array(
-					'columns' => array('book_id'),
+			'foreignKeys' => [
+				'bookmeta_fk_book_id' => [
+					'columns' => ['book_id'],
 					'targetTable' => 'book',
-					'targetColumns' => array('id'),
+					'targetColumns' => ['id'],
 					'onUpdateAction' => 'RESTRICT',
 					'onDeleteAction' => 'RESTRICT',
-				),
-			),
-		),
+				],
+			],
+		],
 
-		'bookmeta2' => array(
-			'columns' => array(
-				'book_id' => array(
+		'bookmeta2' => [
+			'columns' => [
+				'book_id' => [
 					'type' => 'INT',
-					'parameters' => array(10),
-					'options' => array(SqlSchema\Column::OPTION_UNSIGNED => NULL),
-				),
+					'parameters' => [10],
+					'options' => [SqlSchema\Column::OPTION_UNSIGNED => NULL],
+				],
 
-				'rating' => array(
+				'rating' => [
 					'type' => 'INT',
-					'parameters' => array(11),
-				),
-			),
+					'parameters' => [11],
+				],
+			],
 
-			'indexes' => array(
-				'' => array(
+			'indexes' => [
+				'' => [
 					'type' => SqlSchema\Index::TYPE_PRIMARY,
-					'columns' => array(
-						array(
+					'columns' => [
+						[
 							'name' => 'book_id',
-						),
-					),
-				)
-			),
+						],
+					],
+				]
+			],
 
-			'foreignKeys' => array(
-				'bookmeta2_fk_book_id' => array(
-					'columns' => array('book_id'),
+			'foreignKeys' => [
+				'bookmeta2_fk_book_id' => [
+					'columns' => ['book_id'],
 					'targetTable' => 'book',
-					'targetColumns' => array('id'),
+					'targetColumns' => ['id'],
 					'onUpdateAction' => 'RESTRICT',
 					'onDeleteAction' => 'RESTRICT',
-				),
-			),
-		),
-	), $generated);
+				],
+			],
+		],
+	], $generated);
 });

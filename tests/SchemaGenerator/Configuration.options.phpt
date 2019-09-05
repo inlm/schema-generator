@@ -12,19 +12,19 @@ test(function () {
 	$configuration = new Configuration($schema);
 
 	Assert::same($schema, $configuration->getSchema());
-	Assert::same(array(), $configuration->getOptions());
+	Assert::same([], $configuration->getOptions());
 });
 
 
 test(function () {
 	$configuration = new Configuration(new SqlSchema\Schema);
-	$configuration->setOptions(array(
+	$configuration->setOptions([
 		'CHARSET' => 'UTF-8',
 		'ENGINE' => 'InnoDB',
-	));
+	]);
 
-	Assert::same(array(
+	Assert::same([
 		'CHARSET' => 'UTF-8',
 		'ENGINE' => 'InnoDB',
-	), $configuration->getOptions());
+	], $configuration->getOptions());
 });

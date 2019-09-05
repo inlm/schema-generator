@@ -14,159 +14,159 @@ test(function () {
 
 
 test(function () {
-	Assert::same(array(
+	Assert::same([
 		'type' => 'TEXT',
 		'parameters' => NULL,
-		'options' => array(),
-	), typeToArray(DataTypeParser::parse('TEXT')));
+		'options' => [],
+	], typeToArray(DataTypeParser::parse('TEXT')));
 
 
 	// alternative
-	Assert::same(array(
+	Assert::same([
 		'type' => 'TEXT',
 		'parameters' => NULL,
-		'options' => array(),
-	), typeToArray(DataTypeParser::parse('TEXT', DataTypeParser::SYNTAX_ALTERNATIVE)));
+		'options' => [],
+	], typeToArray(DataTypeParser::parse('TEXT', DataTypeParser::SYNTAX_ALTERNATIVE)));
 });
 
 
 test(function () {
-	Assert::same(array(
+	Assert::same([
 		'type' => 'TEXT',
-		'parameters' => array(20),
-		'options' => array(),
-	), typeToArray(DataTypeParser::parse('TEXT(20)')));
+		'parameters' => [20],
+		'options' => [],
+	], typeToArray(DataTypeParser::parse('TEXT(20)')));
 
-	Assert::same(array(
+	Assert::same([
 		'type' => 'DECIMAL',
-		'parameters' => array(15, 4),
-		'options' => array(),
-	), typeToArray(DataTypeParser::parse('decimal(15, 4)')));
+		'parameters' => [15, 4],
+		'options' => [],
+	], typeToArray(DataTypeParser::parse('decimal(15, 4)')));
 
 
 	// alternative
-	Assert::same(array(
+	Assert::same([
 		'type' => 'TEXT',
-		'parameters' => array(20),
-		'options' => array(),
-	), typeToArray(DataTypeParser::parse('TEXT:20', DataTypeParser::SYNTAX_ALTERNATIVE)));
+		'parameters' => [20],
+		'options' => [],
+	], typeToArray(DataTypeParser::parse('TEXT:20', DataTypeParser::SYNTAX_ALTERNATIVE)));
 
-	Assert::same(array(
+	Assert::same([
 		'type' => 'DECIMAL',
-		'parameters' => array(15, 4),
-		'options' => array(),
-	), typeToArray(DataTypeParser::parse('decimal:15,4', DataTypeParser::SYNTAX_ALTERNATIVE)));
+		'parameters' => [15, 4],
+		'options' => [],
+	], typeToArray(DataTypeParser::parse('decimal:15,4', DataTypeParser::SYNTAX_ALTERNATIVE)));
 });
 
 
 test(function () {
-	Assert::same(array(
+	Assert::same([
 		'type' => 'INT',
 		'parameters' => NULL,
-		'options' => array(
+		'options' => [
 			'UNSIGNED' => NULL,
 			'ZEROFILL' => NULL,
-		),
-	), typeToArray(DataTypeParser::parse('UNSIGNED ZEROFILL INT')));
+		],
+	], typeToArray(DataTypeParser::parse('UNSIGNED ZEROFILL INT')));
 
 
 	// alternative
-	Assert::same(array(
+	Assert::same([
 		'type' => 'INT',
 		'parameters' => NULL,
-		'options' => array(
+		'options' => [
 			'UNSIGNED' => NULL,
 			'ZEROFILL' => NULL,
-		),
-	), typeToArray(DataTypeParser::parse('UNSIGNED ZEROFILL INT', DataTypeParser::SYNTAX_ALTERNATIVE)));
+		],
+	], typeToArray(DataTypeParser::parse('UNSIGNED ZEROFILL INT', DataTypeParser::SYNTAX_ALTERNATIVE)));
 });
 
 
 test(function () {
-	Assert::same(array(
+	Assert::same([
 		'type' => 'DECIMAL',
-		'parameters' => array(20, 2),
-		'options' => array(
+		'parameters' => [20, 2],
+		'options' => [
 			'UNSIGNED' => NULL,
 			'SUPER_OPTION' => NULL,
-		),
-	), typeToArray(DataTypeParser::parse('DECIMAL(20,2) UNSIGNED SUPER_OPTION')));
+		],
+	], typeToArray(DataTypeParser::parse('DECIMAL(20,2) UNSIGNED SUPER_OPTION')));
 
 
 	// alternative
-	Assert::same(array(
+	Assert::same([
 		'type' => 'DECIMAL',
-		'parameters' => array(20, 2),
-		'options' => array(
+		'parameters' => [20, 2],
+		'options' => [
 			'UNSIGNED' => NULL,
 			'SUPER_OPTION' => NULL,
-		),
-	), typeToArray(DataTypeParser::parse('DECIMAL:20,2 UNSIGNED SUPER_OPTION', DataTypeParser::SYNTAX_ALTERNATIVE)));
+		],
+	], typeToArray(DataTypeParser::parse('DECIMAL:20,2 UNSIGNED SUPER_OPTION', DataTypeParser::SYNTAX_ALTERNATIVE)));
 });
 
 
 test(function () {
-	Assert::same(array(
+	Assert::same([
 		'type' => NULL,
-		'parameters' => array(20, 2),
-		'options' => array(
+		'parameters' => [20, 2],
+		'options' => [
 			'UNSIGNED' => NULL,
-		),
-	), typeToArray(DataTypeParser::parse('(20,2) UNSIGNED')));
+		],
+	], typeToArray(DataTypeParser::parse('(20,2) UNSIGNED')));
 
-	Assert::same(array(
+	Assert::same([
 		'type' => NULL,
 		'parameters' => NULL,
-		'options' => array(
+		'options' => [
 			'UNSIGNED' => NULL,
 			'ZEROFILL' => NULL,
-		),
-	), typeToArray(DataTypeParser::parse('UNSIGNED ZEROFILL')));
+		],
+	], typeToArray(DataTypeParser::parse('UNSIGNED ZEROFILL')));
 
 
 	// alternative
-	Assert::same(array(
+	Assert::same([
 		'type' => NULL,
-		'parameters' => array(20, 2),
-		'options' => array(
+		'parameters' => [20, 2],
+		'options' => [
 			'UNSIGNED' => NULL,
-		),
-	), typeToArray(DataTypeParser::parse(':20,2 UNSIGNED', DataTypeParser::SYNTAX_ALTERNATIVE)));
+		],
+	], typeToArray(DataTypeParser::parse(':20,2 UNSIGNED', DataTypeParser::SYNTAX_ALTERNATIVE)));
 
-	Assert::same(array(
+	Assert::same([
 		'type' => NULL,
 		'parameters' => NULL,
-		'options' => array(
+		'options' => [
 			'UNSIGNED' => NULL,
 			'ZEROFILL' => NULL,
-		),
-	), typeToArray(DataTypeParser::parse('UNSIGNED ZEROFILL', DataTypeParser::SYNTAX_ALTERNATIVE)));
+		],
+	], typeToArray(DataTypeParser::parse('UNSIGNED ZEROFILL', DataTypeParser::SYNTAX_ALTERNATIVE)));
 });
 
 
 test(function () {
-	Assert::same(array(
+	Assert::same([
 		'type' => NULL,
-		'parameters' => array('(20', 2),
-		'options' => array(
+		'parameters' => ['(20', 2],
+		'options' => [
 			'UNSIGNED' => NULL,
-		),
-	), typeToArray(DataTypeParser::parse('((20,2) UNSIGNED')));
+		],
+	], typeToArray(DataTypeParser::parse('((20,2) UNSIGNED')));
 });
 
 
 test(function () {
-	Assert::same(array(
+	Assert::same([
 		'type' => 'ENUM',
-		'parameters' => array('ms', 'zs', 'ss'),
-		'options' => array(),
-	), typeToArray(DataTypeParser::parse("enum(ms,\"zs\",'ss')")));
+		'parameters' => ['ms', 'zs', 'ss'],
+		'options' => [],
+	], typeToArray(DataTypeParser::parse("enum(ms,\"zs\",'ss')")));
 
 
 	// alternative
-	Assert::same(array(
+	Assert::same([
 		'type' => 'ENUM',
-		'parameters' => array('ms', 'zs', 'ss'),
-		'options' => array(),
-	), typeToArray(DataTypeParser::parse("enum:ms,\"zs\",'ss'", DataTypeParser::SYNTAX_ALTERNATIVE)));
+		'parameters' => ['ms', 'zs', 'ss'],
+		'options' => [],
+	], typeToArray(DataTypeParser::parse("enum:ms,\"zs\",'ss'", DataTypeParser::SYNTAX_ALTERNATIVE)));
 });

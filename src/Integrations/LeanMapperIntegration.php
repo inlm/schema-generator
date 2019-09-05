@@ -47,7 +47,7 @@
 			$entityDirectories,
 			array $options = NULL,
 			array $customTypes = NULL,
-			array $ignoredTables = array(),
+			array $ignoredTables = [],
 			LeanMapper\Connection $connection,
 			LeanMapper\IMapper $mapper
 		)

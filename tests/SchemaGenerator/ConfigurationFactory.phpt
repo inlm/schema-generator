@@ -16,24 +16,24 @@ test(function () {
 
 
 test(function () {
-	$configuration = ConfigurationFactory::fromArray(array());
+	$configuration = ConfigurationFactory::fromArray([]);
 
-	Assert::same(array(), $configuration->getOptions());
-	Assert::same(array(), $configuration->getSchema()->getTables());
+	Assert::same([], $configuration->getOptions());
+	Assert::same([], $configuration->getSchema()->getTables());
 });
 
 
 test(function () {
-	$configuration = ConfigurationFactory::fromArray(array(
-		'options' => array(
+	$configuration = ConfigurationFactory::fromArray([
+		'options' => [
 			'ENGINE' => 'InnoDB',
-		),
+		],
 		'schema' => Test\Schema::createArray(),
-	));
+	]);
 
-	Assert::same(array(
+	Assert::same([
 		'ENGINE' => 'InnoDB',
-	), $configuration->getOptions());
+	], $configuration->getOptions());
 
 	$config = ConfigurationSerializer::serialize($configuration);
 

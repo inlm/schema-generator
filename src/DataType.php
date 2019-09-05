@@ -12,7 +12,7 @@
 		private $parameters;
 
 		/** @var array */
-		private $options = array();
+		private $options = [];
 
 
 		/**
@@ -20,12 +20,12 @@
 		 * @param  array|string|NULL
 		 * @param  array  [OPTION => VALUE, OPTION2]
 		 */
-		public function __construct($type, array $parameters = NULL, array $options = array())
+		public function __construct($type, array $parameters = NULL, array $options = [])
 		{
 			$this->type = $type !== NULL ? strtoupper($type) : NULL;
 
 			if (!is_array($parameters) && $parameters !== NULL) {
-				$parameters = array($parameters);
+				$parameters = [$parameters];
 			}
 
 			$this->parameters = $parameters;

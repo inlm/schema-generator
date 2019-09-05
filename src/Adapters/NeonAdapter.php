@@ -30,7 +30,7 @@
 		 */
 		public function load()
 		{
-			$config = array();
+			$config = [];
 
 			if (file_exists($this->file)) {
 				$content = FileSystem::read($this->file);

@@ -31,10 +31,10 @@
 		protected $started = FALSE;
 
 		/** @var array */
-		protected $_tableAlter = array(
+		protected $_tableAlter = [
 			'table' => NULL,
 			'statement' => NULL,
-		);
+		];
 
 
 		/**
@@ -401,14 +401,14 @@
 			}
 
 			if ($this->databaseType === Database::MYSQL) {
-				return array(
+				return [
 					'SET foreign_key_checks = 1;',
 					'SET time_zone = "SYSTEM";',
 					'SET sql_mode = "TRADITIONAL";',
-				);
+				];
 			}
 
-			return array();
+			return [];
 		}
 
 

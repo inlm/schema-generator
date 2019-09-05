@@ -21,7 +21,7 @@ $newTable->addColumn('parent_id', 'INT');
 $newTable->addColumn('group', 'INT');
 $newTable->addColumn('type', 'TINYINT');
 $newTable->addColumn('updated', 'DATETIME');
-$newTable->addColumn('title', 'VARCHAR', array(200));
+$newTable->addColumn('title', 'VARCHAR', [200]);
 
 
 // with positions
@@ -30,13 +30,13 @@ test(function () use ($old, $new) {
 	$generator->dumper->enablePositionChanges();
 	$generator->generator->generate();
 
-	Assert::same(implode("\n", array(
+	Assert::same(implode("\n", [
 		"ALTER TABLE `book`",
 		"ADD COLUMN `parent_id` INT NOT NULL AFTER `id`,",
 		"ADD COLUMN `type` TINYINT NOT NULL AFTER `group`,",
 		"MODIFY COLUMN `updated` DATETIME NOT NULL AFTER `type`,",
 		"MODIFY COLUMN `title` VARCHAR(200) NOT NULL AFTER `updated`;",
-	)), trim($generator->dumper->getSql()));
+	]), trim($generator->dumper->getSql()));
 });
 
 
@@ -46,10 +46,10 @@ test(function () use ($old, $new) {
 	$generator->dumper->enablePositionChanges(FALSE);
 	$generator->generator->generate();
 
-	Assert::same(implode("\n", array(
+	Assert::same(implode("\n", [
 		"ALTER TABLE `book`",
 		"ADD COLUMN `parent_id` INT NOT NULL,",
 		"ADD COLUMN `type` TINYINT NOT NULL,",
 		"MODIFY COLUMN `title` VARCHAR(200) NOT NULL;",
-	)), trim($generator->dumper->getSql()));
+	]), trim($generator->dumper->getSql()));
 });

@@ -31,7 +31,7 @@
 				->setNullable();
 			$oldBook->addColumn('name')
 				->setType('VARCHAR')
-				->setParameters(array(200));
+				->setParameters([200]);
 			$oldBook->addIndex(NULL, 'id', SqlSchema\Index::TYPE_PRIMARY);
 			$oldBook->addIndex('author_id', 'author_id', SqlSchema\Index::TYPE_INDEX);
 			$oldBook->addForeignKey('fk_author', 'author_id', 'author', 'id');
@@ -41,7 +41,7 @@
 				->setAutoIncrement();
 			$oldAuthor->addColumn('name') // meni typ
 				->setType('VARCHAR')
-				->setParameters(array(50));
+				->setParameters([50]);
 			$oldAuthor->addColumn('tag_id') // smazany
 				->setType('INT');
 			$oldAuthor->addIndex(NULL, 'id', SqlSchema\Index::TYPE_PRIMARY); // without changes
@@ -69,7 +69,7 @@
 				->setNullable();
 			$newBook->addColumn('name')
 				->setType('VARCHAR')
-				->setParameters(array(200));
+				->setParameters([200]);
 			$newBook->addIndex(NULL, 'id', SqlSchema\Index::TYPE_PRIMARY);
 			$newBook->addIndex('author_id', 'author_id', SqlSchema\Index::TYPE_INDEX);
 			$newBook->addForeignKey('fk_author', 'author_id', 'author', 'id');
@@ -79,10 +79,10 @@
 				->setAutoIncrement();
 			$newAuthor->addColumn('name') // meni typ
 				->setType('VARCHAR')
-				->setParameters(array(200));
+				->setParameters([200]);
 			$newAuthor->addColumn('website') // novy sloupec
 				->setType('VARCHAR')
-				->setParameters(array(255))
+				->setParameters([255])
 				->setNullable();
 			$newAuthor->addIndex(NULL, 'id', SqlSchema\Index::TYPE_PRIMARY); // without changes
 			$newAuthor->addIndex('name', 'name', SqlSchema\Index::TYPE_INDEX); // updated

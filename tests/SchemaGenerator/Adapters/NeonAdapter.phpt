@@ -9,17 +9,17 @@ use Tester\Assert;
 require __DIR__ . '/../../bootstrap.php';
 
 define('TEMP_DIR', prepareTempDir());
-$content = "# DON'T EDIT THIS FILE!\n\n" . Neon::encode(array(
+$content = "# DON'T EDIT THIS FILE!\n\n" . Neon::encode([
 	'schema' => Test\Schema::createArray(),
-), Neon::BLOCK);
+], Neon::BLOCK);
 $content = rtrim($content) . "\n";
 
 test(function () {
 	$adapter = new Adapters\NeonAdapter(TEMP_DIR . '/empty.neon');
 	$configuration = $adapter->load();
 
-	Assert::same(array(), $configuration->getOptions());
-	Assert::same(array(), $configuration->getSchema()->getTables());
+	Assert::same([], $configuration->getOptions());
+	Assert::same([], $configuration->getSchema()->getTables());
 });
 
 
@@ -29,10 +29,10 @@ test(function () use ($content) {
 	$adapter = new Adapters\NeonAdapter($file);
 	$configuration = $adapter->load();
 
-	Assert::same(array(), $configuration->getOptions());
-	Assert::same(array(
+	Assert::same([], $configuration->getOptions());
+	Assert::same([
 		'schema' => Test\Schema::createArray(),
-	), ConfigurationSerializer::serialize($configuration));
+	], ConfigurationSerializer::serialize($configuration));
 });
 
 

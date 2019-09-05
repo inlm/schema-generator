@@ -23,7 +23,7 @@
 			$test->adapter = new DummyAdapter(new SchemaGenerator\Configuration($oldSchema));
 			$test->extractor = new DummyExtractor($newSchema);
 			$test->dumper = new SchemaGenerator\Dumpers\SqlMemoryDumper;
-			$test->dumper->setHeader(array());
+			$test->dumper->setHeader([]);
 			$test->logger = new SchemaGenerator\Loggers\MemoryLogger;
 			$test->generator = new SchemaGenerator\SchemaGenerator($test->extractor, $test->adapter, $test->dumper, $test->logger, SchemaGenerator\Database::MYSQL);
 
