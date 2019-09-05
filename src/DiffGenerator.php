@@ -417,6 +417,7 @@
 		private function resolveOrder(array $tables)
 		{
 			$resolver = new \Cz\Dependency;
+			$tablesToSort = array();
 
 			foreach ($tables as $table) {
 				$sourceTable = $table->getName();
@@ -426,6 +427,12 @@
 					$targetTables[] = $foreignKey->getTargetTable();
 				}
 
+				$tablesToSort[$sourceTable] = $targetTables;
+			}
+
+			ksort($tablesToSort, SORT_STRING);
+
+			foreach ($tablesToSort as $sourceTable => $targetTables) {
 				$resolver->add($sourceTable, $targetTables);
 			}
 
