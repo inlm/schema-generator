@@ -3,20 +3,19 @@
 	namespace Inlm\SchemaGenerator\Bridges;
 
 	use CzProject\SqlSchema;
-	use Dibi;
 	use Inlm\SchemaGenerator\Utils\DataTypeParser;
 
 
 	class DibiMysql
 	{
-		/** @var Dibi\Connection */
+		/** @var \Dibi\Connection */
 		private $connection;
 
 		/** @var array  [tableName => (array) metadata] */
 		private $tableMetas;
 
 
-		public function __construct(Dibi\Connection $connection)
+		public function __construct(\Dibi\Connection $connection)
 		{
 			$this->connection = $connection;
 		}
