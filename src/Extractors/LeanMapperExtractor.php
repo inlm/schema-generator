@@ -92,9 +92,6 @@
 				$this->extractTableIndexes($tableName, $member, 'primary', $entityClass);
 				$this->extractTableIndexes($tableName, $member, 'unique', $entityClass);
 				$this->extractTableIndexes($tableName, $member, 'index', $entityClass);
-
-				$memberClass = $member->getName();
-				$memberProperties = array_keys($member->getEntityProperties());
 			}
 
 			// hack - primary column must be always first (@property-read is always last)
