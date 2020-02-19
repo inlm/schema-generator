@@ -82,6 +82,11 @@
 
 			foreach ($this->getFamilyLine($reflection) as $member) {
 				$docComment = $member->getDocComment();
+
+				if ($docComment === FALSE) {
+					continue;
+				}
+
 				$this->extractTableComment($tableName, $docComment);
 				$this->extractTableOption($tableName, $docComment);
 				$this->extractTableIndexes($tableName, $member, 'primary', $entityClass);
