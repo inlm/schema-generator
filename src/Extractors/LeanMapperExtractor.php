@@ -243,8 +243,15 @@
 					$properties = array_map('trim', explode(',', $definition));
 					$columns = [];
 
-					foreach ($properties as $property) {
-						$columns[] = $this->mapper->getColumn($entityClass, $property);
+					foreach ($properties as $propertyName) {
+						$property = $reflection->getEntityProperty($propertyName);
+
+						if ($property !== NULL) {
+							$columns[] = $property->getColumn();
+
+						} else { // fallback
+							$columns[] = $this->mapper->getColumn($entityClass, $property);
+						}
 					}
 
 					$this->addIndexByType($indexType, $tableName, $columns);
