@@ -25,6 +25,7 @@ $integration = new Inlm\SchemaGenerator\Integrations\LeanMapperIntegration(
 	$options = NULL,
 	$customTypes = NULL,
 	$ignoredTables = array('migrations'),
+	$databaseType = NULL, // Database::* constant or NULL => autodetected from LeanMapper\Connection
 	$connection = new LeanMapper\Connection(...),
 	$mapper = new LeanMapper\DefaultMapper
 );
