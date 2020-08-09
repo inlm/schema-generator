@@ -28,8 +28,6 @@ jobs:
             script:
                 - php temp/code-checker/src/code-checker.php
 
-sudo: false
-
 cache:
     directories:
         - $HOME/.composer/cache
