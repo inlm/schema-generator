@@ -4,7 +4,6 @@
 
 	use CzProject\SqlGenerator;
 	use CzProject\SqlSchema;
-	use Dibi;
 	use Inlm\SchemaGenerator\Bridges;
 	use Inlm\SchemaGenerator\Diffs;
 	use Inlm\SchemaGenerator\IDumper;
@@ -12,11 +11,11 @@
 
 	class DibiDumper extends AbstractSqlDumper
 	{
-		/** @var Dibi\Connection */
+		/** @var \Dibi\Connection */
 		private $connection;
 
 
-		public function __construct(Dibi\Connection $connection)
+		public function __construct(\Dibi\Connection $connection)
 		{
 			$this->connection = $connection;
 		}

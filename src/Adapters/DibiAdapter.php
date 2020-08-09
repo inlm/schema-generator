@@ -3,7 +3,6 @@
 	namespace Inlm\SchemaGenerator\Adapters;
 
 	use CzProject\SqlSchema\Schema;
-	use Dibi;
 	use Inlm\SchemaGenerator\Bridges;
 	use Inlm\SchemaGenerator\Configuration;
 	use Inlm\SchemaGenerator\IAdapter;
@@ -11,7 +10,7 @@
 
 	class DibiAdapter implements IAdapter
 	{
-		/** @var Dibi\Connection */
+		/** @var \Dibi\Connection */
 		private $connection;
 
 		/** @var string[] */
@@ -19,10 +18,10 @@
 
 
 		/**
-		 * @param  Dibi\Connection
+		 * @param  \Dibi\Connection
 		 * @param  string[]
 		 */
-		public function __construct(Dibi\Connection $connection, array $ignoredTables = [])
+		public function __construct(\Dibi\Connection $connection, array $ignoredTables = [])
 		{
 			$this->connection = $connection;
 			$this->ignoredTables = $ignoredTables;

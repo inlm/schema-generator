@@ -3,7 +3,6 @@
 	namespace Inlm\SchemaGenerator\Extractors;
 
 	use CzProject\SqlSchema;
-	use Dibi;
 	use Inlm\SchemaGenerator\Bridges;
 	use Inlm\SchemaGenerator\IExtractor;
 	use Inlm\SchemaGenerator\Utils\Generator;
@@ -13,7 +12,7 @@
 
 	class DibiExtractor implements IExtractor
 	{
-		/** @var Dibi\Connection */
+		/** @var \Dibi\Connection */
 		private $connection;
 
 		/** @var string[] */
@@ -21,10 +20,10 @@
 
 
 		/**
-		 * @param  Dibi\Connection
+		 * @param  \Dibi\Connection
 		 * @param  string[]
 		 */
-		public function __construct(Dibi\Connection $connection, array $ignoredTables = [])
+		public function __construct(\Dibi\Connection $connection, array $ignoredTables = [])
 		{
 			$this->connection = $connection;
 			$this->ignoredTables = $ignoredTables;
