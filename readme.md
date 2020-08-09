@@ -36,12 +36,6 @@ $generator->generate('changes description');
 
 ## Documentation
 
-* [Custom Types](docs/custom-types.md)
-* [Table Options](docs/table-options.md)
-* [Examples](docs/examples.md)
-* [Integrations](docs/integrations.md)
-* [Bridges](docs/bridges.md)
-
 Supported databases:
 
 * MySQL
@@ -88,6 +82,15 @@ Dumps changes of database schema into migration file, database,...
 
 * [MemoryLogger](docs/memory-logger.md)
 * [OutputLogger](docs/output-logger.md)
+
+
+### More
+
+* [Custom Types](docs/custom-types.md)
+* [Table Options](docs/table-options.md)
+* [Examples](docs/examples.md)
+* [Integrations](docs/integrations.md)
+* [Bridges](docs/bridges.md)
 
 
 ------------------------------
