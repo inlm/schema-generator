@@ -405,7 +405,7 @@
 		{
 			$robot = new Nette\Loaders\RobotLoader;
 			$robot->addDirectory($this->directories);
-			$robot->acceptFiles = '*.php';
+			$robot->acceptFiles = ['*.php'];
 			$robot->rebuild();
 			$classes = array_keys($robot->getIndexedClasses());
 			$entities = [];
