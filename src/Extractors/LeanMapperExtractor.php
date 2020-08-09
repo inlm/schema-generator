@@ -250,7 +250,7 @@
 							$columns[] = $property->getColumn();
 
 						} else { // fallback
-							$columns[] = $this->mapper->getColumn($entityClass, $property);
+							$columns[] = $this->mapper->getColumn($entityClass, $propertyName);
 						}
 					}
 
