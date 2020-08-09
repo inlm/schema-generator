@@ -48,7 +48,8 @@
 				$this->createExtractor(),
 				$this->createAdapter(),
 				new SchemaGenerator\Dumpers\NullDumper,
-				$this->createLogger()
+				$this->createLogger(),
+				$this->getDatabaseType()
 			);
 
 			$this->applyOptions($generator);
@@ -109,6 +110,9 @@
 
 
 		abstract protected function getCustomTypes();
+
+
+		abstract protected function getDatabaseType();
 
 
 		abstract protected function createExtractor();

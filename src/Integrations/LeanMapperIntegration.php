@@ -26,6 +26,9 @@
 		/** @var array */
 		private $ignoredTables;
 
+		/** @var string */
+		private $databaseType;
+
 		/** @var LeanMapper\Connection */
 		private $connection;
 
@@ -40,6 +43,7 @@
 		 * @param  array|NULL
 		 * @param  array|NULL
 		 * @param  array
+		 * @param  string
 		 */
 		public function __construct(
 			$schemaFile,
@@ -48,6 +52,7 @@
 			array $options = NULL,
 			array $customTypes = NULL,
 			array $ignoredTables = [],
+			$databaseType = Database::MYSQL,
 			LeanMapper\Connection $connection,
 			LeanMapper\IMapper $mapper
 		)
@@ -58,6 +63,7 @@
 			$this->options = $options;
 			$this->customTypes = $customTypes;
 			$this->ignoredTables = $ignoredTables;
+			$this->databaseType = $databaseType;
 			$this->connection = $connection;
 			$this->mapper = $mapper;
 		}
@@ -72,6 +78,12 @@
 		protected function getCustomTypes()
 		{
 			return $this->customTypes;
+		}
+
+
+		protected function getDatabaseType()
+		{
+			return $this->databaseType;
 		}
 
 
