@@ -2,6 +2,7 @@
 
 	namespace Inlm\SchemaGenerator\Integrations;
 
+	use Inlm\SchemaGenerator\Bridges;
 	use Inlm\SchemaGenerator;
 	use LeanMapper;
 
@@ -43,7 +44,7 @@
 		 * @param  array|NULL
 		 * @param  array|NULL
 		 * @param  array
-		 * @param  string
+		 * @param  string|NULL
 		 */
 		public function __construct(
 			$schemaFile,
@@ -52,7 +53,7 @@
 			array $options = NULL,
 			array $customTypes = NULL,
 			array $ignoredTables = [],
-			$databaseType = Database::MYSQL,
+			$databaseType = NULL,
 			LeanMapper\Connection $connection,
 			LeanMapper\IMapper $mapper
 		)
@@ -63,7 +64,7 @@
 			$this->options = $options;
 			$this->customTypes = $customTypes;
 			$this->ignoredTables = $ignoredTables;
-			$this->databaseType = $databaseType;
+			$this->databaseType = $databaseType !== NULL ? $databaseType : Bridges\Dibi::detectDatabaseType($connection);
 			$this->connection = $connection;
 			$this->mapper = $mapper;
 		}
