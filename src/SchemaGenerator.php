@@ -2,6 +2,7 @@
 
 	namespace Inlm\SchemaGenerator;
 
+	use CzProject\Logger\ILogger;
 	use CzProject\SqlSchema;
 
 

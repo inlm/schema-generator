@@ -3,7 +3,6 @@
 use CzProject\SqlSchema;
 use Inlm\SchemaGenerator\Configuration;
 use Inlm\SchemaGenerator\Dumpers;
-use Inlm\SchemaGenerator\Loggers\MemoryLogger;
 use Inlm\SchemaGenerator\SchemaGenerator;
 use Tester\Assert;
 
@@ -17,7 +16,7 @@ test(function () {
 	$oldSchema->addTable('roles');
 	$newSchema->addTable('photos');
 
-	$logger = new MemoryLogger;
+	$logger = new CzProject\Logger\MemoryLogger;
 	$adapter = new Test\DummyAdapter(new Configuration($oldSchema));
 	$extractor = new Test\DummyExtractor($newSchema);
 	$dumper = new Dumpers\NullDumper;
@@ -25,7 +24,7 @@ test(function () {
 	$schemaGenerator = new SchemaGenerator($extractor, $adapter, $dumper, $logger);
 	$schemaGenerator->generate();
 
-	Assert::same(implode("\n", [
+	Assert::same([
 		'Generating schema',
 		'Generating diff',
 		'Generating migrations',
@@ -42,6 +41,5 @@ test(function () {
 		' - REMOVED table roles',
 		'Saving schema',
 		'Done.',
-		'',
-	]), $logger->getLog());
+	], $logger->getLog());
 });

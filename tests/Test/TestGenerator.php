@@ -2,6 +2,7 @@
 
 	namespace Test;
 
+	use CzProject;
 	use CzProject\SqlSchema;
 	use Inlm\SchemaGenerator;
 
@@ -24,7 +25,7 @@
 			$test->extractor = new DummyExtractor($newSchema);
 			$test->dumper = new SchemaGenerator\Dumpers\SqlMemoryDumper;
 			$test->dumper->setHeader([]);
-			$test->logger = new SchemaGenerator\Loggers\MemoryLogger;
+			$test->logger = new CzProject\Logger\MemoryLogger;
 			$test->generator = new SchemaGenerator\SchemaGenerator($test->extractor, $test->adapter, $test->dumper, $test->logger, SchemaGenerator\Database::MYSQL);
 
 			return $test;

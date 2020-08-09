@@ -80,8 +80,12 @@ Dumps changes of database schema into migration file, database,...
 
 ### Loggers
 
-* [MemoryLogger](docs/memory-logger.md)
-* [OutputLogger](docs/output-logger.md)
+You can use loggers from `czproject/logger`.
+
+* `CzProject\Logger\CliLogger`
+* `CzProject\Logger\MemoryLogger`
+* `CzProject\Logger\OutputLogger`
+* or any else
 
 
 ### More
