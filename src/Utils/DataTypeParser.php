@@ -90,14 +90,16 @@
 
 					$inParameters = TRUE;
 					$value = trim($token[1]);
-					$resValue = (int) $value;
 
-					if ($value !== (string) $resValue) {
-						$resValue = $value; // fallback for non-int values
-					}
+					if (self::isQuoted($value)) {
+						$resValue = substr($value, 1, -1);
 
-					if (self::isQuoted($resValue)) {
-						$resValue = substr($resValue, 1, -1);
+					} else {
+						$resValue = (int) $value;
+
+						if ($value !== (string) $resValue) {
+							$resValue = $value; // fallback for non-int values
+						}
 					}
 
 					$parameters[] = $resValue;
