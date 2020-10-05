@@ -2,6 +2,7 @@
 
 	namespace Inlm\SchemaGenerator\Integrations;
 
+	use CzProject;
 	use Inlm\SchemaGenerator\Bridges;
 	use Inlm\SchemaGenerator;
 	use LeanMapper;
@@ -128,6 +129,6 @@
 
 		protected function createLogger()
 		{
-			return new SchemaGenerator\Loggers\OutputLogger;
+			return new CzProject\Logger\OutputLogger;
 		}
 	}
