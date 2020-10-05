@@ -60,7 +60,7 @@
 				} elseif ($inputType === 'string') {
 					$type = 'TEXT';
 
-				} elseif ($inputType === 'datetime' || $inputType === 'datetimeinterface') {
+				} elseif ($inputType === 'datetime' || $inputType === 'datetimeinterface' || $inputType === 'datetimeimmutable') {
 					$type = 'DATETIME';
 				}
 			}

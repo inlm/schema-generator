@@ -86,3 +86,9 @@ Assert::same([
 	'parameters' => [],
 	'options' => [],
 ], typeToArray(DataTypeProcessor::process(\DateTimeInterface::class, NULL, FALSE, [], Database::MYSQL)));
+
+Assert::same([
+	'type' => 'DATETIME',
+	'parameters' => [],
+	'options' => [],
+], typeToArray(DataTypeProcessor::process(\DateTimeImmutable::class, NULL, FALSE, [], Database::MYSQL)));
