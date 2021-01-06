@@ -18,7 +18,7 @@ abstract class Client extends LeanMapper\Entity
  */
 class ClientIndividual extends Client
 {
-	protected function initDefaults()
+	protected function initDefaults(): void
 	{
 		$this->type = self::TYPE_INDIVIDUAL;
 	}
@@ -32,7 +32,7 @@ class ClientIndividual extends Client
  */
 class ClientCompany extends Client
 {
-	protected function initDefaults()
+	protected function initDefaults(): void
 	{
 		$this->type = self::TYPE_COMPANY;
 	}

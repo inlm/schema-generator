@@ -5,7 +5,7 @@
 
 	class Mapper extends \LeanMapper\DefaultMapper
 	{
-		public function getPrimaryKey($table)
+		public function getPrimaryKey(string $table): string
 		{
 			if ($table === 'bookmeta' || $table === 'bookmeta2') {
 				return 'book_id';

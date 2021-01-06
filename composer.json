@@ -10,10 +10,10 @@
 		}
 	],
 	"require": {
-		"php": ">=5.6.0",
+		"php": ">=7.2.0",
 		"nette/neon": "^2.4 || ^3.0",
 		"nette/utils": "^2.4 || ^3.0",
-		"tharos/leanmapper": ">= 3.0",
+		"tharos/leanmapper": "^4.0",
 		"nette/robot-loader": "^2.4 || ^3.0",
 		"czproject/sql-schema": "^3.0",
 		"czproject/sql-generator": "^2.0",

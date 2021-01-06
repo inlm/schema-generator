@@ -5,7 +5,7 @@
 
 	class Mapper extends \LeanMapper\DefaultMapper
 	{
-		public function getEntityClass($table, \LeanMapper\Row $row = NULL)
+		public function getEntityClass(string $table, \LeanMapper\Row $row = NULL): string
 		{
 			if ($table === 'user') {
 				if ($row === NULL) {
@@ -19,7 +19,7 @@
 		}
 
 
-		public function getTable($entity)
+		public function getTable(string $entity): string
 		{
 			if (is_subclass_of($entity, User::class, TRUE)) {
 				return 'user';

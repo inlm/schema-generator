@@ -2,7 +2,7 @@
 
 class Mapper extends \LeanMapper\DefaultMapper
 {
-	public function getEntityClass($table, LeanMapper\Row $row = NULL)
+	public function getEntityClass(string $table, LeanMapper\Row $row = NULL): string
 	{
 		if ($table === 'client') {
 			if (isset($row->type)) {
@@ -16,7 +16,7 @@ class Mapper extends \LeanMapper\DefaultMapper
 	}
 
 
-	public function getTable($entity)
+	public function getTable(string $entity): string
 	{
 		if ($entity === 'ClientIndividual' || $entity === 'ClientCompany') {
 			return 'client';

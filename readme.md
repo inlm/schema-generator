@@ -15,7 +15,7 @@
 composer require inlm/schema-generator
 ```
 
-Schema Generator requires PHP 5.6.0 or later.
+Schema Generator requires PHP 7.2.0 or later.
 
 
 ## Usage
