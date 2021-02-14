@@ -135,6 +135,12 @@ test(function () {
 
 	Assert::same([
 		'type' => NULL,
+		'parameters' => [20],
+		'options' => [],
+	], typeToArray(DataTypeParser::parse(':20', DataTypeParser::SYNTAX_ALTERNATIVE)));
+
+	Assert::same([
+		'type' => NULL,
 		'parameters' => NULL,
 		'options' => [
 			'UNSIGNED' => NULL,
