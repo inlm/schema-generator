@@ -411,7 +411,7 @@
 			$entities = [];
 
 			foreach ($classes as $class) {
-				if (!class_exists($class) && !interface_exists($class)) {
+				if (!class_exists($class) && !interface_exists($class) && !trait_exists($class)) {
 					$robot->tryLoad($class);
 				}
 
