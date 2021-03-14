@@ -18,7 +18,7 @@
 		"czproject/sql-schema": "^2.0",
 		"czproject/sql-generator": "^1.3",
 		"czproject/logger": "^0.12.0",
-		"czproject/dependency-php": "^1.0"
+		"czproject/dependency-php": "^2.0"
 	},
 	"autoload": {
 		"classmap": ["src/"]
