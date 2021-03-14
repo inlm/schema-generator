@@ -416,7 +416,7 @@
 		 */
 		private function resolveOrder(array $tables)
 		{
-			$resolver = new \Cz\Dependency;
+			$resolver = new \CzProject\DependencyPhp\Resolver;
 			$tablesToSort = [];
 
 			foreach ($tables as $table) {
