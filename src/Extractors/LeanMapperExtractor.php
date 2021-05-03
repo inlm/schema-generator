@@ -403,25 +403,23 @@
 		 */
 		protected function findEntities()
 		{
-			$robot = new Nette\Loaders\RobotLoader;
-			$robot->addDirectory($this->directories);
-			$robot->acceptFiles = ['*.php'];
-			$robot->rebuild();
-			$classes = array_keys($robot->getIndexedClasses());
+			$directories = is_array($this->directories) ? $this->directories : [$this->directories];
+			$phpClassFinder = new \Inlm\SchemaGenerator\Utils\PhpClassFinder($directories);
+			$classes = $phpClassFinder->find();
 			$entities = [];
 
-			foreach ($classes as $class) {
-				if (!class_exists($class) && !interface_exists($class) && !trait_exists($class)) {
-					$robot->tryLoad($class);
+			foreach ($classes->getClasses() as $class) {
+				$accept = !$class->isAbstract()
+					&& $classes->isSubclassOf($class, \LeanMapper\Entity::class);
+
+				$entityClass = $class->getName();
+
+				if (!class_exists($entityClass)) {
+					$class->loadFile();
 				}
 
-				$accept = class_exists($class)
-					&& ($rc = new \ReflectionClass($class))
-					&& $rc->isSubclassOf('LeanMapper\\Entity')
-					&& !$rc->isAbstract();
-
-				if ($accept) {
-					$entities[] = $class;
+				if ($accept && class_exists($entityClass, FALSE)) {
+					$entities[] = $class->getName();
 				}
 			}
 
@@ -438,7 +436,7 @@
 			$line = [$member = $reflection];
 
 			while ($member = $member->getParentClass()) {
-				if ($member === NULL || $member->name === 'LeanMapper\Entity') {
+				if ($member === NULL || $member->name === \LeanMapper\Entity::class) {
 					break;
 				}
 
