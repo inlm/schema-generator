@@ -226,6 +226,15 @@
 				$this->setCustomType('bcrypt', 'CHAR', [60]);
 				$this->setCustomType('md5', 'CHAR', [32]);
 				$this->setCustomType('money', 'DECIMAL', [15, 4]);
+				$this->setCustomType(\DateInterval::class, 'TIME');
+				$this->setCustomType(\Inteve\Types\HexColor::class, 'CHAR', [6]);
+				$this->setCustomType(\Inteve\Types\Html::class, 'MEDIUMTEXT');
+				$this->setCustomType(\Inteve\Types\Md5Hash::class, 'CHAR', [32]);
+				$this->setCustomType(\Inteve\Types\Password::class, 'VARCHAR', [255]); // https://www.php.net/manual/en/function.password-hash.php#refsect1-function.password-hash-description
+				$this->setCustomType(\Inteve\Types\UniqueId::class, 'CHAR', [10]);
+				$this->setCustomType(\Inteve\Types\Url::class, 'VARCHAR', [255]);
+				$this->setCustomType(\Inteve\Types\UrlSlug::class, 'VARCHAR', [255]);
+				$this->setCustomType(\Inteve\Types\UrlPath::class, 'VARCHAR', [255]);
 			}
 		}
 
