@@ -414,7 +414,7 @@
 
 				$entityClass = $class->getName();
 
-				if (!class_exists($entityClass)) {
+				if ($accept && !class_exists($entityClass)) {
 					$class->loadFile();
 				}
 
