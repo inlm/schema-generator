@@ -13,6 +13,18 @@
 		/** @var SqlSchema\Schema */
 		private $new;
 
+		/** @var bool */
+		private $prepared = FALSE;
+
+		/** @var Diffs\CreatedTable[] */
+		private $createdTables;
+
+		/** @var Diffs\RemovedTable[] */
+		private $removedTables;
+
+		/** @var Diffs\UpdatedTable[] */
+		private $updatedTables;
+
 
 		public function __construct(SqlSchema\Schema $old, SqlSchema\Schema $new)
 		{
@@ -41,6 +53,53 @@
 		 */
 		public function getCreatedTables()
 		{
+			$this->prepareChanges();
+			return $this->createdTables;
+		}
+
+
+		/**
+		 * @return Diffs\RemovedTable[]
+		 */
+		public function getRemovedTables()
+		{
+			$this->prepareChanges();
+			return $this->removedTables;
+		}
+
+
+		/**
+		 * @return Diffs\UpdatedTable[]
+		 */
+		public function getUpdatedTables()
+		{
+			$this->prepareChanges();
+			return $this->updatedTables;
+		}
+
+
+		/**
+		 * @return void
+		 */
+		private function prepareChanges()
+		{
+			if ($this->prepared) {
+				return;
+			}
+
+			$this->createdTables = $this->prepareCreatedTables();
+			$this->updatedTables = $this->prepareUpdatedTables();
+			$this->removedTables = $this->prepareRemovedTables();
+			$this->fixCreatedCircularReferences();
+			$this->prepared = TRUE;
+		}
+
+
+		/**
+		 * @return Diffs\CreatedTable[]
+		 */
+		private function prepareCreatedTables()
+		{
 			$tables = [];
 			$oldTables = [];
 
@@ -63,7 +122,7 @@
 		/**
 		 * @return Diffs\RemovedTable[]
 		 */
-		public function getRemovedTables()
+		private function prepareRemovedTables()
 		{
 			$tables = [];
 			$newTables = [];
@@ -88,7 +147,7 @@
 		/**
 		 * @return Diffs\UpdatedTable[]
 		 */
-		public function getUpdatedTables()
+		private function prepareUpdatedTables()
 		{
 			$tables = [];
 			$tablesToUpdate = [];
@@ -392,6 +451,56 @@
 		}
 
 
+		/**
+		 * @return void
+		 */
+		private function fixCreatedCircularReferences()
+		{
+			$sortedTables = $this->sortTables($this->new->getTables(), $this->createdTables);
+			$exists = [];
+
+			foreach ($sortedTables as $sortedTable) {
+				$exists[$sortedTable->getTableName()] = TRUE;
+			}
+
+			$createdNames = [];
+
+			foreach ($sortedTables as $createdTable) {
+				$tableName = $createdTable->getTableName();
+
+				if (!isset($exists[$tableName])) {
+					$createdNames[$tableName] = [];
+					continue;
+				}
+
+				// $createdTable = $createdTables[$tableName];
+				$definition = $createdTable->getDefinition();
+				$updates = [];
+
+				foreach ($definition->getForeignKeys() as $foreignKey) {
+					$targetTable = $foreignKey->getTargetTable();
+
+					if (!isset($exists[$targetTable])) {
+						continue;
+					}
+
+					if (!isset($createdNames[$targetTable])) { // circular reference
+						$updates[] = new Diffs\CreatedForeignKey($tableName, $foreignKey);
+						$definition->removeForeignKey($foreignKey);
+					}
+				}
+
+				$createdNames[$tableName] = $updates;
+			}
+
+			foreach ($createdNames as $tableName => $updates) {
+				if (count($updates) > 0) {
+					$this->updatedTables[] = new Diffs\UpdatedTable($tableName, $updates);
+				}
+			}
+		}
+
+
 		private function sortTables(array $allTables, array $tablesToSort)
 		{
 			$tableOrder = $this->resolveOrder($allTables);
@@ -453,6 +562,16 @@
 			}
 
 			$name = $diff->getTableName();
-			return isset($tableOrder[$name]) ? $tableOrder[$name] : NULL;
+			$order = isset($tableOrder[$name]) ? $tableOrder[$name] : NULL;
+
+			if ($diff instanceof Diffs\UpdatedTable) {
+				foreach ($diff->getCreatedForeignKeys() as $createdForeignKey) {
+					$targetTable = $createdForeignKey->getDefinition()->getTargetTable();
+					$targetOrder = isset($tableOrder[$targetTable]) ? $tableOrder[$targetTable] : NULL;
+					$order = max($order, $targetOrder + 1);
+				}
+			}
+
+			return $order;
 		}
 	}
