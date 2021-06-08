@@ -214,9 +214,11 @@
 		private function createTableForeignKeys(SqlSchema\Table $table)
 		{
 			$rows = $this->connection->fetchAll('SELECT
+				KEY_COLUMN_USAGE.TABLE_SCHEMA,
 				KEY_COLUMN_USAGE.TABLE_NAME,
 				KEY_COLUMN_USAGE.COLUMN_NAME,
 				KEY_COLUMN_USAGE.CONSTRAINT_NAME,
+				KEY_COLUMN_USAGE.REFERENCED_TABLE_SCHEMA,
 				KEY_COLUMN_USAGE.REFERENCED_TABLE_NAME,
 				KEY_COLUMN_USAGE.REFERENCED_COLUMN_NAME,
 				REFERENTIAL_CONSTRAINTS.UPDATE_RULE,
@@ -237,7 +239,8 @@
 				$name = $row['CONSTRAINT_NAME'];
 
 				if (!isset($fks[$name])) {
-					$fks[$name] = $table->addForeignKey($name, [], $row['REFERENCED_TABLE_NAME'], [])
+					$referencedSchema = $row['TABLE_SCHEMA'] !== $row['REFERENCED_TABLE_SCHEMA'] ? $row['REFERENCED_TABLE_SCHEMA'] : NULL;
+					$fks[$name] = $table->addForeignKey($name, [], ($referencedSchema !== NULL ? "$referencedSchema." : '') . $row['REFERENCED_TABLE_NAME'], [])
 						->setOnUpdateAction($row['UPDATE_RULE'])
 						->setOnDeleteAction($row['DELETE_RULE']);
 				}

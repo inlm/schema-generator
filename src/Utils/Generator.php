@@ -569,6 +569,11 @@
 			if (!is_array($columns)) {
 				$columns = [$columns];
 			}
+
+			if ($pos = strrpos($table, '.')) { // FALSE or 0
+				$table = substr($table, $pos + 1);
+			}
+
 			return $table . '_fk_' . implode('_', $columns);
 		}
 	}
