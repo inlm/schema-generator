@@ -91,6 +91,7 @@
 			$this->updatedTables = $this->prepareUpdatedTables();
 			$this->removedTables = $this->prepareRemovedTables();
 			$this->fixCreatedCircularReferences();
+			$this->fixRemovedCircularReferences();
 			$this->prepared = TRUE;
 		}
 
@@ -494,6 +495,59 @@
 			}
 
 			foreach ($createdNames as $tableName => $updates) {
+				if (count($updates) > 0) {
+					$this->updatedTables[] = new Diffs\UpdatedTable($tableName, $updates);
+				}
+			}
+		}
+
+
+		/**
+		 * @return void
+		 */
+		private function fixRemovedCircularReferences()
+		{
+			$sortedTables = $this->sortTables($this->old->getTables(), $this->removedTables);
+			$exists = [];
+
+			foreach ($sortedTables as $sortedTable) {
+				$exists[$sortedTable->getTableName()] = TRUE;
+			}
+
+			$removedNames = [];
+
+			foreach ($sortedTables as $removedTable) {
+				$tableName = $removedTable->getTableName();
+
+				if (!isset($exists[$tableName])) {
+					$removedNames[$tableName] = [];
+					continue;
+				}
+
+				$definition = $this->old->getTable($removedTable->getTableName());
+
+				if ($definition === NULL) {
+					continue;
+				}
+
+				$updates = [];
+
+				foreach ($definition->getForeignKeys() as $foreignKey) {
+					$targetTable = $foreignKey->getTargetTable();
+
+					if (!isset($exists[$targetTable])) {
+						continue;
+					}
+
+					if (!isset($removedNames[$targetTable])) { // circular reference
+						$updates[] = new Diffs\RemovedForeignKey($tableName, $foreignKey->getName());
+					}
+				}
+
+				$removedNames[$tableName] = $updates;
+			}
+
+			foreach ($removedNames as $tableName => $updates) {
 				if (count($updates) > 0) {
 					$this->updatedTables[] = new Diffs\UpdatedTable($tableName, $updates);
 				}
