@@ -471,6 +471,10 @@
 				$short = $this->generateShort($name, self::FROM_LEFT);
 
 				if (isset($this->currentNamespace['uses'][$short])) {
+					if ($short === $name) {
+						return $this->currentNamespace['uses'][$short];
+					}
+
 					return $this->currentNamespace['uses'][$short] . '\\' . substr($name, strlen($short) + 1);
 				}
 			}

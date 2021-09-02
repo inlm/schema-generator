@@ -10,6 +10,6 @@
 	 * @property string $name m:schemaType(TEXT:20)
 	 * @schema-comment Tags for books.
 	 */
-	class Tag extends \LeanMapper\Entity
+	class Tag extends Entity
 	{
 	}
