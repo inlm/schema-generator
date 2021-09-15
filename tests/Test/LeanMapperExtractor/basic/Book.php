@@ -12,7 +12,7 @@
 	 * @property string $name
 	 * @property string|NULL $description
 	 * @property string|NULL $website
-	 * @property bool $available
+	 * @property bool $available m:schemaDefault(1)
 	 * @property float|NULL $price
 	 */
 	class Book extends \LeanMapper\Entity

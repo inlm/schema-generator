@@ -16,6 +16,7 @@
 	use LeanMapper\Reflection;
 	use LeanMapper\Reflection\AnnotationsParser;
 	use LeanMapper\Relationship;
+	use Nette\Utils\Validators;
 
 
 	class LeanMapperExtractor implements IExtractor
@@ -128,7 +129,9 @@
 					$columnType = $this->extractColumnType($property, $isPrimaryColumn, $entityClass);
 				}
 
-				$this->generator->addColumn($tableName, $columnName, $columnType);
+				$columnDefaultValue = $this->extractColumnDefaultValue($tableName, $columnName, $property);
+
+				$this->generator->addColumn($tableName, $columnName, $columnType, $columnDefaultValue);
 				$this->generator->setColumnNullable($tableName, $columnName, $property->isNullable());
 
 				$this->extractColumnComment($tableName, $columnName, $property);
@@ -314,6 +317,35 @@
 			} elseif ($property->hasCustomFlag('schemaComment')) {
 				$this->generator->setColumnComment($tableName, $columnName, $property->getCustomFlagValue('schemaComment'));
 			}
+		}
+
+
+		/**
+		 * @param  string
+		 * @param  string
+		 * @return scalar|NULL
+		 */
+		protected function extractColumnDefaultValue($tableName, $columnName, Reflection\Property $property)
+		{
+			$value = NULL;
+
+			if ($property->hasCustomFlag('schema-default')) {
+				$value = $property->getCustomFlagValue('schema-default');
+
+			} elseif ($property->hasCustomFlag('schemaDefault')) {
+				$value = $property->getCustomFlagValue('schemaDefault');
+			}
+
+			if ($value !== NULL) {
+				if (Validators::isNumericInt($value)) {
+					$value = (int) $value;
+
+				} elseif (Validators::isNumeric($value)) {
+					$value = (float) $value;
+				}
+			}
+
+			return $value;
 		}
 
 
