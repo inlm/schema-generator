@@ -288,9 +288,10 @@
 		 * @param  string
 		 * @param  string
 		 * @param  DataType
+		 * @param  scalar|NULL
 		 * @return static
 		 */
-		public function addColumn($tableName, $columnName, DataType $columnType = NULL)
+		public function addColumn($tableName, $columnName, DataType $columnType = NULL, $defaultValue = NULL)
 		{
 			if (isset($this->columns[$tableName][$columnName])) {
 				$column = $this->columns[$tableName][$columnName]->getDefinition();
@@ -310,6 +311,17 @@
 					}
 				}
 
+				if ($defaultValue !== NULL) {
+					$oldDefaultValue = $column->getDefaultValue();
+
+					if ($oldDefaultValue === NULL) {
+						$column->setDefaultValue($defaultValue);
+
+					} elseif ($oldDefaultValue !== $defaultValue) {
+						throw new InvalidArgumentException("Column $tableName.$columnName has already default value ($oldDefaultValue !== $defaultValue).");
+					}
+				}
+
 				$this->columns[$tableName][$columnName]->markAsCreated();
 				return $column;
 			}
@@ -321,6 +333,10 @@
 				$column->setType($columnType->getType());
 				$column->setParameters($columnType->getParameters());
 				$column->setOptions($columnType->getOptions());
+			}
+
+			if ($defaultValue !== NULL) {
+				$column->setDefaultValue($defaultValue);
 			}
 
 			$this->columns[$tableName][$columnName] = new GeneratorColumn($column);

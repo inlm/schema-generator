@@ -22,6 +22,5 @@ test(function () {
 	ksort($generated, SORT_STRING);
 
 	$expected = Test\Schema::createArray();
-	unset($expected['book']['columns']['available']['defaultValue']); // LeanMapperExtractor doesn't support default values
 	Assert::same($expected, $generated);
 });
