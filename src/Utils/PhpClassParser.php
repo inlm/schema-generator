@@ -64,6 +64,9 @@
 				} elseif ($this->isCurrentToken(T_CLASS)) {
 					$this->parseClass(FALSE);
 
+				} elseif ($this->isCurrentToken(T_TRAIT)) {
+					$this->parseTrait();
+
 				} elseif ($this->isCurrentToken(T_DOUBLE_COLON)) { // static call or property/constant
 					$this->consumeToken(T_DOUBLE_COLON);
 					$this->tryConsumeToken(T_CLASS);
@@ -247,6 +250,17 @@
 			}
 
 			$this->classes[] = new PhpClass($name, $isAbstract, $extends, $implements, $this->file);
+			$this->parsePhpBlock();
+		}
+
+
+		private function parseTrait()
+		{
+			// skips traits
+			$this->consumeToken(T_TRAIT);
+			$this->consumeAllTokens(T_WHITESPACE);
+			$this->consumeToken(T_STRING);
+			$this->tryConsumeAllTokens(T_WHITESPACE);
 			$this->parsePhpBlock();
 		}
 
