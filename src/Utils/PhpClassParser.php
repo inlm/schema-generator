@@ -115,7 +115,7 @@
 		private function parseNamespaceUse()
 		{
 			$this->consumeToken(T_USE);
-			$this->consumeAllTokens(T_WHITESPACE);
+			$this->consumeAllTokens([T_WHITESPACE, T_COMMENT, T_DOC_COMMENT]);
 
 			if ($this->isCurrentToken(T_FUNCTION)) { // use function
 				return;
@@ -355,11 +355,21 @@
 
 
 		/**
-		 * @param  string|int $tokenId
+		 * @param  string|int|string[]|int[] $tokenId
 		 * @return bool
 		 */
 		private function isCurrentToken($tokenId)
 		{
+			if (is_array($tokenId)) {
+				foreach ($tokenId as $tId) {
+					if ($this->isCurrentToken($tId)) {
+						return TRUE;
+					}
+				}
+
+				return FALSE;
+			}
+
 			$token = $this->getCurrentToken();
 
 			if (is_string($token) && $token === $tokenId) {
