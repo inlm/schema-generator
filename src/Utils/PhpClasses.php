@@ -34,7 +34,7 @@
 
 
 		/**
-		 * @return PhpClass
+		 * @return bool
 		 */
 		public function hasClass($class)
 		{
@@ -44,7 +44,7 @@
 
 
 		/**
-		 * @return array<string, PhpClass>
+		 * @return PhpClass
 		 */
 		public function getClass($class)
 		{

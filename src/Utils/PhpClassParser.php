@@ -26,7 +26,7 @@
 		/** @var int */
 		private $currentLine;
 
-		/** @var PhpClass[] */
+		/** @var PhpClass[]|NULL */
 		private $classes;
 
 
