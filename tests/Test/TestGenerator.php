@@ -9,10 +9,19 @@
 
 	class TestGenerator
 	{
+		/** @var CzProject\Logger\MemoryLogger */
 		public $logger;
+
+		/** @var DummyExtractor */
 		public $extractor;
+
+		/** @var DummyAdapter */
 		public $adapter;
+
+		/** @var SchemaGenerator\Dumpers\SqlMemoryDumper */
 		public $dumper;
+
+		/** @var SchemaGenerator\SchemaGenerator */
 		public $generator;
 
 
@@ -20,7 +29,7 @@
 		{
 			$oldSchema = $oldSchema ? $oldSchema : new SqlSchema\Schema;
 			$newSchema = $newSchema ? $newSchema : new SqlSchema\Schema;
-			$test = new static;
+			$test = new self;
 			$test->adapter = new DummyAdapter(new SchemaGenerator\Configuration($oldSchema));
 			$test->extractor = new DummyExtractor($newSchema);
 			$test->dumper = new SchemaGenerator\Dumpers\SqlMemoryDumper;

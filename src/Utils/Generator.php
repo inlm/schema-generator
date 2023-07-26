@@ -269,6 +269,7 @@
 		{
 			$comment = trim($comment);
 			$this->getTableDefinition($tableName)->setComment($comment !== '' ? $comment : NULL);
+			return $this;
 		}
 
 
@@ -281,6 +282,7 @@
 		public function setTableOption($tableName, $option, $value)
 		{
 			$this->getTableDefinition($tableName)->setOption(strtoupper($option), $value !== '' ? $value : NULL);
+			return $this;
 		}
 
 

@@ -46,6 +46,8 @@
 			foreach ($options as $option => $value) {
 				$this->setOption($option, $value);
 			}
+
+			return $this;
 		}
 
 
