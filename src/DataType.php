@@ -23,11 +23,6 @@
 		public function __construct($type, array $parameters = NULL, array $options = [])
 		{
 			$this->type = $type !== NULL ? strtoupper($type) : NULL;
-
-			if (!is_array($parameters) && $parameters !== NULL) {
-				$parameters = [$parameters];
-			}
-
 			$this->parameters = $parameters;
 
 			foreach ($options as $k => $v) {

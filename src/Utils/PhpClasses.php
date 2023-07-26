@@ -85,6 +85,6 @@
 
 				$class = $this->getClass($parentClass);
 
-			} while ($class !== NULL);
+			} while (TRUE);
 		}
 	}
