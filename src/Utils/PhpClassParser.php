@@ -295,7 +295,7 @@
 
 
 		/**
-		 * @param  int|string $id
+		 * @param  string|int|string[]|int[] $id
 		 * @return string
 		 */
 		private function consumeToken($id)
@@ -316,7 +316,7 @@
 
 
 		/**
-		 * @param  int|string $id
+		 * @param  string|int|string[]|int[] $id
 		 * @return string|NULL
 		 */
 		private function tryConsumeToken($id)
@@ -330,7 +330,7 @@
 
 
 		/**
-		 * @param  int|string $id
+		 * @param  string|int|string[]|int[] $id
 		 * @return string
 		 */
 		private function consumeAllTokens($id)
@@ -346,7 +346,7 @@
 
 
 		/**
-		 * @param  int|string $id
+		 * @param  string|int|string[]|int[] $id
 		 * @return string|NULL
 		 */
 		private function tryConsumeAllTokens($id)
