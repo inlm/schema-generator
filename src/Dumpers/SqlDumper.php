@@ -23,7 +23,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $directory
 		 */
 		public function __construct($directory)
 		{
@@ -32,7 +32,7 @@
 
 
 		/**
-		 * @param  int
+		 * @param  int $outputStructure
 		 * @return static
 		 */
 		public function setOutputStructure($outputStructure)

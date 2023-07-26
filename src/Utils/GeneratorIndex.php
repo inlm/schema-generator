@@ -15,8 +15,8 @@
 
 
 		/**
-		 * @param  string
-		 * @param  SqlSchema\Index
+		 * @param  string $tableName
+		 * @param  SqlSchema\Index $definition
 		 */
 		public function __construct($tableName, SqlSchema\Index $definition)
 		{
@@ -35,8 +35,8 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string|string[]
+		 * @param  string $type
+		 * @param  string|string[] $columns
 		 * @return void
 		 * @throws \Inlm\SchemaGenerator\IncompatibleException
 		 */

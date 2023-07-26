@@ -15,7 +15,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $tableName
 		 */
 		public function __construct($tableName, array $updates)
 		{
@@ -151,7 +151,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $class
 		 * @return array
 		 */
 		private function findUpdates($class)

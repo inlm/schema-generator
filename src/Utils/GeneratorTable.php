@@ -18,8 +18,8 @@
 
 
 		/**
-		 * @param  SqlSchema\Table
-		 * @param  string|NULL
+		 * @param  SqlSchema\Table $definition
+		 * @param  string|NULL $primaryColumn
 		 */
 		public function __construct(SqlSchema\Table $definition, $primaryColumn = NULL)
 		{

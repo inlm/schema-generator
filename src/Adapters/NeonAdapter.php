@@ -17,7 +17,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $file
 		 */
 		public function __construct($file)
 		{

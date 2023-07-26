@@ -38,7 +38,7 @@
 
 
 		/**
-		 * @param  string[]|NULL
+		 * @param  string[]|NULL $header
 		 * @return static
 		 */
 		public function setHeader(array $header = NULL)
@@ -49,7 +49,7 @@
 
 
 		/**
-		 * @param  bool
+		 * @param  bool $positionChanges
 		 * @return static
 		 */
 		public function enablePositionChanges($positionChanges = TRUE)
@@ -60,8 +60,8 @@
 
 
 		/**
-		 * @param  string  see Database::*
-		 * @param  string|NULL
+		 * @param  string $databaseType  see Database::*
+		 * @param  string|NULL $description
 		 * @return void
 		 */
 		public function start($databaseType, $description = NULL)
@@ -377,7 +377,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $tableName
 		 * @return SqlGenerator\Statements\AlterTable
 		 */
 		protected function getTableAlter($tableName)
@@ -423,7 +423,7 @@
 
 
 		/**
-		 * @param  string|object
+		 * @param  string|object $driver
 		 * @return SqlGenerator\IDriver
 		 * @throws \Inlm\SchemaGenerator\InvalidArgumentException
 		 */

@@ -15,7 +15,7 @@
 
 
 		/**
-		 * @param  SqlSchema\Column
+		 * @param  SqlSchema\Column $definition
 		 */
 		public function __construct(SqlSchema\Column $definition)
 		{

@@ -45,10 +45,10 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  scalar|scalar[]
-		 * @param  array
+		 * @param  string $name
+		 * @param  string $dbType
+		 * @param  scalar|scalar[] $dbParameters
+		 * @param  array $dbOptions
 		 * @return static
 		 */
 		public function setCustomType($name, $dbType, $dbParameters = [], array $dbOptions = [])
@@ -59,8 +59,8 @@
 
 
 		/**
-		 * @param  string
-		 * @param  scalar|NULL
+		 * @param  string $option
+		 * @param  scalar|NULL $value
 		 * @return static
 		 */
 		public function setOption($option, $value)
@@ -77,7 +77,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $option
 		 * @return static
 		 */
 		public function removeOption($option)
@@ -88,7 +88,7 @@
 
 
 		/**
-		 * @param  bool
+		 * @param  bool $testMode
 		 * @return static
 		 */
 		public function setTestMode($testMode = TRUE)
@@ -99,7 +99,7 @@
 
 
 		/**
-		 * @param  string|NULL
+		 * @param  string|NULL $description
 		 * @return void
 		 */
 		public function generate($description = NULL)
@@ -240,7 +240,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $msg
 		 * @return void
 		 */
 		private function log($msg)

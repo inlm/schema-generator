@@ -19,11 +19,11 @@
 
 
 		/**
-		 * @param  string|NULL
-		 * @param  DataType|NULL
-		 * @param  bool
-		 * @param  array  [type => DataType]
-		 * @param  string|NULL
+		 * @param  string|NULL $inputType
+		 * @param  DataType|NULL $dbType
+		 * @param  bool $isPrimaryColumn
+		 * @param  array $customTypes  [type => DataType]
+		 * @param  string|NULL $databaseType
 		 * @return DataType
 		 */
 		public static function process($inputType, DataType $dbType = NULL, $isPrimaryColumn = FALSE, array $customTypes = [], $databaseType = NULL)

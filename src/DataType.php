@@ -16,9 +16,9 @@
 
 
 		/**
-		 * @param  string|NULL
-		 * @param  array|string|NULL
-		 * @param  array  [OPTION => VALUE, OPTION2]
+		 * @param  string|NULL $type
+		 * @param  array|NULL $parameters
+		 * @param  array $options  [OPTION => VALUE, OPTION2]
 		 */
 		public function __construct($type, array $parameters = NULL, array $options = [])
 		{
@@ -69,7 +69,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $type
 		 * @return bool
 		 */
 		public function isCompatible($type, array $parameters = NULL, array $options = NULL)

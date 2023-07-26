@@ -34,8 +34,8 @@
 
 
 		/**
-		 * @param  string
-		 * @param  int
+		 * @param  string $s
+		 * @param  int $syntax
 		 * @return DataType
 		 */
 		public static function parse($s, $syntax = self::SYNTAX_DEFAULT)
@@ -171,7 +171,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $s
 		 * @return bool
 		 */
 		private static function isQuoted($s)

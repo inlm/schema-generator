@@ -22,11 +22,11 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  string
-		 * @param  string
-		 * @param  string
+		 * @param  string $sourceTable
+		 * @param  string $sourceColumn
+		 * @param  string $table
+		 * @param  string $targetTable
+		 * @param  string $targetColumn
 		 */
 		public function __construct($sourceTable, $sourceColumn, $table, $targetTable, $targetColumn)
 		{

@@ -85,10 +85,9 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  string
-		 * @param  string
+		 * @param  string $sourceTable
+		 * @param  string $sourceColumn
+		 * @param  string $targetTable
 		 * @return static
 		 */
 		public function addRelationship($sourceTable, $sourceColumn, $targetTable)
@@ -105,7 +104,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $tableName
 		 * @return static
 		 */
 		public function addHasManyTable($tableName, $sourceTable, $sourceColumn, $targetTable, $targetColumn)
@@ -210,8 +209,8 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string|NULL
+		 * @param  string $tableName
+		 * @param  string|NULL $primaryColumn
 		 * @return static
 		 */
 		public function createTable($tableName, $primaryColumn = NULL)
@@ -237,7 +236,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $tableName
 		 * @return SqlSchema\Table
 		 */
 		protected function getTableDefinition($tableName)
@@ -251,7 +250,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $tableName
 		 * @return bool
 		 */
 		protected function hasTable($tableName)
@@ -261,8 +260,8 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string|NULL
+		 * @param  string $tableName
+		 * @param  string|NULL $comment
 		 * @return static
 		 */
 		public function setTableComment($tableName, $comment)
@@ -274,9 +273,9 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  string|NULL
+		 * @param  string $tableName
+		 * @param  string $option
+		 * @param  string|NULL $value
 		 * @return static
 		 */
 		public function setTableOption($tableName, $option, $value)
@@ -287,10 +286,10 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  DataType
-		 * @param  scalar|NULL
+		 * @param  string $tableName
+		 * @param  string $columnName
+		 * @param  DataType $columnType
+		 * @param  scalar|NULL $defaultValue
 		 * @return static
 		 */
 		public function addColumn($tableName, $columnName, DataType $columnType = NULL, $defaultValue = NULL)
@@ -348,9 +347,9 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  bool
+		 * @param  string $tableName
+		 * @param  string $columnName
+		 * @param  bool $isNullable
 		 * @return static
 		 */
 		public function setColumnNullable($tableName, $columnName, $isNullable = TRUE)
@@ -361,9 +360,9 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  string|NULL
+		 * @param  string $tableName
+		 * @param  string $columnName
+		 * @param  string|NULL $comment
 		 * @return static
 		 */
 		public function setColumnComment($tableName, $columnName, $comment)
@@ -374,9 +373,9 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  bool
+		 * @param  string $tableName
+		 * @param  string $columnName
+		 * @param  bool $isAutoIncrement
 		 * @return static
 		 */
 		public function setColumnAutoIncrement($tableName, $columnName, $isAutoIncrement = TRUE)
@@ -387,7 +386,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $tableName
 		 * @return SqlSchema\Column
 		 */
 		protected function getColumnDefinition($tableName, $columnName)
@@ -401,8 +400,8 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string|string[]
+		 * @param  string $tableName
+		 * @param  string|string[] $columns
 		 * @return static
 		 */
 		public function addIndex($tableName, $columns)
@@ -413,8 +412,8 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string|string[]
+		 * @param  string $tableName
+		 * @param  string|string[] $columns
 		 * @return static
 		 */
 		public function addUniqueIndex($tableName, $columns)
@@ -425,8 +424,8 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string|string[]
+		 * @param  string $tableName
+		 * @param  string|string[] $columns
 		 * @return static
 		 */
 		public function addPrimaryIndex($tableName, $columns)
@@ -437,7 +436,7 @@
 
 
 		/**
-		 * @param  string
+		 * @param  string $tableName
 		 * @return bool
 		 */
 		protected function hasPrimaryIndex($tableName)
@@ -447,8 +446,8 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
+		 * @param  string $tableName
+		 * @param  string $columnName
 		 * @return bool
 		 */
 		protected function hasIndexWithFirstColumn($tableName, $columnName)
@@ -474,10 +473,10 @@
 
 
 		/**
-		 * @param  string
-		 * @param  string
-		 * @param  string|string[]
-		 * @param  string|NULL
+		 * @param  string $tableName
+		 * @param  string $type
+		 * @param  string|string[] $columns
+		 * @param  string|NULL $indexName
 		 * @return void
 		 */
 		protected function addTableIndex($tableName, $type, $columns, $indexName = NULL)
@@ -566,7 +565,7 @@
 
 
 		/**
-		 * @param  string|string[]
+		 * @param  string|string[] $columns
 		 * @return string
 		 */
 		protected function formatIndexName($columns)
@@ -579,7 +578,7 @@
 
 
 		/**
-		 * @param  string|string[]
+		 * @param  string|string[] $table
 		 * @return string
 		 */
 		protected function formatForeignKey($table, $columns)

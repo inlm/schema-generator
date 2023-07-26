@@ -6,15 +6,15 @@
 	interface IIntegration
 	{
 		/**
-		 * @param  string|NULL
-		 * @param  bool
+		 * @param  string|NULL $description
+		 * @param  bool $testMode
 		 * @return void
 		 */
 		function createMigration($description = NULL, $testMode = FALSE);
 
 
 		/**
-		 * @param  bool
+		 * @param  bool $testMode
 		 * @return void
 		 */
 		function updateDevelopmentDatabase($testMode = FALSE);

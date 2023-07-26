@@ -509,7 +509,7 @@
 
 		/**
 		 * @param  string $name
-		 * @param  int $fromRight
+		 * @param  int $direction
 		 * @return string
 		 */
 		private function generateShort($name, $direction)

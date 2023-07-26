@@ -52,8 +52,8 @@
 
 
 		/**
-		 * @param  string
-		 * @param  scalar|NULL
+		 * @param  string $option
+		 * @param  scalar|NULL $value
 		 * @return static
 		 */
 		public function setOption($option, $value)

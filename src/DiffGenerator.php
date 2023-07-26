@@ -605,8 +605,8 @@
 
 
 		/**
-		 * @param  array
-		 * @param  Diffs\CreatedTable|Diffs\UpdatedTable|Diffs\RemovedTable
+		 * @param  array $tableOrder
+		 * @param  Diffs\CreatedTable|Diffs\UpdatedTable|Diffs\RemovedTable $diff
 		 * @return int|NULL
 		 */
 		private function getTableOrder(array $tableOrder, $diff)
