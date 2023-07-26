@@ -4,16 +4,11 @@
 [![Tests Status](https://github.com/inlm/schema-generator/workflows/Tests/badge.svg)](https://github.com/inlm/schema-generator/actions)
 
 
-Support Me
-----------
+# Schema Generator
 
-Do you like Schema Generator? Are you looking forward to the **new features**?
+[![Tests Status](https://github.com/inlm/schema-generator/workflows/Tests/badge.svg)](https://github.com/inlm/schema-generator/actions)
 
-<a href="https://www.paypal.com/donate?hosted_button_id=9UMAMPL6965ZW"><img src="https://buymecoffee.intm.org/img/schema-generator-paypal-donate@2x.png" alt="PayPal or credit/debit card" width="254" height="248"></a>
-
-<img src="https://buymecoffee.intm.org/img/bitcoin@2x.png" alt="Bitcoin" height="32"> `bc1qaak7swthhrk8qsfccmulkhxel8ad6amapuz09m`
-
-Thank you!
+<a href="https://www.janpecha.cz/donate/schema-generator/"><img src="https://buymecoffee.intm.org/img/donate-banner.v1.svg" alt="Donate" height="100"></a>
 
 
 ## Installation
