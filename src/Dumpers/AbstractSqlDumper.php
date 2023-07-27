@@ -97,7 +97,7 @@
 					$column->getName(),
 					$column->getType(),
 					$column->getParameters(),
-					$column->getOptions()
+					$this->convertOptions($column->getOptions())
 				)
 					->setNullable($column->isNullable())
 					->setAutoIncrement($column->isAutoIncrement())
@@ -152,7 +152,7 @@
 					$definition->getName(),
 					$definition->getType(),
 					$definition->getParameters(),
-					$definition->getOptions()
+					$this->convertOptions($definition->getOptions())
 				)
 					->setNullable($definition->isNullable())
 					->setAutoIncrement($definition->isAutoIncrement())
@@ -187,7 +187,7 @@
 					$definition->getName(),
 					$definition->getType(),
 					$definition->getParameters(),
-					$definition->getOptions()
+					$this->convertOptions($definition->getOptions())
 				)
 					->setNullable($definition->isNullable())
 					->setAutoIncrement($definition->isAutoIncrement())
@@ -434,5 +434,21 @@
 			}
 
 			throw new \Inlm\SchemaGenerator\InvalidArgumentException('Driver is not supported.');
+		}
+
+
+		/**
+		 * @param  array<string, scalar|NULL> $options
+		 * @return array<string, string|NULL>
+		 */
+		private function convertOptions(array $options)
+		{
+			$res = [];
+
+			foreach ($options as $optionName => $optionValue) {
+				$res[$optionName] = $optionValue !== NULL ? ((string) $optionValue) : NULL;
+			}
+
+			return $res;
 		}
 	}

@@ -2,6 +2,8 @@
 
 	namespace Inlm\SchemaGenerator\Utils;
 
+	use Nette\Utils\FileSystem;
+
 
 	class PhpClassParser
 	{
@@ -325,7 +327,24 @@
 				$currentTokenText = is_int($currentToken) ? (' (text: ' . $this->getCurrentTokenText() . ')') : '';
 				$currentTokenLine = is_int($currentToken) ? (' on line' . $this->getCurrentTokenLine()) : '';
 				$currentToken = is_int($currentToken) ? token_name($currentToken) : $currentToken;
-				$expectedToken = is_int($id) ? token_name($id) : $id;
+
+				$expectedToken = NULL;
+
+				if (is_array($id)) {
+					$expectedToken = '';
+
+					foreach ($id as $expectedId) {
+						if ($expectedToken !== '') {
+							$expectedToken .= '|';
+						}
+
+						$expectedToken .= is_int($expectedId) ? token_name($expectedId) : $expectedId;
+					}
+
+				} else {
+					$expectedToken = is_int($id) ? token_name($id) : $id;
+				}
+
 				throw new \Inlm\SchemaGenerator\InvalidStateException("Invalid token '{$currentToken}'{$currentTokenText}{$currentTokenLine}, expected '{$expectedToken}'.");
 			}
 
@@ -556,7 +575,7 @@
 		 */
 		public static function fromFile($file)
 		{
-			return new self(token_get_all(file_get_contents($file)), $file);
+			return new self(token_get_all(FileSystem::read($file)), $file);
 		}
 
 

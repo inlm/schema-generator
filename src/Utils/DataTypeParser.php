@@ -165,6 +165,10 @@
 			}
 
 			if ($pos !== $i && isset($delimiters[self::CONTEXT_FINISH][$context])) {
+				if (!is_int($delimiters[self::CONTEXT_FINISH][$context])) {
+					throw new \Inlm\SchemaGenerator\InvalidStateException("Invalid CONTEXT_FINISH definition.");
+				}
+
 				$token = substr($s, $pos, $i - $pos);
 
 				if ($token !== '') {
