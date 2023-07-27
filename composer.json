@@ -13,9 +13,9 @@
 		{"type": "other", "url": "https://www.janpecha.cz/donate/schema-generator/"}
 	],
 	"require": {
-		"php": ">=7.2.0",
+		"php": ">=5.6.0",
 		"nette/neon": "^2.4 || ^3.0",
-		"nette/utils": "^2.4 || ^3.0",
+		"nette/utils": "^2.4 || ^3.0 || ^4.0",
 		"czproject/sql-schema": "^3.1",
 		"czproject/sql-generator": "^2.0",
 		"czproject/logger": "^0.12.0",
