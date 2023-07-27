@@ -1,12 +1,9 @@
-
 # Schema Generator
 
-[![Tests Status](https://github.com/inlm/schema-generator/workflows/Tests/badge.svg)](https://github.com/inlm/schema-generator/actions)
-
-
-# Schema Generator
-
-[![Tests Status](https://github.com/inlm/schema-generator/workflows/Tests/badge.svg)](https://github.com/inlm/schema-generator/actions)
+[![Build Status](https://github.com/inlm/schema-generator/workflows/Build/badge.svg)](https://github.com/inlm/schema-generator/actions)
+[![Downloads this Month](https://img.shields.io/packagist/dm/inlm/schema-generator.svg)](https://packagist.org/packages/inlm/schema-generator)
+[![Latest Stable Version](https://poser.pugx.org/inlm/schema-generator/v/stable)](https://github.com/inlm/schema-generator/releases)
+[![License](https://img.shields.io/badge/license-New%20BSD-blue.svg)](https://github.com/inlm/schema-generator/blob/master/license.md)
 
 <a href="https://www.janpecha.cz/donate/schema-generator/"><img src="https://buymecoffee.intm.org/img/donate-banner.v1.svg" alt="Donate" height="100"></a>
 
