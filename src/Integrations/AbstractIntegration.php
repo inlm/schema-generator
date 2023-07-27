@@ -3,7 +3,8 @@
 	namespace Inlm\SchemaGenerator\Integrations;
 
 	use Inlm\SchemaGenerator;
-	use LeanMapper;
+use InvalidArgumentException;
+use LeanMapper;
 
 
 	abstract class AbstractIntegration implements SchemaGenerator\IIntegration
@@ -107,7 +108,13 @@
 
 			foreach ($customTypes as $name => $definition) {
 				$type = SchemaGenerator\Utils\DataTypeParser::parse($definition);
-				$generator->setCustomType($name, $type->getType(), $type->getParameters(), $type->getOptions());
+				$typeType = $type->getType();
+
+				if ($typeType === NULL) {
+					throw new \Inlm\SchemaGenerator\InvalidArgumentException("Type definition has no datatype specified.");
+				}
+
+				$generator->setCustomType($name, $typeType, $type->getParameters(), $type->getOptions());
 			}
 		}
 
@@ -125,7 +132,7 @@
 
 
 		/**
-		 * @return string|NULL
+		 * @return string
 		 */
 		abstract protected function getDatabaseType();
 

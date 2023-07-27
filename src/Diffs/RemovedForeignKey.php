@@ -10,13 +10,13 @@
 		/** @var string */
 		private $tableName;
 
-		/** @var string */
+		/** @var string|NULL */
 		private $foreignKeyName;
 
 
 		/**
 		 * @param string $tableName
-		 * @param string $foreignKeyName
+		 * @param string|NULL $foreignKeyName
 		 */
 		public function __construct($tableName, $foreignKeyName)
 		{
@@ -35,7 +35,7 @@
 
 
 		/**
-		 * @return string
+		 * @return string|NULL
 		 */
 		public function getForeignKeyName()
 		{

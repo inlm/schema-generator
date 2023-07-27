@@ -95,7 +95,7 @@
 			foreach ($definition->getColumns() as $column) {
 				$createTable->addColumn(
 					$column->getName(),
-					$column->getType(),
+					$this->checkString($column->getType(), 'Missing column type.'),
 					$column->getParameters(),
 					$this->convertOptions($column->getOptions())
 				)
@@ -119,9 +119,9 @@
 
 			foreach ($definition->getForeignKeys() as $foreignKey) {
 				$createTable->addForeignKey(
-					$foreignKey->getName(),
+					$this->checkString($foreignKey->getName(), 'Missing foreign key name.'),
 					$foreignKey->getColumns(),
-					$foreignKey->getTargetTable(),
+					$this->checkString($foreignKey->getTargetTable(), 'Missing foreign key target table.'),
 					$foreignKey->getTargetColumns()
 				)
 					->setOnUpdateAction($foreignKey->getOnUpdateAction())
@@ -150,7 +150,7 @@
 			$createdColumn = $this->getTableAlter($column->getTableName())
 				->addColumn(
 					$definition->getName(),
-					$definition->getType(),
+					$this->checkString($definition->getType(), 'Missing column type.'),
 					$definition->getParameters(),
 					$this->convertOptions($definition->getOptions())
 				)
@@ -185,7 +185,7 @@
 			$updatedColumn = $this->getTableAlter($column->getTableName())
 				->modifyColumn(
 					$definition->getName(),
-					$definition->getType(),
+					$this->checkString($definition->getType(), 'Missing column type.'),
 					$definition->getParameters(),
 					$this->convertOptions($definition->getOptions())
 				)
@@ -268,7 +268,7 @@
 		{
 			$this->checkIfStarted();
 			$alter = $this->getTableAlter($foreignKey->getTableName());
-			$alter->dropForeignKey($foreignKey->getForeignKeyName());
+			$alter->dropForeignKey($this->checkString($foreignKey->getForeignKeyName(), 'Missing foreign key name.'));
 			$this->addForeignKey($alter, $foreignKey->getDefinition());
 		}
 
@@ -280,7 +280,7 @@
 		{
 			$this->checkIfStarted();
 			$this->getTableAlter($foreignKey->getTableName())
-				->dropForeignKey($foreignKey->getForeignKeyName());
+				->dropForeignKey($this->checkString($foreignKey->getForeignKeyName(), 'Missing foreign key name.'));
 		}
 
 
@@ -366,9 +366,9 @@
 		protected function addForeignKey(SqlGenerator\Statements\AlterTable $alter, SqlSchema\ForeignKey $definition)
 		{
 			$foreignKey = $alter->addForeignKey(
-				$definition->getName(),
+				$this->checkString($definition->getName(), 'Missing foreign key name.'),
 				$definition->getColumns(),
-				$definition->getTargetTable(),
+				$this->checkString($definition->getTargetTable(), 'Missing foreign key target table.'),
 				$definition->getTargetColumns()
 			);
 			$foreignKey->setOnUpdateAction($definition->getOnUpdateAction());
@@ -385,6 +385,10 @@
 			if ($this->_tableAlter['table'] !== $tableName) {
 				$this->_tableAlter['table'] = $tableName;
 				$this->_tableAlter['statement'] = $this->sqlDocument->alterTable($tableName);
+			}
+
+			if ($this->_tableAlter['statement'] === NULL) {
+				throw new \Inlm\SchemaGenerator\InvalidStateException("Missing alter table statement.");
 			}
 
 			return $this->_tableAlter['statement'];
@@ -450,5 +454,20 @@
 			}
 
 			return $res;
+		}
+
+
+		/**
+		 * @param  string|NULL $value
+		 * @param  string $message
+		 * @return string
+		 */
+		private function checkString($value, $message)
+		{
+			if ($value === NULL) {
+				throw new \Inlm\SchemaGenerator\InvalidStateException($message);
+			}
+
+			return $value;
 		}
 	}

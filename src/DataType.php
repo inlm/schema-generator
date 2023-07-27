@@ -64,7 +64,7 @@
 
 
 		/**
-		 * @param  string $type
+		 * @param  string|NULL $type
 		 * @param  scalar[]|NULL $parameters
 		 * @param  array<string, scalar|NULL> $options
 		 * @return bool

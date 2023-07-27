@@ -88,6 +88,7 @@
 			}
 
 			$classes = $this->classes;
+			assert(is_array($classes));
 			$this->classes = NULL;
 			return $classes;
 		}

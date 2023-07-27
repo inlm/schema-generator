@@ -599,7 +599,11 @@
 				$targetTables = [];
 
 				foreach ($table->getForeignKeys() as $foreignKey) {
-					$targetTables[] = $foreignKey->getTargetTable();
+					$targetTable = $foreignKey->getTargetTable();
+
+					if ($targetTable !== NULL) {
+						$targetTables[] = $targetTable;
+					}
 				}
 
 				$tablesToSort[$sourceTable] = $targetTables;

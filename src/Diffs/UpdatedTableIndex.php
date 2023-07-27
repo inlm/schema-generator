@@ -34,7 +34,7 @@
 
 
 		/**
-		 * @return string
+		 * @return string|NULL
 		 */
 		public function getIndexName()
 		{

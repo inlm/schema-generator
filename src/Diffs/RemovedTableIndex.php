@@ -10,13 +10,13 @@
 		/** @var string */
 		private $tableName;
 
-		/** @var string */
+		/** @var string|NULL */
 		private $indexName;
 
 
 		/**
 		 * @param string $tableName
-		 * @param string $indexName
+		 * @param string|NULL $indexName
 		 */
 		public function __construct($tableName, $indexName)
 		{
@@ -35,7 +35,7 @@
 
 
 		/**
-		 * @return string
+		 * @return string|NULL
 		 */
 		public function getIndexName()
 		{

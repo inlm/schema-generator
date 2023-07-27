@@ -81,6 +81,10 @@
 
 				$parentClass = $class->getParent();
 
+				if ($parentClass === NULL) {
+					return FALSE;
+				}
+
 				if (!$this->hasClass($parentClass)) {
 					return FALSE;
 				}

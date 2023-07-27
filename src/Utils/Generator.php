@@ -274,7 +274,7 @@
 		 */
 		public function setTableComment($tableName, $comment)
 		{
-			$comment = trim($comment);
+			$comment = $comment !== NULL ? trim($comment) : NULL;
 			$this->getTableDefinition($tableName)->setComment($comment !== '' ? $comment : NULL);
 			return $this;
 		}
@@ -283,12 +283,12 @@
 		/**
 		 * @param  string $tableName
 		 * @param  string $option
-		 * @param  string|NULL $value
+		 * @param  string $value
 		 * @return static
 		 */
 		public function setTableOption($tableName, $option, $value)
 		{
-			$this->getTableDefinition($tableName)->setOption(strtoupper($option), $value !== '' ? $value : NULL);
+			$this->getTableDefinition($tableName)->setOption(strtoupper($option), $value);
 			return $this;
 		}
 
@@ -547,7 +547,7 @@
 						continue;
 					}
 
-					$type = strtolower($definition->getType());
+					$type = strtolower((string) $definition->getType());
 					$options = $definition->getOptions();
 					$isUnsigned = array_key_exists(SqlSchema\Column::OPTION_UNSIGNED, $options);
 
