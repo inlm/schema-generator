@@ -118,7 +118,7 @@
 
 
 		/**
-		 * @return array<string, string|NULL>|NULL
+		 * @return array<string, string>|NULL
 		 */
 		abstract protected function getOptions();
 
