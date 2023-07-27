@@ -3,8 +3,6 @@
 	namespace Inlm\SchemaGenerator\Integrations;
 
 	use Inlm\SchemaGenerator;
-use InvalidArgumentException;
-use LeanMapper;
 
 
 	abstract class AbstractIntegration implements SchemaGenerator\IIntegration
