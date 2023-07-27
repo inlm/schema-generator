@@ -6,7 +6,7 @@
 If you use `czproject/phpcli` you can use next prepared commands:
 
 ```php
-$integration = new Inlm\SchemaGenerator\Integrations\LeanMapperIntegration(...);
+$integration = new Inlm\SchemaGenerator\LeanMapperBridge\LeanMapperIntegration(...);
 $application = new CzProject\PhpCli\Application\Application;
 $application->addCommand(new Inlm\SchemaGenerator\Bridges\PhpCli\CreateMigrationCommand($integration));
 $application->addCommand(new Inlm\SchemaGenerator\Bridges\PhpCli\DiffCommand($integration));

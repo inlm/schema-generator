@@ -17,8 +17,10 @@ You can call these methods:
 
 For Lean Mapper you can use `LeanMapperIntegration`.
 
+It requires package [`inlm/schema-generator-leanmmaper`](https://github.com/inlm/schema-generator-leanmapper).
+
 ```php
-$integration = new Inlm\SchemaGenerator\Integrations\LeanMapperIntegration(
+$integration = new Inlm\SchemaGenerator\LeanMapperBridge\LeanMapperIntegration(
 	$schemaFile = __DIR__ . '/schema.neon',
 	$migrationsDirectory = __DIR__ . '/migrations',
 	$entityDirectories = __DIR__ . '/model/entities',

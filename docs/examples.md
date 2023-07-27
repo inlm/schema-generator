@@ -3,6 +3,9 @@
 
 ## How generate migration file from Lean Mapper entities
 
+It requires package [`inlm/schema-generator-leanmmaper`](https://github.com/inlm/schema-generator-leanmapper).
+
+
 ```php
 $extractor = new Inlm\SchemaGenerator\LeanMapperBridge\LeanMapperExtractor(__DIR__ . '/model/Entities/', new LeanMapper\DefaultMapper);
 $adapter = new Inlm\SchemaGenerator\Adapters\NeonAdapter(__DIR__ . '/.schema.neon');
@@ -30,6 +33,9 @@ $generator->generate();
 
 
 ## How update database from Lean Mapper entities during development
+
+It requires package [`inlm/schema-generator-leanmmaper`](https://github.com/inlm/schema-generator-leanmapper).
+
 
 ```php
 $connection = new Dibi\Connection(...);
