@@ -22,7 +22,7 @@ Schema Generator requires PHP 7.2.0 or later.
 ## Usage
 
 ```php
-$extractor = new Inlm\SchemaGenerator\Extractors\LeanMapperExtractor(__DIR__ . '/model/Entities/', new LeanMapper\DefaultMapper);
+$extractor = new Inlm\SchemaGenerator\LeanMapperBridge\LeanMapperExtractor(__DIR__ . '/model/Entities/', new LeanMapper\DefaultMapper);
 $adapter = new Inlm\SchemaGenerator\Adapters\NeonAdapter(__DIR__ . '/.schema.neon');
 $dumper = new Inlm\SchemaGenerator\Dumpers\SqlDumper(__DIR__ . '/migrations/structures/');
 $logger = new Inlm\SchemaGenerator\Loggers\MemoryLogger;
@@ -55,8 +55,8 @@ Supported databases:
 
 Extracts new database schema from given source - entities, database or file.
 
-* [LeanMapperExtractor](docs/leanmapper-extractor.md)
-* [DibiExtractor](docs/dibi-extractor.md)
+* [LeanMapperExtractor](https://github.com/inlm/schema-generator-leanmapper) (package `inlm/schema-generator-leanmapper`)
+* [DibiExtractor](https://github.com/inlm/schema-generator-dibi) (package `inlm/schema-generator-dibi`)
 * [NeonExtractor](docs/neon-extractor.md)
 
 
@@ -66,7 +66,7 @@ Persists database schema in file, memory,...
 
 - [NeonAdapter](docs/neon-adapter.md)
 - [MemoryAdapter](docs/memory-adapter.md)
-- [DibiAdapter](docs/dibi-adapter.md)
+- [DibiAdapter](https://github.com/inlm/schema-generator-dibi) (package `inlm/schema-generator-dibi`)
 
 
 ### Dumpers
@@ -75,7 +75,7 @@ Dumps changes of database schema into migration file, database,...
 
 * [SqlDumper](docs/sql-dumper.md)
 * [SqlMemoryDumper](docs/sql-memory-dumper.md)
-* [DibiDumper](docs/dibi-dumper.md)
+* [DibiDumper](https://github.com/inlm/schema-generator-dibi) (package `inlm/schema-generator-dibi`)
 * [NullDumper](docs/null-dumper.md)
 
 

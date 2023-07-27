@@ -13,3 +13,13 @@ $application->addCommand(new Inlm\SchemaGenerator\Bridges\PhpCli\DiffCommand($in
 $application->addCommand(new Inlm\SchemaGenerator\Bridges\PhpCli\UpdateDatabaseCommand($integration));
 $application->addCommand(new Inlm\SchemaGenerator\Bridges\PhpCli\InitFromDatabaseCommand($integration));
 ```
+
+
+## [LeanMapper](https://leanmapper.com/)
+
+Use package [`inlm/schema-generator-leanmapper`](https://github.com/inlm/schema-generator-leanmapper).
+
+
+## [Dibi](https://dibiphp.com/)
+
+Use package [`inlm/schema-generator-dibi`](https://github.com/inlm/schema-generator-dibi).

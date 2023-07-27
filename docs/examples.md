@@ -4,7 +4,7 @@
 ## How generate migration file from Lean Mapper entities
 
 ```php
-$extractor = new Inlm\SchemaGenerator\Extractors\LeanMapperExtractor(__DIR__ . '/model/Entities/', new LeanMapper\DefaultMapper);
+$extractor = new Inlm\SchemaGenerator\LeanMapperBridge\LeanMapperExtractor(__DIR__ . '/model/Entities/', new LeanMapper\DefaultMapper);
 $adapter = new Inlm\SchemaGenerator\Adapters\NeonAdapter(__DIR__ . '/.schema.neon');
 $dumper = new Inlm\SchemaGenerator\Dumpers\SqlDumper(__DIR__ . '/migrations/structures/');
 $logger = new CzProject\Logger\MemoryLogger;
@@ -19,7 +19,7 @@ $generator->generate();
 ```php
 $connection = new Dibi\Connection(...);
 $ignoredTables = array('migrations');
-$extractor = new Inlm\SchemaGenerator\Extractors\DibiExtractor($connection, $ignoredTables);
+$extractor = new Inlm\SchemaGenerator\DibiBridge\DibiExtractor($connection, $ignoredTables);
 $adapter = new Inlm\SchemaGenerator\Adapters\NeonAdapter(__DIR__ . '/.schema.neon');
 $dumper = new Inlm\SchemaGenerator\Dumpers\NullDumper;
 $logger = new CzProject\Logger\MemoryLogger;
@@ -34,9 +34,9 @@ $generator->generate();
 ```php
 $connection = new Dibi\Connection(...);
 $ignoredTables = array('migrations');
-$extractor = new Inlm\SchemaGenerator\Extractors\LeanMapperExtractor(__DIR__ . '/model/Entities/', new LeanMapper\DefaultMapper);
-$adapter = new Inlm\SchemaGenerator\Adapters\DibiAdapter($connection, $ignoredTables);
-$dumper = new Inlm\SchemaGenerator\Dumpers\DibiDumper($connection);
+$extractor = new Inlm\SchemaGenerator\LeanMapperBridge\LeanMapperExtractor(__DIR__ . '/model/Entities/', new LeanMapper\DefaultMapper);
+$adapter = new Inlm\SchemaGenerator\DibiBridge\DibiAdapter($connection, $ignoredTables);
+$dumper = new Inlm\SchemaGenerator\DibiBridge\DibiDumper($connection);
 $logger = new CzProject\Logger\MemoryLogger;
 
 $generator = new Inlm\SchemaGenerator\SchemaGenerator($extractor, $adapter, $dumper, $logger);
