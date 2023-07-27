@@ -43,6 +43,14 @@
 				foreach ($table->getColumns() as $column) {
 					$columnName = $column->getName();
 
+					if (!isset($definition['columns'])) {
+						$definition['columns'] = [];
+					}
+
+					if (!is_array($definition['columns'])) {
+						throw new \Inlm\SchemaGenerator\InvalidStateException('Definition must be array.');
+					}
+
 					$definition['columns'][$columnName] = self::export([
 						'type' => $column->getType(),
 						'parameters' => $column->getParameters(),
@@ -76,6 +84,14 @@
 						]);
 					}
 
+					if (!isset($definition['indexes'])) {
+						$definition['indexes'] = [];
+					}
+
+					if (!is_array($definition['indexes'])) {
+						throw new \Inlm\SchemaGenerator\InvalidStateException('Definition must be array.');
+					}
+
 					$definition['indexes'][$indexName] = [
 						'type' => $index->getType(),
 						'columns' => $indexColumns,
@@ -87,6 +103,14 @@
 
 					if (isset($_foreignKeys[$foreignKeyName])) {
 						throw new DuplicatedException("Duplicated foreign key '$foreignKeyName' in table '$tableName'.");
+					}
+
+					if (!isset($definition['foreignKeys'])) {
+						$definition['foreignKeys'] = [];
+					}
+
+					if (!is_array($definition['foreignKeys'])) {
+						throw new \Inlm\SchemaGenerator\InvalidStateException('Definition must be array.');
 					}
 
 					$definition['foreignKeys'][$foreignKeyName] = [
@@ -101,12 +125,20 @@
 
 
 				foreach ($table->getOptions() as $optionName => $optionValue) {
+					if (!isset($definition['options'])) {
+						$definition['options'] = [];
+					}
+
+					if (!is_array($definition['options'])) {
+						throw new \Inlm\SchemaGenerator\InvalidStateException('Definition must be array.');
+					}
+
 					$definition['options'][$optionName] = $optionValue;
 				}
 
-				isset($definition['indexes']) && ksort($definition['indexes'], SORT_STRING);
-				isset($definition['foreignKeys']) && ksort($definition['foreignKeys'], SORT_STRING);
-				isset($definition['options']) && ksort($definition['options'], SORT_STRING);
+				isset($definition['indexes']) && is_array($definition['indexes']) && ksort($definition['indexes'], SORT_STRING);
+				isset($definition['foreignKeys']) && is_array($definition['foreignKeys']) && ksort($definition['foreignKeys'], SORT_STRING);
+				isset($definition['options']) && is_array($definition['options']) && ksort($definition['options'], SORT_STRING);
 
 				$tables[$tableName] = $definition;
 			}

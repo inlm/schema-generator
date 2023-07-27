@@ -11,16 +11,16 @@
 		/** @var string */
 		private $option;
 
-		/** @var mixed|NULL */
+		/** @var string */
 		private $value;
 
 
 		/**
 		 * @param string $tableName
 		 * @param string $option
-		 * @param mixed|NULL $value
+		 * @param string $value
 		 */
-		public function __construct($tableName, $option, $value = NULL)
+		public function __construct($tableName, $option, $value)
 		{
 			$this->tableName = $tableName;
 			$this->option = $option;
@@ -47,7 +47,7 @@
 
 
 		/**
-		 * @return mixed|NULL
+		 * @return string
 		 */
 		public function getValue()
 		{

@@ -561,7 +561,7 @@
 
 
 		/**
-		 * @template T
+		 * @template T of Diffs\CreatedTable|Diffs\UpdatedTable|Diffs\RemovedTable
 		 * @param  SqlSchema\Table[] $allTables
 		 * @param  array<T> $tablesToSort
 		 * @return array<T>

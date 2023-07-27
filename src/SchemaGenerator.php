@@ -50,7 +50,7 @@
 		/**
 		 * @param  string $name
 		 * @param  string $dbType
-		 * @param  scalar|scalar[]|NULL $dbParameters
+		 * @param  int|float|string|array<int|float|string>|NULL $dbParameters
 		 * @param  array<string|int, scalar|NULL> $dbOptions
 		 * @return static
 		 */

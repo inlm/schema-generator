@@ -34,6 +34,10 @@
 
 			if ($content !== '') {
 				$config = Neon::decode($content);
+
+				if (!is_array($config)) {
+					throw new \Inlm\SchemaGenerator\InvalidStateException('Invalid config');
+				}
 			}
 
 			return ConfigurationFactory::fromArray($config)->getSchema();
