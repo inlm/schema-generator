@@ -8,7 +8,7 @@
 		const FROM_LEFT = 0;
 		const FROM_RIGHT = 1;
 
-		/** @var array<array|string> */
+		/** @var array<array{0: int, 1: string, 2: int}|string> */
 		private $tokens;
 
 		/** @var string|NULL */
@@ -20,7 +20,7 @@
 		/** @var int */
 		private $level;
 
-		/** @var array */
+		/** @var array{name: string|NULL, uses: array<string, string>} */
 		private $currentNamespace;
 
 		/** @var int */
@@ -31,6 +31,7 @@
 
 
 		/**
+		 * @param array<array{0: int, 1: string, 2: int}|string> $tokens
 		 * @param string|NULL $file
 		 */
 		private function __construct(array $tokens, $file)
@@ -90,6 +91,9 @@
 		}
 
 
+		/**
+		 * @return void
+		 */
 		private function parseNamespace()
 		{
 			$this->consumeToken(T_NAMESPACE);
@@ -115,6 +119,9 @@
 		}
 
 
+		/**
+		 * @return void
+		 */
 		private function parseNamespaceUse()
 		{
 			$this->consumeToken(T_USE);
@@ -195,6 +202,9 @@
 		}
 
 
+		/**
+		 * @return void
+		 */
 		private function tryParseAbstractClass()
 		{
 			$this->consumeToken(T_ABSTRACT);
@@ -209,6 +219,10 @@
 		}
 
 
+		/**
+		 * @param  bool $isAbstract
+		 * @return void
+		 */
 		private function parseClass($isAbstract)
 		{
 			$this->consumeToken(T_CLASS);
@@ -254,6 +268,9 @@
 		}
 
 
+		/**
+		 * @return void
+		 */
 		private function parseTrait()
 		{
 			// skips traits
@@ -265,6 +282,9 @@
 		}
 
 
+		/**
+		 * @return void
+		 */
 		private function parsePhpBlock()
 		{
 			$startLevel = $this->level;
@@ -399,7 +419,7 @@
 
 
 		/**
-		 * @return array|string
+		 * @return array{0: int, 1: string, 2: int}|string
 		 */
 		private function getCurrentToken()
 		{

@@ -7,6 +7,9 @@
 
 	class Schema
 	{
+		/**
+		 * @return SqlSchema\Schema
+		 */
 		public static function create()
 		{
 			$schema = new SqlSchema\Schema;
@@ -20,6 +23,9 @@
 		}
 
 
+		/**
+		 * @return array<string, mixed>
+		 */
 		public static function createArray()
 		{
 			return [
@@ -216,6 +222,9 @@
 		}
 
 
+		/**
+		 * @return SqlSchema\Table
+		 */
 		private static function createAuthorTable()
 		{
 			$table = new SqlSchema\Table('author');
@@ -237,6 +246,9 @@
 		}
 
 
+		/**
+		 * @return SqlSchema\Table
+		 */
 		private static function createBookTable()
 		{
 			$table = new SqlSchema\Table('book');
@@ -275,6 +287,9 @@
 		}
 
 
+		/**
+		 * @return SqlSchema\Table
+		 */
 		private static function createBookTagTable()
 		{
 			$table = new SqlSchema\Table('book_tag');
@@ -291,6 +306,9 @@
 		}
 
 
+		/**
+		 * @return SqlSchema\Table
+		 */
 		private static function createTagTable()
 		{
 			$table = new SqlSchema\Table('tag');

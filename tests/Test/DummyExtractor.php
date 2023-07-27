@@ -8,6 +8,7 @@
 
 	class DummyExtractor implements IExtractor
 	{
+		/** @var Schema */
 		private $schema;
 
 

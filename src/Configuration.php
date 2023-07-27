@@ -10,7 +10,7 @@
 		/** @var Schema */
 		private $schema;
 
-		/** @var array */
+		/** @var array<string, string> */
 		private $options = [];
 
 
@@ -30,7 +30,7 @@
 
 
 		/**
-		 * @return array
+		 * @return array<string, string>
 		 */
 		public function getOptions()
 		{
@@ -39,6 +39,7 @@
 
 
 		/**
+		 * @param  array<string, string> $options
 		 * @return static
 		 */
 		public function setOptions(array $options)
@@ -53,7 +54,7 @@
 
 		/**
 		 * @param  string $option
-		 * @param  scalar|NULL $value
+		 * @param  string $value
 		 * @return static
 		 */
 		public function setOption($option, $value)

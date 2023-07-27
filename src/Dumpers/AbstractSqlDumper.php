@@ -30,7 +30,7 @@
 		/** @var bool */
 		protected $started = FALSE;
 
-		/** @var array */
+		/** @var array{table: string|NULL, statement: SqlGenerator\Statements\AlterTable|NULL} */
 		protected $_tableAlter = [
 			'table' => NULL,
 			'statement' => NULL,

@@ -14,6 +14,10 @@
 		private $foreignKeyName;
 
 
+		/**
+		 * @param string $tableName
+		 * @param string $foreignKeyName
+		 */
 		public function __construct($tableName, $foreignKeyName)
 		{
 			$this->tableName = $tableName;

@@ -13,7 +13,7 @@
 
 	class Generator
 	{
-		/** @var array */
+		/** @var array<string, string> */
 		private $options;
 
 		/** @var string|NULL */
@@ -22,22 +22,26 @@
 		/** @var SqlSchema\Schema */
 		private $schema;
 
-		/** @var array  [name => GeneratorTable] */
+		/** @var array<string, GeneratorTable> */
 		private $tables = [];
 
-		/** @var array  [name => GeneratorColumn] */
+		/** @var array<string, array<string, GeneratorColumn>> */
 		private $columns = [];
 
-		/** @var array */
+		/** @var array<string, array<string, GeneratorIndex>> */
 		private $indexes = [];
 
-		/** @var array */
+		/** @var array<string, array<string, string>> */
 		private $relationships = [];
 
-		/** @var array  [name => GeneratorHasManyTable] */
+		/** @var array<string, GeneratorHasManyTable> */
 		private $hasManyTables = [];
 
 
+		/**
+		 * @param array<string, string> $options
+		 * @param string|NULL $databaseType
+		 */
 		public function __construct(array $options = [], $databaseType = NULL)
 		{
 			$this->options = $options;
@@ -105,6 +109,10 @@
 
 		/**
 		 * @param  string $tableName
+		 * @param  string $sourceTable
+		 * @param  string $sourceColumn
+		 * @param  string $targetTable
+		 * @param  string $targetColumn
 		 * @return static
 		 */
 		public function addHasManyTable($tableName, $sourceTable, $sourceColumn, $targetTable, $targetColumn)
@@ -324,7 +332,7 @@
 				}
 
 				$this->columns[$tableName][$columnName]->markAsCreated();
-				return $column;
+				return $this;
 			}
 
 			$table = $this->getTableDefinition($tableName);
@@ -387,6 +395,7 @@
 
 		/**
 		 * @param  string $tableName
+		 * @param  string $columnName
 		 * @return SqlSchema\Column
 		 */
 		protected function getColumnDefinition($tableName, $columnName)
@@ -520,6 +529,9 @@
 		}
 
 
+		/**
+		 * @return void
+		 */
 		protected function modifyEmptyParameters()
 		{
 			foreach ($this->columns as $tableName => $columns) {
@@ -578,7 +590,8 @@
 
 
 		/**
-		 * @param  string|string[] $table
+		 * @param  string $table
+		 * @param  string|string[] $columns
 		 * @return string
 		 */
 		protected function formatForeignKey($table, $columns)

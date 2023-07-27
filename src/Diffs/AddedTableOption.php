@@ -15,6 +15,11 @@
 		private $value;
 
 
+		/**
+		 * @param string $tableName
+		 * @param string $option
+		 * @param mixed|NULL $value
+		 */
 		public function __construct($tableName, $option, $value = NULL)
 		{
 			$this->tableName = $tableName;

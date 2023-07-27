@@ -12,6 +12,10 @@
 		private $option;
 
 
+		/**
+		 * @param string $tableName
+		 * @param string $option
+		 */
 		public function __construct($tableName, $option)
 		{
 			$this->tableName = $tableName;

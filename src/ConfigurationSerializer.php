@@ -12,7 +12,7 @@
 
 
 		/**
-		 * @return array
+		 * @return array<string, mixed>
 		 */
 		public static function serialize(Configuration $configuration)
 		{
@@ -120,6 +120,11 @@
 		}
 
 
+		/**
+		 * @param  array<string, mixed> $data
+		 * @param  array<string, mixed> $defaults
+		 * @return array<string, mixed>
+		 */
 		private static function export(array $data, array $defaults = [])
 		{
 			foreach ($defaults as $key => $value) {

@@ -23,16 +23,19 @@
 		/** @var string */
 		private $databaseType;
 
-		/** @var array */
+		/** @var array<string, string> */
 		private $options;
 
-		/** @var array */
+		/** @var array<lowercase-string, DataType> */
 		private $customTypes;
 
 		/** @var bool */
 		private $testMode = FALSE;
 
 
+		/**
+		 * @param string $databaseType
+		 */
 		public function __construct(IExtractor $extractor, IAdapter $adapter, IDumper $dumper, ILogger $logger = NULL, $databaseType = Database::MYSQL)
 		{
 			$this->extractor = $extractor;
@@ -47,12 +50,16 @@
 		/**
 		 * @param  string $name
 		 * @param  string $dbType
-		 * @param  scalar|scalar[] $dbParameters
-		 * @param  array $dbOptions
+		 * @param  scalar|scalar[]|NULL $dbParameters
+		 * @param  array<string|int, scalar|NULL> $dbOptions
 		 * @return static
 		 */
 		public function setCustomType($name, $dbType, $dbParameters = [], array $dbOptions = [])
 		{
+			if (!is_array($dbParameters) && $dbParameters !== NULL) {
+				$dbParameters = [$dbParameters];
+			}
+
 			$this->customTypes[strtolower($name)] = new DataType($dbType, $dbParameters, $dbOptions);
 			return $this;
 		}
@@ -60,7 +67,7 @@
 
 		/**
 		 * @param  string $option
-		 * @param  scalar|NULL $value
+		 * @param  string|NULL $value
 		 * @return static
 		 */
 		public function setOption($option, $value)
@@ -215,6 +222,10 @@
 		}
 
 
+		/**
+		 * @param  string $databaseType
+		 * @return void
+		 */
 		private function prepareDefaults($databaseType)
 		{
 			if ($databaseType === Database::MYSQL) {

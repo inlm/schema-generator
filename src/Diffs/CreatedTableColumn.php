@@ -17,6 +17,10 @@
 		private $afterColumn;
 
 
+		/**
+		 * @param string $tableName
+		 * @param string|NULL $afterColumn
+		 */
 		public function __construct($tableName, SqlSchema\Column $definition, $afterColumn = NULL)
 		{
 			$this->tableName = $tableName;

@@ -22,7 +22,7 @@
 		 * @param  string|NULL $inputType
 		 * @param  DataType|NULL $dbType
 		 * @param  bool $isPrimaryColumn
-		 * @param  array $customTypes  [type => DataType]
+		 * @param  array<lowercase-string, DataType> $customTypes
 		 * @param  string|NULL $databaseType
 		 * @return DataType
 		 */

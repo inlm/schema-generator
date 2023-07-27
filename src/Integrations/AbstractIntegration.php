@@ -77,6 +77,9 @@
 		}
 
 
+		/**
+		 * @return void
+		 */
 		protected function applyOptions(SchemaGenerator\SchemaGenerator $generator)
 		{
 			$options = $this->getOptions();
@@ -91,6 +94,9 @@
 		}
 
 
+		/**
+		 * @return void
+		 */
 		protected function applyCustomTypes(SchemaGenerator\SchemaGenerator $generator)
 		{
 			$customTypes = $this->getCustomTypes();
@@ -106,32 +112,62 @@
 		}
 
 
+		/**
+		 * @return array<string, string|NULL>|NULL
+		 */
 		abstract protected function getOptions();
 
 
+		/**
+		 * @return array<string, string>
+		 */
 		abstract protected function getCustomTypes();
 
 
+		/**
+		 * @return string|NULL
+		 */
 		abstract protected function getDatabaseType();
 
 
+		/**
+		 * @return SchemaGenerator\IExtractor
+		 */
 		abstract protected function createExtractor();
 
 
+		/**
+		 * @return SchemaGenerator\IAdapter
+		 */
 		abstract protected function createAdapter();
 
 
+		/**
+		 * @return SchemaGenerator\IExtractor
+		 */
 		abstract protected function createDatabaseExtractor();
 
 
+		/**
+		 * @return SchemaGenerator\IAdapter
+		 */
 		abstract protected function createDatabaseAdapter();
 
 
+		/**
+		 * @return SchemaGenerator\IDumper
+		 */
 		abstract protected function createDatabaseDumper();
 
 
+		/**
+		 * @return SchemaGenerator\IDumper
+		 */
 		abstract protected function createSqlDumper();
 
 
+		/**
+		 * @return \CzProject\Logger\ILogger
+		 */
 		abstract protected function createLogger();
 	}

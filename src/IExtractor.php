@@ -8,8 +8,8 @@
 	interface IExtractor
 	{
 		/**
-		 * @param  array $options
-		 * @param  array $customTypes
+		 * @param  array<string, scalar|NULL> $options
+		 * @param  array<lowercase-string, DataType> $customTypes
 		 * @param  string|NULL $databaseType
 		 * @return Schema
 		 */

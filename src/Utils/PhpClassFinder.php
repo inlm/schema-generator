@@ -9,6 +9,9 @@
 		private $directories;
 
 
+		/**
+		 * @param string[] $directories
+		 */
 		public function __construct(array $directories)
 		{
 			$this->directories = $directories;

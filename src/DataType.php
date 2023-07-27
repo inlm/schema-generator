@@ -8,17 +8,17 @@
 		/** @var string|NULL */
 		private $type;
 
-		/** @var array|NULL */
+		/** @var scalar[]|NULL */
 		private $parameters;
 
-		/** @var array */
+		/** @var array<string, scalar|NULL> */
 		private $options = [];
 
 
 		/**
 		 * @param  string|NULL $type
-		 * @param  array|NULL $parameters
-		 * @param  array $options  [OPTION => VALUE, OPTION2]
+		 * @param  scalar[]|NULL $parameters
+		 * @param  array<string|int, scalar|NULL> $options  [OPTION => VALUE, OPTION2]
 		 */
 		public function __construct($type, array $parameters = NULL, array $options = [])
 		{
@@ -27,7 +27,7 @@
 
 			foreach ($options as $k => $v) {
 				if (is_int($k)) {
-					$this->options[$v] = NULL;
+					$this->options[(string) $v] = NULL;
 
 				} else {
 					$this->options[$k] = $v;
@@ -46,7 +46,7 @@
 
 
 		/**
-		 * @return array|NULL
+		 * @return scalar[]|NULL
 		 */
 		public function getParameters()
 		{
@@ -55,7 +55,7 @@
 
 
 		/**
-		 * @return array
+		 * @return array<string, scalar|NULL>
 		 */
 		public function getOptions()
 		{
@@ -65,6 +65,8 @@
 
 		/**
 		 * @param  string $type
+		 * @param  scalar[]|NULL $parameters
+		 * @param  array<string, scalar|NULL> $options
 		 * @return bool
 		 */
 		public function isCompatible($type, array $parameters = NULL, array $options = NULL)

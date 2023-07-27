@@ -14,6 +14,10 @@
 		private $columnName;
 
 
+		/**
+		 * @param string $tableName
+		 * @param string $columnName
+		 */
 		public function __construct($tableName, $columnName)
 		{
 			$this->tableName = $tableName;

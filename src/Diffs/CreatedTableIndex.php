@@ -14,6 +14,9 @@
 		private $definition;
 
 
+		/**
+		 * @param string $tableName
+		 */
 		public function __construct($tableName, SqlSchema\Index $definition)
 		{
 			$this->tableName = $tableName;

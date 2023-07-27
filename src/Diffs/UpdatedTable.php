@@ -10,12 +10,13 @@
 		/** @var string */
 		private $tableName;
 
-		/** @var array */
+		/** @var object[] */
 		private $updates;
 
 
 		/**
 		 * @param  string $tableName
+		 * @param  object[] $updates
 		 */
 		public function __construct($tableName, array $updates)
 		{
@@ -151,8 +152,9 @@
 
 
 		/**
-		 * @param  string $class
-		 * @return array
+		 * @template T of object
+		 * @param  class-string<T> $class
+		 * @return array<T>
 		 */
 		private function findUpdates($class)
 		{

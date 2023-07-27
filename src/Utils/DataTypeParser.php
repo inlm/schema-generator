@@ -134,6 +134,12 @@
 		}
 
 
+		/**
+		 * @param  string $s
+		 * @param  int $context
+		 * @param  array<int, array<string|int, array{0: self::TOKEN_*, 1: self::CONTEXT_*}|self::TOKEN_*>> $delimiters
+		 * @return array<array{0: self::TOKEN_*, 1: string}>
+		 */
 		private static function process($s, $context, array $delimiters)
 		{
 			$result = [];

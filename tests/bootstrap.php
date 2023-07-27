@@ -10,7 +10,10 @@ require __DIR__ . '/Test/TestGenerator.php';
 Tester\Environment::setup();
 
 
-function test($cb)
+/**
+ * @return void
+ */
+function test(callable $cb)
 {
 	$cb();
 }
@@ -27,6 +30,13 @@ function prepareTempDir()
 }
 
 
+/**
+ * @return array{
+ *   type: string|NULL,
+ *   parameters: scalar[]|NULL,
+ *   options: array<string, scalar|NULL>
+ * }
+ */
 function typeToArray(Inlm\SchemaGenerator\DataType $type)
 {
 	return [

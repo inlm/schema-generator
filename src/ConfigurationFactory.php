@@ -14,6 +14,7 @@
 
 
 		/**
+		 * @param  array<string, mixed> $config
 		 * @return Configuration
 		 */
 		public static function fromArray(array $config)
@@ -36,6 +37,10 @@
 		}
 
 
+		/**
+		 * @param  array<string, mixed> $definition
+		 * @return void
+		 */
 		private static function createTable(SqlSchema\Schema $schema, array $definition)
 		{
 			$table = $schema->addTable($definition['name']);
@@ -73,6 +78,10 @@
 		}
 
 
+		/**
+		 * @param  array<string, mixed> $definition
+		 * @return SqlSchema\Column
+		 */
 		private static function createTableColumn(array $definition)
 		{
 			$column = new SqlSchema\Column(
@@ -89,6 +98,10 @@
 		}
 
 
+		/**
+		 * @param  array<string, mixed> $definition
+		 * @return SqlSchema\Index
+		 */
 		private static function createTableIndex(array $definition)
 		{
 			$index = new SqlSchema\Index($definition['name'] !== '' ? $definition['name'] : NULL, [], $definition['type']);
@@ -101,6 +114,10 @@
 		}
 
 
+		/**
+		 * @param  array<string, mixed> $definition
+		 * @return SqlSchema\IndexColumn
+		 */
 		private static function createTableIndexColumn(array $definition)
 		{
 			$order = isset($definition['order']) ? $definition['order'] : 'ASC';
@@ -110,6 +127,10 @@
 		}
 
 
+		/**
+		 * @param  array<string, mixed> $definition
+		 * @return SqlSchema\ForeignKey
+		 */
 		private static function createTableForeignKey(array $definition)
 		{
 			$foreignKey = new SqlSchema\ForeignKey($definition['name'], $definition['columns'], $definition['targetTable'], $definition['targetColumns']);

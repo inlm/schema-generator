@@ -11,6 +11,9 @@
 	// tag - empty table - without changes
 	class Diff
 	{
+		/**
+		 * @return DiffGenerator
+		 */
 		public static function create()
 		{
 			// diffs
@@ -18,6 +21,9 @@
 		}
 
 
+		/**
+		 * @return SqlSchema\Schema
+		 */
 		public static function createOldSchema()
 		{
 			$old = new SqlSchema\Schema;
@@ -56,6 +62,9 @@
 		}
 
 
+		/**
+		 * @return SqlSchema\Schema
+		 */
 		public static function createNewSchema()
 		{
 			$new = new SqlSchema\Schema;

@@ -34,7 +34,7 @@
 
 
 		/**
-		 * @return array  of Diffs\CreatedTable|Diffs\UpdatedTable
+		 * @return array<Diffs\CreatedTable|Diffs\UpdatedTable>
 		 */
 		public function getCreatedAndUpdatedTables()
 		{
@@ -195,6 +195,7 @@
 
 
 		/**
+		 * @param  object[] $updates
 		 * @return void
 		 */
 		private function generateColumnUpdates(array &$updates, SqlSchema\Table $old, SqlSchema\Table $new)
@@ -241,6 +242,7 @@
 
 
 		/**
+		 * @param  object[] $updates
 		 * @return void
 		 */
 		private function generateIndexUpdates(array &$updates, SqlSchema\Table $old, SqlSchema\Table $new)
@@ -273,6 +275,7 @@
 
 
 		/**
+		 * @param  object[] $updates
 		 * @return void
 		 */
 		private function generateForeignKeyUpdates(array &$updates, SqlSchema\Table $old, SqlSchema\Table $new)
@@ -305,6 +308,7 @@
 
 
 		/**
+		 * @param  object[] $updates
 		 * @return void
 		 */
 		private function generateOptionUpdates(array &$updates, SqlSchema\Table $old, SqlSchema\Table $new)
@@ -331,6 +335,7 @@
 
 
 		/**
+		 * @param  object[] $updates
 		 * @return void
 		 */
 		private function generateCommentUpdate(array &$updates, SqlSchema\Table $old, SqlSchema\Table $new)
@@ -555,6 +560,12 @@
 		}
 
 
+		/**
+		 * @template T
+		 * @param  SqlSchema\Table[] $allTables
+		 * @param  array<T> $tablesToSort
+		 * @return array<T>
+		 */
 		private function sortTables(array $allTables, array $tablesToSort)
 		{
 			$tableOrder = $this->resolveOrder($allTables);
@@ -575,7 +586,8 @@
 
 
 		/**
-		 * @return array  [tableName => order]
+		 * @param  SqlSchema\Table[] $tables
+		 * @return array<string, int>  [tableName => order]
 		 */
 		private function resolveOrder(array $tables)
 		{
@@ -605,7 +617,7 @@
 
 
 		/**
-		 * @param  array $tableOrder
+		 * @param  array<string, int> $tableOrder
 		 * @param  Diffs\CreatedTable|Diffs\UpdatedTable|Diffs\RemovedTable $diff
 		 * @return int|NULL
 		 */

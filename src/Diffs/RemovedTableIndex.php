@@ -14,6 +14,10 @@
 		private $indexName;
 
 
+		/**
+		 * @param string $tableName
+		 * @param string $indexName
+		 */
 		public function __construct($tableName, $indexName)
 		{
 			$this->tableName = $tableName;

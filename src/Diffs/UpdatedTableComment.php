@@ -12,6 +12,10 @@
 		private $comment;
 
 
+		/**
+		 * @param string $tableName
+		 * @param string $comment
+		 */
 		public function __construct($tableName, $comment)
 		{
 			$this->tableName = $tableName;

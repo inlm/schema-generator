@@ -8,6 +8,7 @@
 
 	class DummyAdapter implements IAdapter
 	{
+		/** @var Configuration */
 		private $configuration;
 
 

@@ -34,6 +34,7 @@
 
 
 		/**
+		 * @param  string $class
 		 * @return bool
 		 */
 		public function hasClass($class)
@@ -44,6 +45,7 @@
 
 
 		/**
+		 * @param  string $class
 		 * @return PhpClass
 		 */
 		public function getClass($class)

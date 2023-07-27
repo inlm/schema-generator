@@ -20,6 +20,11 @@
 		private $onlyPositionChange;
 
 
+		/**
+		 * @param string $tableName
+		 * @param string|NULL $afterColumn
+		 * @param bool $onlyPositionChange
+		 */
 		public function __construct($tableName, SqlSchema\Column $definition, $afterColumn = NULL, $onlyPositionChange = FALSE)
 		{
 			$this->tableName = $tableName;
