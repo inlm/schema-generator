@@ -50,13 +50,13 @@
 		 */
 		public function getClass($class)
 		{
-			$class = strtolower($class);
+			$key = strtolower($class);
 
-			if (!isset($this->classes[$class])) {
+			if (!isset($this->classes[$key])) {
 				throw new \Inlm\SchemaGenerator\MissingException("Missing class $class.");
 			}
 
-			return $this->classes[$class];
+			return $this->classes[$key];
 		}
 
 
@@ -67,11 +67,11 @@
 		public function isSubclassOf(PhpClass $class, $superClass)
 		{
 			do {
-				if ($class->extends($superClass)) {
+				if ($class->extendsClass($superClass)) {
 					return TRUE;
 				}
 
-				if ($class->implements($superClass)) {
+				if ($class->implementsInterface($superClass)) {
 					return TRUE;
 				}
 

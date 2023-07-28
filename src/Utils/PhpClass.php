@@ -84,7 +84,7 @@
 		 * @param  string $class
 		 * @return bool
 		 */
-		public function extends($class)
+		public function extendsClass($class)
 		{
 			if ($this->extends === NULL) {
 				return FALSE;
@@ -98,7 +98,7 @@
 		 * @param  string $class
 		 * @return bool
 		 */
-		public function implements($class)
+		public function implementsInterface($class)
 		{
 			$class = strtolower($class);
 
