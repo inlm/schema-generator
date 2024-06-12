@@ -15,6 +15,26 @@ Prepared custom types for MySQL:
 - `md5` - `CHAR(32)`
 - `money` - `DECIMAL(15, 4)`
 - `DateInterval` - `TIME`
+- PHPDoc types
+	- `positive-int` - `UNSIGNED INT`
+	- `negative-int` - `INT`
+	- `non-positive-int` - `INT`
+	- `non-negative-int` - `UNSIGNED INT`
+	- `non-zero-int` - `INT`
+	- `lowercase-string` - `TEXT`
+	- `literal-string` - `TEXT`
+	- `class-string` - `TEXT`
+	- `interface-string` - `TEXT`
+	- `trait-string` - `TEXT`
+	- `enum-string` - `TEXT`
+	- `callable-string` - `TEXT`
+	- `array-key` - `TEXT`
+	- `numeric-string` - `TEXT`
+	- `non-empty-string` - `TEXT`
+	- `non-empty-lowercase-string` - `TEXT`
+	- `truthy-string` - `TEXT`
+	- `non-falsy-string` - `TEXT`
+	- `non-empty-literal-string` - `TEXT`
 - [`inteve/types`](https://github.com/inteve/types)
 	- `Inteve\Types\HexColor` - `CHAR(6)`
 	- `Inteve\Types\Html` - `MEDIUMTEXT`

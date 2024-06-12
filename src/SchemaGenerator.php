@@ -277,6 +277,27 @@
 					'CHARACTER SET' => 'utf8mb4',
 					'COLLATE' => 'utf8mb4_czech_ci',
 				];
+
+				$this->setCustomType('positive-int', 'INT', [], [SqlSchema\Column::OPTION_UNSIGNED]);
+				$this->setCustomType('negative-int', 'INT');
+				$this->setCustomType('non-positive-int', 'INT');
+				$this->setCustomType('non-negative-int', 'INT', [], [SqlSchema\Column::OPTION_UNSIGNED]);
+				$this->setCustomType('non-zero-int', 'INT');
+				$this->setCustomType('lowercase-string', 'TEXT');
+				$this->setCustomType('literal-string', 'TEXT');
+				$this->setCustomType('class-string', 'TEXT');
+				$this->setCustomType('interface-string', 'TEXT');
+				$this->setCustomType('trait-string', 'TEXT');
+				$this->setCustomType('enum-string', 'TEXT');
+				$this->setCustomType('callable-string', 'TEXT');
+				$this->setCustomType('array-key', 'TEXT');
+				$this->setCustomType('numeric-string', 'TEXT');
+				$this->setCustomType('non-empty-string', 'TEXT');
+				$this->setCustomType('non-empty-lowercase-string', 'TEXT');
+				$this->setCustomType('truthy-string', 'TEXT');
+				$this->setCustomType('non-falsy-string', 'TEXT');
+				$this->setCustomType('non-empty-literal-string', 'TEXT');
+
 				$this->setCustomType('bcrypt', 'CHAR', [60]);
 				$this->setCustomType('md5', 'CHAR', [32]);
 				$this->setCustomType('money', 'DECIMAL', [15, 4]);
