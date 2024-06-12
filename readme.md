@@ -91,12 +91,20 @@ You can use loggers from `czproject/logger`.
 
 ### More
 
+* [Default Types](docs/default-types.md)
 * [Custom Types](docs/custom-types.md)
 * [Table Options](docs/table-options.md)
 * [Examples](docs/examples.md)
 * [Integrations](docs/integrations.md)
 * [Bridges](docs/bridges.md)
 
+
+> [!TIP]
+> If you need generate `... AFTER column` in `ALTER TABLE` statements, call:
+>
+> ```php
+> $schemaGenerator->enablePositionChanges();
+> ```
 
 ------------------------------
 

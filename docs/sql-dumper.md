@@ -18,9 +18,3 @@ $dumper->setOutputStructure($dumper::YEAR_MONTH); // YYYY/MM/YYYY-MM-DD-HHMMSS.s
 $dumper->setOutputStructure($dumper::YEAR); // YYYY/YYYY-MM-DD-HHMMSS.sql
 $dumper->setOutputStructure($dumper::FLAT); // YYYY-MM-DD-HHMMSS.sql
 ```
-
-If you need generate `... AFTER column` in `ALTER TABLE` statements, call:
-
-```php
-$dumper->enablePositionChanges();
-```
