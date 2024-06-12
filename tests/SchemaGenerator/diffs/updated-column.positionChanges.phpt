@@ -30,6 +30,18 @@ test(function () use ($old, $new) {
 	$generator->dumper->enablePositionChanges();
 	$generator->generator->generate();
 
+	Assert::same([
+		'Generating schema',
+		'Generating diff',
+		'Generating migrations',
+		' - created column book.parent_id',
+		' - created column book.type',
+		' - moved column book.updated',
+		' - updated column book.title',
+		'Saving schema',
+		'Done.',
+	], $generator->logger->getLog());
+
 	Assert::same(implode("\n", [
 		"ALTER TABLE `book`",
 		"ADD COLUMN `parent_id` INT NOT NULL AFTER `id`,",
@@ -45,6 +57,18 @@ test(function () use ($old, $new) {
 	$generator = Test\TestGenerator::create($old, $new);
 	$generator->dumper->enablePositionChanges(FALSE);
 	$generator->generator->generate();
+
+	Assert::same([
+		'Generating schema',
+		'Generating diff',
+		'Generating migrations',
+		' - created column book.parent_id',
+		' - created column book.type',
+		' - moved column book.updated',
+		' - updated column book.title',
+		'Saving schema',
+		'Done.',
+	], $generator->logger->getLog());
 
 	Assert::same(implode("\n", [
 		"ALTER TABLE `book`",

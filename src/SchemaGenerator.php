@@ -156,7 +156,13 @@
 
 					// update
 					foreach ($diff->getUpdatedColumns() as $column) {
-						$this->log(" - updated column {$column->getTableName()}.{$column->getDefinition()->getName()}");
+						if ($column->hasOnlyPositionChange()) {
+							$this->log(" - moved column {$column->getTableName()}.{$column->getDefinition()->getName()}");
+
+						} else {
+							$this->log(" - updated column {$column->getTableName()}.{$column->getDefinition()->getName()}");
+						}
+
 						$this->dumper->updateTableColumn($column);
 					}
 
