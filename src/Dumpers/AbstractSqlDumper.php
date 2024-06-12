@@ -24,7 +24,7 @@
 		/** @var string[]|NULL */
 		protected $header;
 
-		/** @var bool */
+		/** @var bool @deprecated */
 		protected $positionChanges = FALSE;
 
 		/** @var bool */
@@ -49,6 +49,7 @@
 
 
 		/**
+		 * @deprecated Use SchemaGenerator::enablePositionChanges()
 		 * @param  bool $positionChanges
 		 * @return static
 		 */
@@ -56,6 +57,17 @@
 		{
 			$this->positionChanges = $positionChanges;
 			return $this;
+		}
+
+
+		/**
+		 * @deprecated Don't use this!
+		 * @internal
+		 * @return bool
+		 */
+		public function hasEnabledPositionChanges()
+		{
+			return $this->positionChanges;
 		}
 
 

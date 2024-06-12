@@ -32,6 +32,9 @@
 		/** @var bool */
 		private $testMode = FALSE;
 
+		/** @var bool|NULL */
+		private $positionChanges = NULL;
+
 
 		/**
 		 * @param string $databaseType
@@ -106,6 +109,17 @@
 
 
 		/**
+		 * @param  bool $positionChanges
+		 * @return static
+		 */
+		public function enablePositionChanges($positionChanges = TRUE)
+		{
+			$this->positionChanges = $positionChanges;
+			return $this;
+		}
+
+
+		/**
 		 * @param  string|NULL $description
 		 * @return void
 		 */
@@ -126,6 +140,21 @@
 
 			$this->log('Generating migrations');
 			$this->dumper->start($this->databaseType, $description);
+			$positionChanges = $this->positionChanges;
+			$dumperPositionChanges = FALSE;
+
+			if ($positionChanges === NULL) {
+				if ($this->dumper instanceof Dumpers\AbstractSqlDumper) {
+					$positionChanges = $this->dumper->hasEnabledPositionChanges();
+
+				} else {
+					$positionChanges = FALSE;
+				}
+
+			} elseif ($this->dumper instanceof Dumpers\AbstractSqlDumper) {
+				$dumperPositionChanges = $this->dumper->hasEnabledPositionChanges();
+				$this->dumper->enablePositionChanges($positionChanges);
+			}
 
 			foreach ($schemaDiff->getCreatedAndUpdatedTables() as $diff) {
 				if ($diff instanceof Diffs\CreatedTable) {
@@ -157,13 +186,17 @@
 					// update
 					foreach ($diff->getUpdatedColumns() as $column) {
 						if ($column->hasOnlyPositionChange()) {
+							if (!$positionChanges) {
+								continue;
+							}
+
 							$this->log(" - moved column {$column->getTableName()}.{$column->getDefinition()->getName()}");
+							$this->dumper->updateTableColumn($column);
 
 						} else {
 							$this->log(" - updated column {$column->getTableName()}.{$column->getDefinition()->getName()}");
+							$this->dumper->updateTableColumn($column);
 						}
-
-						$this->dumper->updateTableColumn($column);
 					}
 
 					foreach ($diff->getUpdatedIndexes() as $index) {
@@ -218,6 +251,10 @@
 			}
 
 			$this->dumper->end();
+
+			if ($this->dumper instanceof Dumpers\AbstractSqlDumper) {
+				$this->dumper->enablePositionChanges($dumperPositionChanges);
+			}
 
 			if (!$this->testMode) {
 				$this->log('Saving schema');
