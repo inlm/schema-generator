@@ -93,7 +93,7 @@
 			}
 
 			if ($type === NULL) {
-				throw new MissingException('Missing type.');
+				throw new MissingException('Missing type' . ($inputType !== NULL ? " for [$inputType]" : '') . '.');
 			}
 
 			return new DataType($type, $parameters, $options);
