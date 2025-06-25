@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Inlm\SchemaGenerator\Utils\PhpClass;
 use Inlm\SchemaGenerator\Utils\PhpClasses;
 use Tester\Assert;

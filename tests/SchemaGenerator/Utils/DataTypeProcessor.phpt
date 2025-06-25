@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use CzProject\SqlSchema\Column;
 use Inlm\SchemaGenerator\Database;
 use Inlm\SchemaGenerator\DataType;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Inlm\SchemaGenerator\Utils\DataTypeParser;
 use Tester\Assert;
 
