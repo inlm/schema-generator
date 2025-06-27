@@ -28,7 +28,7 @@
 		 * @param  string|NULL $databaseType
 		 * @return DataType
 		 */
-		public static function process($inputType, DataType $dbType = NULL, $isPrimaryColumn = FALSE, array $customTypes = [], $databaseType = NULL)
+		public static function process($inputType, ?DataType $dbType = NULL, $isPrimaryColumn = FALSE, array $customTypes = [], $databaseType = NULL)
 		{
 			$type = NULL;
 			$parameters = [];

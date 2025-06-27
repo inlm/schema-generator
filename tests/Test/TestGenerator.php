@@ -30,7 +30,7 @@
 		/**
 		 * @return self
 		 */
-		public static function create(SqlSchema\Schema $oldSchema = NULL, SqlSchema\Schema $newSchema = NULL)
+		public static function create(?SqlSchema\Schema $oldSchema = NULL, ?SqlSchema\Schema $newSchema = NULL)
 		{
 			$oldSchema = $oldSchema ? $oldSchema : new SqlSchema\Schema;
 			$newSchema = $newSchema ? $newSchema : new SqlSchema\Schema;

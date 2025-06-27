@@ -22,7 +22,7 @@
 		 * @param  array<int|float|string>|NULL $parameters
 		 * @param  array<string|int, scalar|NULL> $options  [OPTION => VALUE, OPTION2]
 		 */
-		public function __construct($type, array $parameters = NULL, array $options = [])
+		public function __construct($type, ?array $parameters = NULL, array $options = [])
 		{
 			$this->type = $type !== NULL ? strtoupper($type) : NULL;
 			$this->parameters = $parameters;
@@ -71,7 +71,7 @@
 		 * @param  array<string, scalar|NULL> $options
 		 * @return bool
 		 */
-		public function isCompatible($type, array $parameters = NULL, array $options = NULL)
+		public function isCompatible($type, ?array $parameters = NULL, ?array $options = NULL)
 		{
 			if ($this->type !== $type) {
 				return FALSE;

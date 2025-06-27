@@ -41,7 +41,7 @@
 		/**
 		 * @param string $databaseType
 		 */
-		public function __construct(IExtractor $extractor, IAdapter $adapter, IDumper $dumper, ILogger $logger = NULL, $databaseType = Database::MYSQL)
+		public function __construct(IExtractor $extractor, IAdapter $adapter, IDumper $dumper, ?ILogger $logger = NULL, $databaseType = Database::MYSQL)
 		{
 			$this->extractor = $extractor;
 			$this->adapter = $adapter;

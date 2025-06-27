@@ -43,7 +43,7 @@
 		 * @param  string[]|NULL $header
 		 * @return static
 		 */
-		public function setHeader(array $header = NULL)
+		public function setHeader(?array $header = NULL)
 		{
 			$this->header = $header;
 			return $this;

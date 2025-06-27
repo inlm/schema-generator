@@ -302,7 +302,7 @@
 		 * @param  scalar|NULL $defaultValue
 		 * @return static
 		 */
-		public function addColumn($tableName, $columnName, DataType $columnType = NULL, $defaultValue = NULL)
+		public function addColumn($tableName, $columnName, ?DataType $columnType = NULL, $defaultValue = NULL)
 		{
 			if (isset($this->columns[$tableName][$columnName])) {
 				$column = $this->columns[$tableName][$columnName]->getDefinition();

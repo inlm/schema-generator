@@ -15,7 +15,7 @@
 		private $schema;
 
 
-		public function __construct(Schema $schema = NULL)
+		public function __construct(?Schema $schema = NULL)
 		{
 			$this->schema = $schema ? $schema : new Schema;
 		}
