@@ -26,6 +26,6 @@
 	},
 	"require-dev": {
 		"inteve/types": "^0.5 || ^1.0 || ^2.0",
-		"nette/tester": "^2.0"
+		"nette/tester": "^2.5"
 	}
 }
