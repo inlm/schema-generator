@@ -175,13 +175,11 @@
 		{
 			$name = '';
 
-			if (PHP_VERSION_ID >= 80000) {
-				if ($this->isCurrentToken(T_NAME_QUALIFIED)) {
-					return $this->consumeToken(T_NAME_QUALIFIED);
+			if ($this->isCurrentToken(T_NAME_QUALIFIED)) {
+				return $this->consumeToken(T_NAME_QUALIFIED);
 
-				} elseif ($this->isCurrentToken(T_NAME_FULLY_QUALIFIED)) {
-					return $this->consumeToken(T_NAME_FULLY_QUALIFIED);
-				}
+			} elseif ($this->isCurrentToken(T_NAME_FULLY_QUALIFIED)) {
+				return $this->consumeToken(T_NAME_FULLY_QUALIFIED);
 			}
 
 			if ($this->isCurrentToken(T_STRING)) {

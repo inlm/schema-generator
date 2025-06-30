@@ -33,6 +33,10 @@
 			}
 
 			foreach ($iterator as $file) {
+				if (!($file instanceof \SplFileInfo)) {
+					continue;
+				}
+
 				if ($file->getExtension() !== 'php') {
 					continue;
 				}

@@ -30,6 +30,10 @@
 
 			if (isset($config['schema']) && is_array($config['schema'])) {
 				foreach ($config['schema'] as $tableName => $definition) {
+					if (!is_array($definition)) {
+						throw new \Inlm\SchemaGenerator\InvalidArgumentException("Invalid definition for table '$tableName' under key 'schema'.");
+					}
+
 					$definition['name'] = isset($definition['name']) ? $definition['name'] : $tableName;
 					self::createTable($schema, $definition);
 				}

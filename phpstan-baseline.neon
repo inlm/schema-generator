@@ -1,0 +1,55 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Parameter \#1 \$config of static method Inlm\\SchemaGenerator\\ConfigurationFactory\:\:fromArray\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Adapters/NeonAdapter.php
+
+		-
+			message: '#^Method Inlm\\SchemaGenerator\\ConfigurationFactory\:\:checkArray\(\) should return array\<string, mixed\> but returns array\<mixed, mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/ConfigurationFactory.php
+
+		-
+			message: '#^Method Inlm\\SchemaGenerator\\ConfigurationFactory\:\:getArray\(\) should return array\<string, mixed\> but returns array\<mixed, mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/ConfigurationFactory.php
+
+		-
+			message: '#^Method Inlm\\SchemaGenerator\\ConfigurationFactory\:\:getStringOrList\(\) should return array\<string\>\|string but returns array\<mixed, mixed\>\|string\.$#'
+			identifier: return.type
+			count: 1
+			path: src/ConfigurationFactory.php
+
+		-
+			message: '#^Parameter \#1 \$options of method Inlm\\SchemaGenerator\\Configuration\:\:setOptions\(\) expects array\<string, string\>, array\<mixed, mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/ConfigurationFactory.php
+
+		-
+			message: '#^Parameter \#2 \$definition of static method Inlm\\SchemaGenerator\\ConfigurationFactory\:\:createTable\(\) expects array\<string, mixed\>, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/ConfigurationFactory.php
+
+		-
+			message: '#^Parameter \#3 \$parameters of class CzProject\\SqlSchema\\Column constructor expects array\<float\|int\|string\>\|null, array\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/ConfigurationFactory.php
+
+		-
+			message: '#^Parameter \#4 \$options of class CzProject\\SqlSchema\\Column constructor expects array\<int\|string, bool\|float\|int\|string\|null\>, array\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/ConfigurationFactory.php
+
+		-
+			message: '#^Parameter \#1 \$config of static method Inlm\\SchemaGenerator\\ConfigurationFactory\:\:fromArray\(\) expects array\<string, mixed\>, array\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Extractors/NeonExtractor.php
